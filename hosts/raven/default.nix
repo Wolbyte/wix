@@ -3,6 +3,8 @@
 
   wb = {
     hardware = {
+      audio.enable = true;
+
       nvidia = {
         enable = true;
         initrd = true;
