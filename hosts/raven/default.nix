@@ -11,6 +11,11 @@
         nvidiaOpen = true;
         waylandTweaks = true;
       };
+
+      storage = {
+        enable = true;
+        ssd = true;
+      };
     };
   };
 }
