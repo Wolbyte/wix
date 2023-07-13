@@ -19,32 +19,19 @@ in {
     initrd = defaultOpts.mkBool false "Whether to add nvidia kernel modules to initrd.";
   };
 
-  config = let
-    moduleOpts = with cfg; {
+  config = mkIf cfg.enable (mkMerge [
+    {
       wb.hardware.gpu.vendor = "nvidia";
+
+      environment.sessionVariables = {
+        LIBVA_DRIVER_NAME = "nvidia";
+      };
 
       services.xserver.videoDrivers = ["nvidia"];
 
-      boot.initrd = mkIf initrd (let
-        kernelModules = ["nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm"];
-      in {
-        availableKernelModules = kernelModules;
-        inherit kernelModules;
-      });
-
-      environment.sessionVariables =
-        {
-          LIBVA_DRIVER_NAME = "nvidia";
-        }
-        // (optionalAttrs waylandTweaks {
-          GBM_BACKEND = "nvidia-drm";
-          __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-        });
-
       hardware.nvidia = {
-        inherit package;
-        open = nvidiaOpen;
-        modesetting = mkIf waylandTweaks {enable = true;};
+        inherit (cfg) package;
+        open = cfg.nvidiaOpen;
       };
 
       hardware.opengl = {
@@ -52,7 +39,30 @@ in {
         driSupport = true;
         driSupport32Bit = true;
       };
-    };
-  in
-    mkIf cfg.enable moduleOpts;
+    }
+
+    (mkIf cfg.initrd {
+      boot.initrd = rec {
+        availableKernelModules = ["nvidia" "nvidia_uvm" "nvidia_drm"];
+        kernelModules = availableKernelModules;
+      };
+    })
+
+    (mkIf cfg.waylandTweaks (mkMerge [
+      {
+        environment.sessionVariables = {
+          GBM_BACKEND = "nvidia-drm";
+          __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+        };
+
+        hardware.nvidia.modesetting.enable = true;
+      }
+      (mkIf cfg.initrd {
+        boot.initrd = {
+          availableKernelModules = ["nvidia_modeset"];
+          kernelModules = ["nvidia_modeset"];
+        };
+      })
+    ]))
+  ]);
 }
