@@ -17,5 +17,15 @@
         ssd = true;
       };
     };
+
+    programs = {
+      cli = {
+        git.enable = true;
+      };
+    };
+
+    services = {
+      ssh.enable = true;
+    };
   };
 }

@@ -1,12 +1,16 @@
 {
   pkgs,
-  config,
+  inputs,
   lib,
   ...
 }:
 with lib;
 with lib.wb; {
-  imports = [] ++ (mapFilesRecursive' (toString ./modules/nixos) import);
+  imports =
+    [
+      inputs.home-manager.nixosModules.home-manager
+    ]
+    ++ (mapFilesRecursive' (toString ./modules) import);
 
   environment.variables = {
     NIXPKGS_ALLOW_UNFREE = "1";
@@ -38,6 +42,9 @@ with lib.wb; {
       };
     };
   };
+
+  user.initialPassword = "nixos";
+  users.users.root.initialPassword = "nixos";
 
   environment.systemPackages = with pkgs; [
     git

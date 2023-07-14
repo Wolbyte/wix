@@ -4,8 +4,12 @@
   inputs = {
     # Core dependencies
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    agenix.url = "github:ryantm/agenix";
+    agenix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
@@ -36,12 +40,8 @@
 
       packages."${system}" = mapFiles ./packages (p: pkgs.callPackage p {});
 
-      nixosModules = mapFilesRec ./modules/nixos import;
+      nixosModules = mapFilesRecursive ./modules import;
 
       nixosConfigurations = mapHosts ./hosts {};
-
-      homeManagerModules = mapFilesRecursive ./modules/home-manager import;
-
-      homeConfigurations = mapHomes ./home {};
     };
 }
