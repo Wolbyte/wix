@@ -6,6 +6,10 @@
 
     displayServers.wayland.ozoneLayer = true;
 
+    fonts = {
+      enable = true;
+    };
+
     hardware = {
       audio.enable = true;
 
@@ -31,6 +35,8 @@
         enable = true;
         defaultEditor = true;
       };
+
+      term.kitty.enable = true;
     };
 
     services = {
