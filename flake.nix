@@ -8,9 +8,6 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    agenix.url = "github:ryantm/agenix";
-    agenix.inputs.nixpkgs.follows = "nixpkgs";
-
     # Extra dependencies
     hyprland.url = "github:hyprwm/Hyprland";
     nixvim.url = "github:nix-community/nixvim";
