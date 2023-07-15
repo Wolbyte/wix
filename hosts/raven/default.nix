@@ -2,6 +2,10 @@
   imports = [./hardware-configuration.nix];
 
   wb = {
+    desktopEnvironments.hyprland.enable = true;
+
+    displayServers.wayland.ozoneLayer = true;
+
     hardware = {
       audio.enable = true;
 

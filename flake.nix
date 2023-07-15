@@ -10,6 +10,9 @@
 
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
+
+    # Extra dependencies
+    hyprland.url = "github:hyprwm/Hyprland";
   };
 
   outputs = {
