@@ -26,6 +26,11 @@
       cli = {
         git.enable = true;
       };
+
+      editors.neovim = {
+        enable = true;
+        defaultEditor = true;
+      };
     };
 
     services = {

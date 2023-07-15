@@ -13,6 +13,7 @@
 
     # Extra dependencies
     hyprland.url = "github:hyprwm/Hyprland";
+    nixvim.url = "github:nix-community/nixvim";
   };
 
   outputs = {
