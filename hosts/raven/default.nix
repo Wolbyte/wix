@@ -29,6 +29,7 @@
     programs = {
       cli = {
         git.enable = true;
+        starship.enable = true;
       };
 
       editors.neovim = {
@@ -41,6 +42,11 @@
 
     services = {
       ssh.enable = true;
+    };
+
+    shell.fish = {
+      enable = true;
+      vimBindings = true;
     };
   };
 }
