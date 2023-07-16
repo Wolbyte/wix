@@ -1,4 +1,4 @@
-let
+{pkgs, ...}: let
   helpers = import ../helpers.nix;
   mkTelescopeBind = action: helpers.mkLuaKeybind ("require('telescope.builtin')." + action);
 in {
@@ -77,4 +77,9 @@ in {
       };
     };
   };
+
+  user.packages = with pkgs; [
+    fd
+    ripgrep
+  ];
 }

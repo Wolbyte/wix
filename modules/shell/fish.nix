@@ -17,6 +17,8 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     {
+      programs.fish.enable = true; # This must be enabled to set fish as the default shell
+
       hm.programs.fish = {
         enable = true;
 

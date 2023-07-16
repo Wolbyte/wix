@@ -29,13 +29,16 @@ in {
   };
 
   config = mkIf cfg.enable {
-    fonts.fontconfig.enable = true;
-    user.packages =
-      [
-        cfg.monospace.package
-        cfg.regular.package
-        cfg.emoji.package
-      ]
-      ++ (mapAttrsToList (_: fontOpts: fontOpts.package) cfg.extraFonts);
+    fonts = {
+      fontconfig.enable = true;
+
+      fonts =
+        [
+          cfg.monospace.package
+          cfg.regular.package
+          cfg.emoji.package
+        ]
+        ++ (mapAttrsToList (_: fontOpts: fontOpts.package) cfg.extraFonts);
+    };
   };
 }

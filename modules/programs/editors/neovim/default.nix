@@ -29,6 +29,9 @@ in {
       inherit viAlias;
       inherit vimAlias;
 
+      # https://github.com/nix-community/nixvim/issues/79
+      wrapRc = true;
+
       globals.format_on_save = true;
 
       extraPlugins = with pkgs.vimPlugins; [

@@ -1,5 +1,12 @@
-{
+{pkgs, ...}: {
   imports = [./hardware-configuration.nix];
+
+  user.shell = pkgs.fish;
+
+  # TODO: add proper support for openvpn
+  environment.systemPackages = [pkgs.openvpn];
+
+  time.timeZone = "Asia/Tehran";
 
   wb = {
     desktopEnvironments.hyprland.enable = true;

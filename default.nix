@@ -47,6 +47,8 @@ with lib.wb; {
     };
   };
 
+  networking.networkmanager.enable = true;
+
   user.initialPassword = "nixos";
   users.users.root.initialPassword = "nixos";
 
