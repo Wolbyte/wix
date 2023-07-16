@@ -2,6 +2,7 @@
   pkgs,
   inputs,
   lib,
+  nix-colors,
   ...
 }:
 with lib;
@@ -9,8 +10,11 @@ with lib.wb; {
   imports =
     [
       inputs.home-manager.nixosModules.home-manager
+      inputs.nix-colors.homeManagerModules.default
     ]
     ++ (mapFilesRecursive' (toString ./modules) import);
+
+  colorScheme = nix-colors.colorSchemes.rose-pine;
 
   environment.variables = {
     NIXPKGS_ALLOW_UNFREE = "1";
