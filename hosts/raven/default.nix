@@ -50,6 +50,10 @@
         defaultEditor = true;
       };
 
+      media = {
+        spotify.enable = true;
+      };
+
       term.kitty.enable = true;
     };
 

@@ -14,6 +14,8 @@
     hyprland.url = "github:hyprwm/Hyprland";
 
     nixvim.url = "github:nix-community/nixvim";
+
+    spicetify-nix.url = "github:the-argus/spicetify-nix";
   };
 
   outputs = {
@@ -40,7 +42,7 @@
     with lib.wb; {
       lib = lib.wb;
 
-      overlays = mapFiles ./overlays import;
+      overlays = import ./overlays;
 
       packages."${system}" = mapFiles ./packages (p: pkgs.callPackage p {});
 
