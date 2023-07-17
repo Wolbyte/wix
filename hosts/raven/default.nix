@@ -34,8 +34,14 @@
     };
 
     programs = {
+      browsers = {
+        default = "firefox";
+        firefox.enable = true;
+      };
+
       cli = {
         git.enable = true;
+        gnupg.enable = true;
         starship.enable = true;
       };
 

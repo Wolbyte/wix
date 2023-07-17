@@ -13,19 +13,35 @@ in {
   };
 
   config = mkIf cfg.enable {
+    user.packages = with pkgs.gitAndTools; [
+      diff-so-fancy
+      gh
+      (mkIf config.wb.programs.cli.gnupg.enable
+        git-crypt)
+    ];
     hm.programs.git = {
       enable = true;
 
       package = pkgs.gitAndTools.gitFull;
 
       userName = config.user.name;
-      userEmail = "";
+      userEmail =
+        if config.user.name == "wolbyte"
+        then "wolbyte@gmail.com"
+        else "";
 
       extraConfig = {
-        init.defaultBranch = "main";
-        user.signing.key = "CDCD5522EBC6A1A1BC728E9DE7D6F4AEA530135D";
         commit.gpgSign = true;
-        gpg.program = "${config.programs.gnupg.package}/bin/gpg2";
+        credential = {
+          "https://github.com".helper = "!gh auth git-credential";
+        };
+        init.defaultBranch = "main";
+        url = {
+          "https://github.com/".insteadOf = "gh:";
+          "git@github.com:".insteadOf = "ssh+gh:";
+          "git@github.com:wolbyte/".insteadOf = "gh:/";
+        };
+        user.signing.key = "0AFE0739FF35365A17725F3441332534F8740D00";
       };
     };
   };

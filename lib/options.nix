@@ -25,6 +25,23 @@ with lib; rec {
     };
   };
 
+  defaultNullOpts = rec {
+    mkNullalbe = type: default: desc: let
+      defaultDesc = "default: ${default}";
+    in
+      mkOpt (types.nullOr type) default (
+        if desc == ""
+        then defaultDesc
+        else ''
+          ${desc}
+
+          ${defaultDesc}
+        ''
+      );
+
+    mkStr = mkNullalbe types.str;
+  };
+
   mkPackageOpt = name: default:
     mkOpt types.package default "Package to use for ${name}.";
 }
