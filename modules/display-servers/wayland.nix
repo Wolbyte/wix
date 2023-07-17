@@ -18,6 +18,8 @@ in {
     {
       wb.displayServer = "wayland";
 
+      wb.services.mako.enable = true;
+
       env = {
         XDG_SESSION_TYPE = "wayland";
         EGL_PLATFORM = "wayland,x11";
