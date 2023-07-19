@@ -20,6 +20,14 @@ with lib.wb; {
     NIXPKGS_ALLOW_UNFREE = "1";
   };
 
+  nix = {
+    package = pkgs.nixFlakes;
+    settings = {
+      experimental-features = ["nix-command" "flakes"];
+      auto-optimise-store = true;
+    };
+  };
+
   system.stateVersion = "23.05";
 
   boot = {
