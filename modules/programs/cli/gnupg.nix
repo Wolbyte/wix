@@ -27,7 +27,8 @@ in {
   };
 
   config = mkIf cfg.enable {
-    environment.variables.GNUPGHOME = "$XDG_CONFIG_HOME/gnupg";
+    # TODO: use xdg
+    environment.variables.GNUPGHOME = "$HOME/.gnupg";
 
     user.packages = pinentry.packages;
 
