@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   imports = [./hardware-configuration.nix];
 
   user.shell = pkgs.fish;
@@ -9,6 +13,8 @@
   time.timeZone = "Asia/Tehran";
 
   wb = {
+    wallpaper.path = config.wb.wallpapers.aenami-out-of-time;
+
     desktopEnvironments.hyprland.enable = true;
 
     displayServers.wayland.ozoneLayer = true;

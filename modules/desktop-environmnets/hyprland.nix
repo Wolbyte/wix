@@ -28,6 +28,8 @@ in {
       text = let
         modifier = "SUPER";
       in ''
+        exec-once = swaybg -i ${config.wb.wallpaper.path} --mode fill
+
         input {
           kb_layout = ${config.services.xserver.layout}
           kb_options = ${config.services.xserver.xkbOptions}
