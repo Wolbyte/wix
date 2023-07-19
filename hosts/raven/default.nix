@@ -23,6 +23,8 @@
       enable = true;
     };
 
+    gtk.enable = true;
+
     hardware = {
       audio.enable = true;
 

@@ -5,10 +5,20 @@
     # Core dependencies
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    nix-colors.url = "github:misterio77/nix-colors";
+    base16-schemes = {
+      url = "github:tinted-theming/base16-schemes";
+      flake = false;
+    };
+
+    nix-colors = {
+      url = "github:misterio77/nix-colors";
+      inputs.base16-schemes.follows = "base16-schemes";
+    };
 
     # Extra dependencies
     hyprland.url = "github:hyprwm/Hyprland";

@@ -9,8 +9,7 @@ with lib.wb; let
   cfg = config.wb.programs.cli.gnupg;
 
   pinentry =
-    # TODO: modify when gtk module is added
-    if hasAttr "gtk" config
+    if config.hm.gtk.enable
     then {
       packages = [pkgs.pinentry-gnome pkgs.gcr];
       name = "gnome3";
