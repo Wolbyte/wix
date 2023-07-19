@@ -45,6 +45,10 @@
         starship.enable = true;
       };
 
+      desktop = {
+        rofi.enable = true;
+      };
+
       editors.neovim = {
         enable = true;
         defaultEditor = true;

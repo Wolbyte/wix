@@ -35,12 +35,16 @@
     pkgs = import nixpkgs {
       inherit system;
       config.allowUnfree = true;
-      overlays = lib.attrValues self.overlays;
+      overlays = [self.overlay] ++ (lib.attrValues self.overlays);
     };
   in
     with lib;
     with lib.wb; {
       lib = lib.wb;
+
+      overlay = final: prev: {
+        wb = self.packages."${system}";
+      };
 
       overlays = import ./overlays;
 

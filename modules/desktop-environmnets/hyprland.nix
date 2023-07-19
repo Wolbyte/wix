@@ -76,6 +76,7 @@ in {
 
         # Apps
         bind = $SUPER, Return, exec, kitty
+        bind = $SUPER, D, exec, $LAUNCHER
 
         # WM
         bind = $SUPER, Q, killactive,
