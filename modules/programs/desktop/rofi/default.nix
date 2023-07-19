@@ -19,9 +19,8 @@ in {
       then [pkgs.rofi-wayland]
       else [pkgs.rofi];
 
-    # TODO: use xdg
     env = {
-      LAUNCHER = "$HOME/.config/rofi/launch.sh launchers 1";
+      LAUNCHER = "$XDG_CONFIG_HOME/rofi/launch.sh launchers 1";
     };
 
     hm.xdg.configFile."rofi/shared/fonts.rasi".text = ''
