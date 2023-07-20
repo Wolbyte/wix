@@ -16,12 +16,15 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     {
-      services.udisks2.enable = true;
+      services = {
+        gvfs.enable = true;
+        udisks2.enable = true;
+      };
 
       environment.systemPackages = with pkgs; [
-        sshfs
         exfat
         ntfs3g
+        sshfs
       ];
     }
 

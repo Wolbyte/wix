@@ -62,6 +62,8 @@
         defaultEditor = true;
       };
 
+      fileBrowsers.thunar.enable = true;
+
       media = {
         spotify.enable = true;
       };
