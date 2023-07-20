@@ -1,6 +1,5 @@
 {
   config,
-  inputs,
   lib,
   ...
 }:
@@ -12,20 +11,15 @@ in {
     enable = mkEnableOption "hyprland";
   };
 
-  imports = [inputs.hyprland.nixosModules.default];
-
   config = mkIf cfg.enable {
     wb.displayServers.wayland.enable = true;
 
-    programs.hyprland = {
+    programs.hyprland.enable = true;
+
+    hm.wayland.windowManager.hyprland = {
       enable = true;
       nvidiaPatches = config.wb.hardware.gpu.vendor == "nvidia";
-    };
-
-    # TODO: use nix-colors
-    hm.xdg.configFile."hypr/hyprland.conf" = {
-      recursive = true;
-      text = let
+      extraConfig = let
         modifier = "SUPER";
       in ''
         exec-once = swaybg -i ${config.wb.wallpaper.path} --mode fill
@@ -37,6 +31,11 @@ in {
           follow_mouse = 1
 
           sensitivity = 0
+        }
+
+        general {
+          col.active_border = rgba(${config.colorScheme.colors.base03}ee) rgba(${config.colorScheme.colors.base04}ee) 45deg
+          col.inactive_border = rgba(${config.colorScheme.colors.base02}99)
         }
 
         decoration {

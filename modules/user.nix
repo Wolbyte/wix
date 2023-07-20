@@ -1,7 +1,8 @@
 {
   config,
-  options,
+  inputs,
   lib,
+  options,
   ...
 }:
 with lib;
@@ -53,8 +54,11 @@ with lib.wb; {
       users.${config.user.name} = mkAliasDefinitions options.hm;
     };
 
-    hm.home = {
-      inherit (config.system) stateVersion;
+    hm = {
+      imports = [inputs.hyprland.homeManagerModules.default];
+      home = {
+        inherit (config.system) stateVersion;
+      };
     };
 
     users.users.${config.user.name} = mkAliasDefinitions options.user;
