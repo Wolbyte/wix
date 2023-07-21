@@ -76,6 +76,7 @@
       fileBrowsers.thunar.enable = true;
 
       media = {
+        imv.enable = true;
         mpv = {
           enable = true;
           defaultProfiles = ["gpu-hq"];
