@@ -19,7 +19,11 @@
   time.timeZone = "Asia/Tehran";
 
   wb = {
-    wallpaper.path = config.wb.wallpapers.aenami-out-of-time;
+    wallpaper = {
+      normal = config.wb.wallpapers.aenami-out-of-time;
+      live = config.wb.wallpapers.night-sky-purple-moon-clouds;
+      preferredType = "live";
+    };
 
     desktopEnvironments.hyprland.enable = true;
 
@@ -77,6 +81,7 @@
           defaultProfiles = ["gpu-hq"];
           hardwareAcceleration = true;
         };
+        mpvpaper.enable = true;
         spotify.enable = true;
       };
 

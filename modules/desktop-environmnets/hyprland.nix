@@ -24,9 +24,13 @@ in {
       nvidiaPatches = config.wb.hardware.gpu.vendor == "nvidia";
       extraConfig = let
         modifier = "SUPER";
+        wallpaperCmd = with config.wb;
+          if wallpaper.preferredType == "live"
+          then "mpvpaper -o 'no-audio loop' '*' ${wallpaper.live.path}"
+          else "swaybg -i ${wallpaper.normal.path} --mode fill";
       in ''
         exec-once = ${config.wb.services.polkit.agent.executablePath}
-        exec-once = swaybg -i ${config.wb.wallpaper.path} --mode fill
+        exec-once = ${wallpaperCmd}
 
         input {
           kb_layout = ${config.services.xserver.layout}

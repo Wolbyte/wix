@@ -14,10 +14,18 @@
     "provider": "imgur",
     "sha256": "08gbnhjj980jhflxwp2lzx238bpxzn68lwfpw0ihx44k2fjqdzn9"
   },
-
   {
+    "ext": "jpeg",
     "name": "aenami-cloud-shapes",
     "url": "https://cdnb.artstation.com/p/assets/images/images/040/945/961/large/alena-aenami-cloud-shapes.jpg?1630339562&dl=1",
     "sha256": "0rwk0p6mmixsspk8nsgwg0rmbhchjp4m2cvgmjf8x3zajzvdqy22"
+  },
+
+  {
+    "ext": "mp4",
+    "is_live": true,
+    "name": "night-sky-purple-moon-clouds",
+    "url": "https://www.dropbox.com/scl/fi/3ou15i14dwkvopojv9fnt/night-sky-purple-moon-clouds-moewalls-com.mp4?rlkey=zrm2pby6fombzlprwkf88yh6m&dl=1",
+    "sha256": "1z23rgs0hjngrgyqjgdladlsp55mlgllpypk2c6i1bgg9r97qaxl"
   }
 ]

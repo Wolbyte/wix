@@ -1,8 +1,16 @@
 {lib, ...}:
 with lib;
-with lib.wb; {
+with lib.wb; let
+  wallpaperType = types.submodule {
+    options = {
+      path = mkOpt types.path null "The path to the wallpaper.";
+    };
+  };
+in {
   options.wb.wallpaper = {
-    path = mkOpt types.path null "The path to the wallpaper.";
+    normal = mkOpt wallpaperType null "Static wallpaper.";
+    live = mkOpt wallpaperType null "Live wallpaper.";
+    preferredType = defaultOpts.mkEnumFirstDefault ["normal" "live"] "The wallpaper type to try to use.";
   };
 
   options.wb.wallpapers =
@@ -21,9 +29,11 @@ with lib.wb; {
             else wallpaper.url;
         in {
           inherit (wallpaper) name;
-          value = builtins.fetchurl {
-            inherit (wallpaper) sha256 name;
-            url = wallpaperUrl;
+          value = {
+            path = builtins.fetchurl {
+              inherit (wallpaper) sha256 name;
+              url = wallpaperUrl;
+            };
           };
         })
         wallpapers);
