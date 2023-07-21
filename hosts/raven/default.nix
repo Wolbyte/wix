@@ -72,6 +72,11 @@
       fileBrowsers.thunar.enable = true;
 
       media = {
+        mpv = {
+          enable = true;
+          defaultProfiles = ["gpu-hq"];
+          hardwareAcceleration = true;
+        };
         spotify.enable = true;
       };
 
