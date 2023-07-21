@@ -28,11 +28,6 @@ in {
         GDK_BACKEND = "wayland,x11";
         CLUTTER_BACKEND = "wayland";
 
-        # Qt variables
-        QT_QPA_PLATFORM = "wayland";
-        QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
-        QT_QPA_PLATFORMTHEME = "qt5ct";
-
         LIBSEAT_BACKEND = "logind";
 
         WLR_BACKEND = "vulkan";
@@ -42,7 +37,6 @@ in {
       user.packages = with pkgs; [
         cliphist
         grim
-        qt5ct
         slurp
         swaybg
         wl-clipboard

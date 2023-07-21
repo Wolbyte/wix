@@ -30,6 +30,7 @@
     };
 
     gtk.enable = true;
+    qt.enable = true;
 
     hardware = {
       audio.enable = true;

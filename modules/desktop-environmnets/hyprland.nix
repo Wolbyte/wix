@@ -6,6 +6,7 @@
 with lib;
 with lib.wb; let
   cfg = config.wb.desktopEnvironments.hyprland;
+  colorscheme = config.colorScheme;
 in {
   options.wb.desktopEnvironments.hyprland = {
     enable = mkEnableOption "hyprland";
@@ -13,6 +14,8 @@ in {
 
   config = mkIf cfg.enable {
     wb.displayServers.wayland.enable = true;
+
+    wb.services.polkit.enable = true;
 
     programs.hyprland.enable = true;
 
@@ -22,6 +25,7 @@ in {
       extraConfig = let
         modifier = "SUPER";
       in ''
+        exec-once = ${config.wb.services.polkit.agent.executablePath}
         exec-once = swaybg -i ${config.wb.wallpaper.path} --mode fill
 
         input {
@@ -34,8 +38,10 @@ in {
         }
 
         general {
-          col.active_border = rgba(${config.colorScheme.colors.base03}ee) rgba(${config.colorScheme.colors.base04}ee) 45deg
-          col.inactive_border = rgba(${config.colorScheme.colors.base02}99)
+          col.active_border = 0xff${colorscheme.colors.base0C}
+          col.inactive_border = 0xff${colorscheme.colors.base02}
+          col.group_border_active = 0xff${colorscheme.colors.base0B}
+          col.group_border = 0xff${colorscheme.colors.base04}
         }
 
         decoration {

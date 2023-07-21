@@ -12,25 +12,30 @@ in {
     enable = mkEnableOption "polkit";
 
     flavor = defaultOpts.mkEnumFirstDefault ["gnome" "kde"] "Polkit flavor to install.";
-  };
 
-  config = mkIf cfg.enable (let
     agent = rec {
       package =
-        if cfg.flavor == "kde"
-        then pkgs.libsForQt5.polkit-kde-agent
-        else pkgs.polkit_gnome;
+        mkPackageOpt "polkit agent"
+        (
+          if cfg.flavor == "kde"
+          then pkgs.libsForQt5.polkit-kde-agent
+          else pkgs.polkit_gnome
+        );
 
-      executableName = "polkit-${cfg.flavor}-authentication-agent-1";
+      executableName = defaultOpts.mkStr "polkit-${cfg.flavor}-authentication-agent-1" "Polkit agent's executable name.";
 
-      executablePath = "${package}/libexec/${executableName}";
+      executablePath = defaultOpts.mkStr "${package.default}/libexec/${executableName.default}" "Path to the agent's executable.";
+
+      systemdIntegration = defaultOpts.mkBool false "Whether to create a systemd service to start the agent";
     };
-  in {
-    user.packages = [agent.package];
+  };
+
+  config = mkIf cfg.enable {
+    user.packages = [cfg.agent.package];
 
     security.polkit.enable = true;
 
-    systemd.user.services."polkit-${cfg.flavor}-agent" = {
+    systemd.user.services."polkit-${cfg.flavor}-agent" = mkIf cfg.agent.systemdIntegration {
       description = "polkit-${cfg.flavor}";
       documentation = ["man:polkit(8)"];
       wantedBy = ["graphical-session.target"];
@@ -38,11 +43,11 @@ in {
       after = ["graphical-session.target"];
       serviceConfig = {
         Type = "simple";
-        ExecStart = agent.executablePath;
-        RestartSec = 1;
-        Restart = "on-failure";
+        ExecStart = cfg.agent.executablePath;
+        RestartSec = 3;
+        Restart = "always";
         TimeoutStopSec = 10;
       };
     };
-  });
+  };
 }
