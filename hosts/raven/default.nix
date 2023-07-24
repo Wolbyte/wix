@@ -25,9 +25,7 @@
       preferredType = "live";
     };
 
-    desktopEnvironments.hyprland.enable = true;
-
-    displayServers.wayland.ozoneLayer = true;
+    desktopEnvironments.bspwm.enable = true;
 
     fonts = {
       enable = true;
@@ -43,7 +41,6 @@
         enable = true;
         initrd = true;
         nvidiaOpen = true;
-        waylandTweaks = true;
       };
 
       storage = {

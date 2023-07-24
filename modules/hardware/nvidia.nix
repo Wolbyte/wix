@@ -14,7 +14,9 @@ in {
 
     nvidiaOpen = defaultOpts.mkBool false "Whether to use nvidia open kernel modules.";
 
-    waylandTweaks = defaultOpts.mkBool false "Tweaks to make nvidia better on wayland.";
+    waylandTweaks = defaultOpts.mkBool (config.wb.displayServer == "wayland") "Tweaks to make nvidia better on wayland.";
+
+    forceFullCompositionPipeline = defaultOpts.mkBool (config.wb.displayServer == "x11") "Whether to enable forceFullCompositionPipeline.";
 
     initrd = defaultOpts.mkBool false "Whether to add nvidia kernel modules to initrd.";
   };
@@ -32,6 +34,7 @@ in {
       hardware.nvidia = {
         inherit (cfg) package;
         open = cfg.nvidiaOpen;
+        inherit (cfg) forceFullCompositionPipeline;
       };
 
       hardware.opengl = {
