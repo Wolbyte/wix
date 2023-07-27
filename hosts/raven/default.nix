@@ -35,7 +35,10 @@
     qt.enable = true;
 
     hardware = {
-      audio.enable = true;
+      audio = {
+        enable = true;
+        utils = true;
+      };
 
       nvidia = {
         enable = true;
