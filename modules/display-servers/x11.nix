@@ -1,4 +1,5 @@
 {
+  pkgs,
   config,
   lib,
   ...
@@ -16,6 +17,9 @@ in {
 
     user.packages = with pkgs; [feh];
 
-    wb.displayServer = "x11";
+    wb = {
+      displayServer = "x11";
+      services.dunst.enable = true;
+    };
   };
 }
