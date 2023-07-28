@@ -40,6 +40,9 @@ in {
 
   config = mkIf cfg.enable {
     env.XCURSOR_SIZE = toString cfg.cursorTheme.size;
+
+    environment.systemPackages = [cfg.cursorTheme.package];
+
     hm.home.pointerCursor = {
       inherit
         (cfg.cursorTheme)
@@ -50,6 +53,7 @@ in {
       gtk.enable = true;
       x11.enable = cfg.cursorTheme.x11;
     };
+
     hm.gtk = {
       enable = true;
 

@@ -10,12 +10,6 @@
   # TODO: add proper support for openvpn
   environment.systemPackages = [pkgs.openvpn];
 
-  # TODO: add SDDM module
-  services = {
-    xserver.enable = true;
-    xserver.displayManager.sddm.enable = true;
-  };
-
   time.timeZone = "Asia/Tehran";
 
   wb = {
@@ -26,6 +20,8 @@
     };
 
     desktopEnvironments.bspwm.enable = true;
+
+    displayManagers.sddm.enable = true;
 
     fonts = {
       enable = true;
