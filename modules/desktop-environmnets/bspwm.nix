@@ -48,6 +48,8 @@ in {
 
       bspc rule -a Screenkey manage=off
 
+      xsetroot -cursor_name left_ptr &
+
       feh --bg-fill ${config.wb.wallpaper.normal.path}
     '';
 

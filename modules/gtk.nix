@@ -26,9 +26,30 @@ in {
 
       package = mkPackageOpt "GTK icon theme" pkgs.rose-pine-icon-theme;
     };
+
+    cursorTheme = {
+      name = defaultOpts.mkStr "Catppuccin-Mocha-Dark-Cursors" "The name of the cursor theme to use.";
+
+      package = mkPackageOpt "cursor theme" pkgs.catppuccin-cursors.mochaDark;
+
+      size = defaultOpts.mkInt 24 "Cursor size.";
+
+      x11 = defaultOpts.mkBool true "Whether to apply the cursor theme for x11.";
+    };
   };
 
   config = mkIf cfg.enable {
+    env.XCURSOR_SIZE = toString cfg.cursorTheme.size;
+    hm.home.pointerCursor = {
+      inherit
+        (cfg.cursorTheme)
+        name
+        package
+        size
+        ;
+      gtk.enable = true;
+      x11.enable = cfg.cursorTheme.x11;
+    };
     hm.gtk = {
       enable = true;
 
