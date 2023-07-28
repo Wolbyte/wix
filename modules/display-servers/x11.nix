@@ -15,7 +15,11 @@ in {
   config = mkIf cfg.enable {
     programs.dconf.enable = true;
 
-    user.packages = with pkgs; [feh];
+    user.packages = with pkgs; [
+      feh
+      xclip
+      xsel
+    ];
 
     wb = {
       displayServer = "x11";
