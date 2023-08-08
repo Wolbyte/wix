@@ -32,7 +32,7 @@ in {
     fonts = {
       fontconfig.enable = true;
 
-      fonts =
+      packages =
         [
           cfg.monospace.package
           cfg.regular.package
