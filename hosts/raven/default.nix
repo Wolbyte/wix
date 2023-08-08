@@ -62,6 +62,7 @@
 
       desktop = {
         rofi.enable = true;
+        telegram.enable = true;
       };
 
       editors.neovim = {
