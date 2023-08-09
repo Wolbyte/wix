@@ -57,7 +57,6 @@ in {
       window.width = 30;
 
       filesystem = {
-        followCurrentFile = true;
         hijackNetrwBehavior = "open_current";
         useLibuvFileWatcher = true;
       };
