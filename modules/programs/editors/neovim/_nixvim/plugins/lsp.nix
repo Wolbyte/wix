@@ -50,7 +50,7 @@ in {
     };
 
     extraPlugins = with pkgs.vimPlugins; [
-      lspsaga-nvim-original
+      lspsaga-nvim
     ];
 
     extraConfigLua = ''
