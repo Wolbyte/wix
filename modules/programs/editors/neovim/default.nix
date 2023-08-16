@@ -37,6 +37,7 @@ in {
       extraPlugins = with pkgs.vimPlugins; [
         bufdelete-nvim
         smart-splits-nvim
+        yuck-vim
       ];
     };
   };

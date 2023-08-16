@@ -6,7 +6,15 @@
         cssls.enable = true;
         jsonls.enable = true;
         eslint.enable = true;
-        tsserver.enable = true;
+      };
+
+      null-ls.sources = {
+        code_actions.eslint_d.enable = true;
+        diagnostics.eslint_d.enable = true;
+        formatting = {
+          eslint_d.enable = true;
+          prettier_d_slim.enable = true;
+        };
       };
     };
   };
