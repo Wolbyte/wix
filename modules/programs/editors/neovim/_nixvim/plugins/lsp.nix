@@ -1,4 +1,4 @@
-{pkgs, ...}: let
+let
   icons = import ../icons.nix;
   helpers = import ../helpers.nix;
 in {
@@ -35,6 +35,15 @@ in {
           })
         '';
       };
+
+      lspsaga = {
+        enable = true;
+
+        ui = {
+          codeAction = icons.diagnosticHint;
+          border = "rounded";
+        };
+      };
     };
 
     maps = {
@@ -48,18 +57,5 @@ in {
         gR = mkCmdKeybind "Lspsaga rename ++project" "LSP Rename In All Files";
       };
     };
-
-    extraPlugins = with pkgs.vimPlugins; [
-      lspsaga-nvim
-    ];
-
-    extraConfigLua = ''
-      require("lspsaga").setup({
-        ui = {
-          code_action = "${icons.diagnosticHint}",
-          border = "rounded"
-        }
-      })
-    '';
   };
 }
