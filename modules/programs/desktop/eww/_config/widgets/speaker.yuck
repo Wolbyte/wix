@@ -1,0 +1,13 @@
+(include "./widgets/icon-button.yuck")
+
+(deflisten speaker_data :initial "{}" "bash ~/.config/eww/scripts/speaker")
+
+(defwidget speaker []
+  (icon-button
+    :icon "${speaker_data.icon}"
+    :class "speaker-widget ${speaker_data.content == "mute" ? "mute" : ""}"
+    :content "${speaker_data.content}"
+    :onclick `$XDG_CONFIG_HOME/eww/scripts/speaker toggle`
+    :onscroll `$XDG_CONFIG_HOME/eww/scripts/speaker {}`
+  )
+)

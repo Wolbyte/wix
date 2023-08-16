@@ -48,9 +48,12 @@ in {
 
       bspc rule -a Screenkey manage=off
 
+      feh --bg-fill ${config.wb.wallpaper.normal.path}
+
       xsetroot -cursor_name left_ptr &
 
-      feh --bg-fill ${config.wb.wallpaper.normal.path}
+      pgrep -x eww > /dev/null || eww daemon &
+      eww open bar
     '';
 
     hm.xdg.configFile."sxhkd/sxhkdrc".text = ''

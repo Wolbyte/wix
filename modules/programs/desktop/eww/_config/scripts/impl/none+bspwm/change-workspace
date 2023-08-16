@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+bspc desktop -f "^$1"

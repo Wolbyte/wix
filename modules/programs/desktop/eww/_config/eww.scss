@@ -1,0 +1,40 @@
+@import "colorscheme";
+
+// icon-button
+.icon-button {
+  font-size: 14px;
+  &__icon {
+    font-family: "Font Awesome 6 Free Solid";
+    margin-right: 5px;
+  }
+}
+
+// random-quote
+.random-quote label {
+  color: $base0A
+}
+
+// speaker-widget
+.speaker-widget {
+  &.mute .icon-button__icon {
+    color: $base08;
+  }
+}
+
+// workspace-widget
+.ws {
+  &.empty { color: $base0F; }
+  &.occupied { color: $base05; }
+  &.active { color: $base0D; }
+  font-family: "FiraCode Nerd Font";
+  font-size: 16px;
+}
+
+.active-ws-indicator {
+  background-color: $base0A;
+  border-radius: 8px;
+  color: $base00;
+  font-size: 12px;
+  font-weight: bold;
+  margin: 5px;
+}

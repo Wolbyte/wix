@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+if test $1 = "up"
+then
+  bspc desktop -f "next".local
+elif test $1 = "down"
+then
+  bspc desktop -f "prev".local
+fi

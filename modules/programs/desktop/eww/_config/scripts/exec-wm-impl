@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+IMPL_DIR=~/.config/eww/scripts/impl
+WM_IMPL_DIR=$IMPL_DIR/"$XDG_CURRENT_DESKTOP"
+
+$WM_IMPL_DIR/"$1" "${@:2}"

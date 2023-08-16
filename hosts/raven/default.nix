@@ -25,6 +25,13 @@
 
     fonts = {
       enable = true;
+      extraFonts = {
+        "fontawesome" = {
+          family = "Font Awesome 6 Free";
+          package = pkgs.font-awesome;
+          type = "regular";
+        };
+      };
     };
 
     gtk.enable = true;
@@ -61,6 +68,7 @@
       };
 
       desktop = {
+        eww.enable = true;
         rofi.enable = true;
         telegram.enable = true;
       };
