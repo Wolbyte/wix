@@ -23,7 +23,7 @@ in {
 
         package = mkPackageOpt "font" null;
 
-        type = defaultOpts.mkEnumFirstDefault ["regular" "monospace" "emoji"];
+        type = defaultOpts.mkEnumFirstDefault ["regular" "monospace" "emoji"] "Type of the font.";
       };
     })) {} "Extra fonts to install.";
   };
