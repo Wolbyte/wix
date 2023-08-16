@@ -10,7 +10,9 @@ with lib.wb; let
 in {
   options.wb.hardware.audio = {
     enable = mkEnableOption "Audio support";
+
     pactl = defaultOpts.mkBool true "Whether to install pulseaudio for `pactl`";
+
     utils = defaultOpts.mkBool false "Whether to install useful utilities such as pavucontrol.";
   };
 
@@ -34,8 +36,11 @@ in {
     })
 
     (mkIf cfg.utils {
+      programs.noisetorch.enable = true;
+
       environment.systemPackages = with pkgs; [
         pavucontrol
+        pamixer
         playerctl
       ];
     })

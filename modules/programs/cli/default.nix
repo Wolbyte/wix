@@ -4,6 +4,7 @@
     bottom
     exa
     fd
+    jq
     ripgrep
   ];
 }
