@@ -12,6 +12,18 @@
 
   time.timeZone = "Asia/Tehran";
 
+  services.xserver = {
+    layout = "us,ir";
+    xkbOptions = "grp:win_space_toggle";
+
+    xrandrHeads = [
+      {
+        output = "HDMI-0";
+        primary = true;
+      }
+    ];
+  };
+
   wb = {
     wallpaper = {
       normal = config.wb.wallpapers.aenami-out-of-time;
@@ -20,6 +32,13 @@
     };
 
     desktopEnvironments.bspwm.enable = true;
+
+    displayServers.x11.xprofile = {
+      enable = true;
+      config = ''
+        xrandr --dpi 96
+      '';
+    };
 
     displayManagers.sddm.enable = true;
 

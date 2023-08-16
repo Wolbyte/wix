@@ -10,6 +10,11 @@ with lib.wb; let
 in {
   options.wb.displayServers.x11 = {
     enable = mkEnableOption "x11";
+
+    xprofile = {
+      enable = mkEnableOption "xprofile management";
+      config = mkOpt types.lines "" "Lines to put in `$HOME/.xprofile`.";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -24,6 +29,10 @@ in {
     wb = {
       displayServer = "x11";
       services.dunst.enable = true;
+    };
+
+    hm.home.file.".xprofile" = mkIf cfg.xprofile.enable {
+      text = cfg.xprofile.config;
     };
   };
 }
