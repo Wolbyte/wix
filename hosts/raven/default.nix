@@ -91,6 +91,11 @@
         spotify.enable = true;
       };
 
+      system.coolercontrol = {
+        enable = true;
+        gui.enable = true;
+      };
+
       term.kitty.enable = true;
     };
 
