@@ -26,9 +26,13 @@ in {
       sxhkd.package = cfg.sxhkdPackage;
     };
 
+    hm.xdg.configFile."bspwm" = {
+      recursive = true;
+      source = ./_config;
+    };
+
     hm.xdg.configFile."bspwm/bspwmrc".source = pkgs.writeShellScript "bspwmrc" ''
       pgrep -x sxhkd > /dev/null || sxhkd &
-      pgrep -x picom > /dev/null || picom &
 
       bspc monitor -d ${concatStringsSep " " (builtins.genList (x: "'${toString (x + 1)}'") 10)}
 
@@ -52,8 +56,10 @@ in {
 
       xsetroot -cursor_name left_ptr &
 
-      pgrep -x eww > /dev/null || eww daemon &
-      eww open bar
+      picom &
+      $XDG_CONFIG_HOME/bspwm/eww-fullscreen-fix &
+      eww daemon &
+      eww open bar &
     '';
 
     hm.xdg.configFile."sxhkd/sxhkdrc".text = ''
