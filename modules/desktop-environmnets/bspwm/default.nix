@@ -57,6 +57,7 @@ in {
       xsetroot -cursor_name left_ptr &
 
       picom &
+      ${config.wb.services.polkit.agent.executablePath} &
       $XDG_CONFIG_HOME/bspwm/eww-fullscreen-fix &
       eww daemon &
       eww open bar &
