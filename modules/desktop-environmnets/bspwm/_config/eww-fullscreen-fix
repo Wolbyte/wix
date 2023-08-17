@@ -1,15 +1,35 @@
 #!/usr/bin/env bash
 
 # TODO: https://github.com/elkowar/eww/issues/833
-bspc subscribe node_state | while read -r _ _ _ _ state flag; do
-  if [ "$state" != "fullscreen" ]; then
-    continue
-  fi
 
-  if [ "$flag" == on ]; then
+FULLSCREEN_NODE_ID="0"
+
+handle_fullscreen_state_change() {
+  if [ $1 == "on" ]; then
     eww close bar
-  else
+  elif [ $1 == "off" ]; then
     eww open bar
     eww reload
+  fi
+}
+
+bspc subscribe node | while read -r NODE_EVENT _ _ NODE_ID state flag; do
+  if [ "$NODE_EVENT" == "node_state" ]; then
+    if [ "$state" != "fullscreen" ]; then
+      continue
+    fi
+
+    if [ "$flag" == on ]; then
+      FULLSCREEN_NODE_ID="$NODE_ID"
+      handle_fullscreen_state_change "on"
+    else
+      FULLSCREEN_NODE_ID="0"
+      handle_fullscreen_state_change "off"
+    fi
+  elif [ "$NODE_EVENT" == "node_remove" ]; then
+    if [ "$NODE_ID" == "$FULLSCREEN_NODE_ID" ]; then
+      FULLSCREEN_NODE_ID="0"
+      handle_fullscreen_state_change "off"
+    fi
   fi
 done &

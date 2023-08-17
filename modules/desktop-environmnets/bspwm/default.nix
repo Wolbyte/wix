@@ -96,29 +96,17 @@ in {
       super + m
       	bspc desktop -l next
 
-      # send the newest marked node to the newest preselected node
-      super + y
-      	bspc node newest.marked.local -n newest.!automatic.local
-
-      # swap the current node and the biggest window
-      super + g
-      	bspc node -s biggest.window
-
       # set the window state
       super + {t,shift + t, v, f}
-      	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+      	bspc node -t {tiled,pseudo_tiled,~floating,~fullscreen}
 
       # set the node flags
       super + ctrl + {m,x,p,z}
       	bspc node -g {marked,locked,sticky,private}
 
-      # focus the node in the given direction
+      # focus/move the node in the given direction
       super + {_,shift + }{h,j,k,l}
       	bspc node -{f,s} {west,south,north,east}
-
-      # focus the next/previous window in the current desktop
-      super + {_,shift + }c
-      	bspc node -f {next,prev}.local.!hidden.window
 
       # focus the next/previous desktop in the current monitor
       super + bracket{left,right}
@@ -127,12 +115,6 @@ in {
       # focus the last node/desktop
       super + {grave,Tab}
       	bspc {node,desktop} -f last
-
-      # focus the older or newer node in the focus history
-      super + {o,i}
-      	bspc wm -h off; \
-      	bspc node {older,newer} -f; \
-      	bspc wm -h on
 
       # focus or send to the given desktop
       super + {1-9,0}
