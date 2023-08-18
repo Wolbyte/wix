@@ -1,31 +1,10 @@
-{pkgs, ...}: let
+let
   icons = import ../icons.nix;
   helpers = import ../helpers.nix;
-
-  nvimPython = pkgs.python310.withPackages (ps: [
-    ps.debugpy
-  ]);
 in {
   programs.nixvim = {
     plugins.dap = {
       enable = true;
-
-      adapters.servers = {
-        cpp = {
-          port = "$\{port}";
-        };
-      };
-
-      configurations = {
-        cpp = [
-          {
-            name = "Cxx";
-            request = "attach";
-            type = "cpp";
-            program = "gdb";
-          }
-        ];
-      };
 
       signs = {
         dapBreakpoint = {
@@ -51,19 +30,7 @@ in {
       };
 
       extensions = {
-        dap-python = {
-          enable = true;
-          adapterPythonPath = "${nvimPython}/bin/python3.10";
-          includeConfigs = true;
-        };
-
-        dap-ui = {
-          enable = true;
-
-          elementMappings = {
-            scopes.edit = "r";
-          };
-        };
+        dap-ui.enable = true;
 
         dap-virtual-text.enable = true;
       };

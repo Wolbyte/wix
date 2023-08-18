@@ -33,10 +33,14 @@
 
     desktopEnvironments.bspwm.enable = true;
 
+    dev = {
+      rust.enable = true;
+    };
+
     displayServers.x11.xprofile = {
       enable = true;
       config = ''
-        xrandr --dpi 96
+        xrandr --dpi 90
       '';
     };
 
