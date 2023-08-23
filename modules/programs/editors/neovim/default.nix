@@ -57,7 +57,7 @@ in {
     ./_nixvim/plugins/dap.nix
     ./_nixvim/plugins/git.nix
     ./_nixvim/plugins/indent-blankline.nix
-    ./_nixvim/plugins/lsp.nix
+    ./_nixvim/plugins/lsp
     ./_nixvim/plugins/lualine.nix
     ./_nixvim/plugins/neo-tree.nix
     ./_nixvim/plugins/notify.nix
