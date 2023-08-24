@@ -4,10 +4,8 @@
       enable = true;
       enableOffsetEncodingWorkaround = true;
 
-      extensions = {
-        memoryUsage.border = "rounded";
-        symbolInfo.border = "rounded";
-      };
+      memoryUsage.border = "rounded";
+      symbolInfo.border = "rounded";
     };
   };
 }
