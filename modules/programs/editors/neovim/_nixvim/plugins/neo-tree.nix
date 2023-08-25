@@ -58,6 +58,7 @@ in {
 
       filesystem = {
         hijackNetrwBehavior = "open_current";
+        followCurrentFile.enabled = true;
         useLibuvFileWatcher = true;
       };
 
