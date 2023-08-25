@@ -65,6 +65,7 @@ in {
     ./_nixvim/plugins/nvim-autopairs.nix
     ./_nixvim/plugins/nvim-ufo.nix
     ./_nixvim/plugins/telescope.nix
+    ./_nixvim/plugins/todo-comments.nix
     ./_nixvim/plugins/toggleterm.nix
     ./_nixvim/plugins/treesitter.nix
     ./_nixvim/plugins/trouble.nix
