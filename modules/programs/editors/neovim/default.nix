@@ -51,6 +51,7 @@ in {
     ./_nixvim/mappings.nix
     ./_nixvim/options.nix
 
+    ./_nixvim/plugins/alpha.nix
     ./_nixvim/plugins/bufferline.nix
     ./_nixvim/plugins/completion.nix
     ./_nixvim/plugins/editing-support.nix
