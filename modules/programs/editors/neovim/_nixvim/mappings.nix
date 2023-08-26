@@ -22,8 +22,8 @@ in {
         "|" = mkCmdKeybind "vsplit" "Vertical Split";
         "\\" = mkCmdKeybind "split" "Horizontal Split";
 
-        "<leader>c" = mkLuaKeybind "require('bufdelete').bufdelete" "Close buffer";
-        "<leader>C" = mkLuaKeybind "function() require('bufdelete').bufdelete(0, true) end" "Force close buffer";
+        "<leader>c" = mkLuaKeybind "function() require('mini.bufremove').delete(0, false) end" "Close Buffer";
+        "<leader>C" = mkLuaKeybind "function() require('mini.bufremove').delete(0, true) end" "Close Buffer (Force)";
       };
 
       visual = {
