@@ -32,7 +32,6 @@ in {
       globals.format_on_save = true;
 
       extraPlugins = with pkgs.vimPlugins; [
-        mini-nvim
         smart-splits-nvim
         yuck-vim
       ];
@@ -60,6 +59,7 @@ in {
     ./_nixvim/plugins/indent-blankline.nix
     ./_nixvim/plugins/lsp
     ./_nixvim/plugins/lualine.nix
+    ./_nixvim/plugins/mini.nix
     ./_nixvim/plugins/neo-tree.nix
     ./_nixvim/plugins/notify.nix
     ./_nixvim/plugins/null-ls.nix
