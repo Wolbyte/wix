@@ -11,7 +11,9 @@ with lib.wb; let
 in {
   options.wb.desktopEnvironments.bspwm = {
     enable = mkEnableOption "bspwm";
+
     package = mkPackageOpt "bspwm" pkgs.bspwm;
+
     sxhkdPackage = mkPackageOpt "sxhkd" pkgs.sxhkd;
   };
 
@@ -70,7 +72,10 @@ in {
 
       # dmenu
       super + d
-        $LAUNCHER
+        $__WB_ROFI_LAUNCHER
+
+      super + s
+        $__WB_ROFI_SCREENSHOT
 
       # make sxhkd reload its configuration files
       super + Escape

@@ -20,7 +20,8 @@ in {
       else [pkgs.rofi];
 
     env = {
-      LAUNCHER = "$XDG_CONFIG_HOME/rofi/launch.sh launchers 1";
+      __WB_ROFI_LAUNCHER = "$XDG_CONFIG_HOME/rofi/launch.sh launchers 1";
+      __WB_ROFI_SCREENSHOT = "$XDG_CONFIG_HOME/rofi/screenshot.sh";
     };
 
     hm.xdg.configFile."rofi/shared/fonts.rasi".text = ''

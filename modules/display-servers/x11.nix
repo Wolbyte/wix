@@ -22,7 +22,9 @@ in {
 
     user.packages = with pkgs; [
       feh
+      maim
       xclip
+      xdotool
       xsel
     ];
 
