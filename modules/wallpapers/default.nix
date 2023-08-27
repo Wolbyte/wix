@@ -31,7 +31,8 @@ in {
           inherit (wallpaper) name;
           value = {
             path = builtins.fetchurl {
-              inherit (wallpaper) sha256 name;
+              name = "${wallpaper.name}.${wallpaper.ext}";
+              inherit (wallpaper) sha256;
               url = wallpaperUrl;
             };
           };

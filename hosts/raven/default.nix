@@ -7,6 +7,18 @@
 
   user.shell = pkgs.fish;
 
+  boot.loader.grub = {
+    extraEntries = ''
+      menuentry "Windows" --class windows {
+        insmod part_gpt
+        insmod fat
+        insmod search_fs_uuid
+        insmod chain
+        chainloader /EFI/Microsoft/Boot/bootmgfw.efi
+      }
+    '';
+  };
+
   # TODO: add proper support for openvpn
   environment.systemPackages = [pkgs.openvpn];
 

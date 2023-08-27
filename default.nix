@@ -1,5 +1,6 @@
 {
   pkgs,
+  config,
   inputs,
   lib,
   nix-colors,
@@ -9,6 +10,7 @@ with lib;
 with lib.wb; {
   imports =
     [
+      inputs.grub2-themes.nixosModules.default
       inputs.home-manager.nixosModules.home-manager
       inputs.nix-colors.homeManagerModules.default
     ]
@@ -47,10 +49,15 @@ with lib.wb; {
         canTouchEfiVariables = mkDefault true;
       };
       grub = {
+        device = mkDefault "nodev";
         enable = mkDefault true;
         efiSupport = mkDefault true;
         useOSProber = mkDefault false;
-        device = mkDefault "nodev";
+      };
+      grub2-theme = {
+        enable = true;
+        theme = "stylish";
+        icon = "color";
       };
     };
   };
