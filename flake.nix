@@ -27,6 +27,7 @@
     hyprland.url = "github:hyprwm/Hyprland";
 
     nixvim.url = "github:nix-community/nixvim";
+    nixvim.inputs.nixpkgs.follows = "nixpkgs";
 
     spicetify-nix.url = "github:the-argus/spicetify-nix";
   };
