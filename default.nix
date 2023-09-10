@@ -1,6 +1,5 @@
 {
   pkgs,
-  config,
   inputs,
   lib,
   nix-colors,
@@ -33,16 +32,7 @@ with lib.wb; {
   system.stateVersion = "23.05";
 
   boot = {
-    kernelPackages = mkDefault (pkgs.linuxPackagesFor (pkgs.linux_6_4.override {
-      argsOverride = rec {
-        src = pkgs.fetchurl {
-          url = "mirror://kernel/linux/kernel/v6.x/linux-${version}.tar.xz";
-          sha256 = "sha256-xZ804Z6E2zAga5NzBBq/iT+digh2XRY1hlcKUjjEWLY=";
-        };
-        version = "6.4.8";
-        modDirVersion = "6.4.8";
-      };
-    }));
+    kernelPackages = pkgs.linuxPackages_6_1;
 
     loader = {
       efi = {

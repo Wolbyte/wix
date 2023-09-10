@@ -9,7 +9,6 @@
       };
 
       null-ls.sources = {
-        code_actions.eslint_d.enable = true;
         diagnostics.eslint_d.enable = true;
         formatting = {
           eslint_d.enable = true;

@@ -21,7 +21,7 @@ in {
 
     hm.wayland.windowManager.hyprland = {
       enable = true;
-      nvidiaPatches = config.wb.hardware.gpu.vendor == "nvidia";
+      enableNvidiaPatches = config.wb.hardware.gpu.vendor == "nvidia";
       extraConfig = let
         modifier = "SUPER";
         wallpaperCmd = with config.wb;
@@ -31,6 +31,7 @@ in {
       in ''
         exec-once = ${config.wb.services.polkit.agent.executablePath}
         exec-once = ${wallpaperCmd}
+        exec-once = eww open bar
 
         input {
           kb_layout = ${config.services.xserver.layout}
@@ -50,14 +51,17 @@ in {
 
         decoration {
           rounding = 10
-          blur = true
-          blur_size = 3
-          blur_passes = 1
-          blur_new_optimizations = true
           drop_shadow = true
           shadow_range = 4
           shadow_render_power = 3
           col.shadow = rgba(1a1a1aee)
+
+          blur {
+            enabled = true
+            size = 3
+            passes = 1
+            new_optimizations = true
+          }
         }
 
         animations {
@@ -72,12 +76,12 @@ in {
         }
 
         dwindle {
-         pseudotile = true
-         preserve_split = true
+          pseudotile = true
+          preserve_split = true
         }
 
         master {
-         new_is_master = true
+          new_is_master = true
         }
 
         $SUPER = ${modifier}
@@ -87,7 +91,8 @@ in {
 
         # Apps
         bind = $SUPER, Return, exec, kitty
-        bind = $SUPER, D, exec, $LAUNCHER
+        bind = $SUPER, D, exec, $__WB_ROFI_LAUNCHER
+        bind = $SUPER, S, exec, $__WB_ROFI_SCREENSHOT
 
         # WM
         bind = $SUPER, Q, killactive,

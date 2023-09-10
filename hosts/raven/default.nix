@@ -43,7 +43,7 @@
       preferredType = "live";
     };
 
-    desktopEnvironments.bspwm.enable = true;
+    desktopEnvironments.hyprland.enable = true;
 
     dev = {
       rust.enable = true;

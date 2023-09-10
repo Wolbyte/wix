@@ -6,5 +6,6 @@
     fd
     jq
     ripgrep
+    socat
   ];
 }
