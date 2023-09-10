@@ -40,7 +40,7 @@
     wallpaper = {
       normal = config.wb.wallpapers.aenami-out-of-time;
       live = config.wb.wallpapers.night-sky-purple-moon-clouds;
-      preferredType = "live";
+      preferredType = "normal";
     };
 
     desktopEnvironments.hyprland.enable = true;
