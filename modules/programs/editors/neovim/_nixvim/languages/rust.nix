@@ -1,6 +1,12 @@
 {pkgs, ...}: {
   programs.nixvim = {
     plugins = {
+      crates-nvim.enable = true;
+
+      null-ls.sources = {
+        formatting.rustfmt.enable = true;
+      };
+
       rust-tools = {
         enable = true;
 
