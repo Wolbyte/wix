@@ -16,6 +16,30 @@
           text = "File Explorer";
           separator = true;
         }
+        {
+          filetype = "dapui_scopes";
+          padding = 0;
+          text = "Debugger";
+          separator = true;
+        }
+        {
+          filetype = "dapui_breakpoints";
+          padding = 0;
+          text = "Debugger";
+          separator = true;
+        }
+        {
+          filetype = "dapui_stacks";
+          padding = 0;
+          text = "Debugger";
+          separator = true;
+        }
+        {
+          filetype = "dapui_watches";
+          padding = 0;
+          text = "Debugger";
+          separator = true;
+        }
       ];
 
       tabSize = 20;
