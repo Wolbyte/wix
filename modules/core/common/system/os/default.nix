@@ -1,3 +1,6 @@
 {
-  imports = [./boot];
+  imports = [
+    ./boot
+    ./users
+  ];
 }
