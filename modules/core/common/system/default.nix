@@ -1,3 +1,6 @@
 {
-  imports = [./os];
+  imports = [
+    ./nix
+    ./os
+  ];
 }
