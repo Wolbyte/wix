@@ -1,6 +1,7 @@
 {
   imports = [
-    ./env.nix
+    ./device
+    ./env
     ./system
   ];
 }
