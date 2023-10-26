@@ -33,5 +33,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    nix-gaming.url = "github:fufexan/nix-gaming";
   };
 }

@@ -18,6 +18,9 @@
           loader = "grub";
           silentBoot = true;
         };
+
+        audio.enable = true;
+        video.enable = true;
       };
     };
   };
