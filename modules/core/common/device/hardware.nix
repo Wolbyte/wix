@@ -17,7 +17,7 @@ with lib.wb; {
       hasIntegratedGraphics = defaultOpts.mkBool true "Whether the cpu has integrated graphics or not.";
     };
 
-    gpu = defaultOpts.mkEnumFirstDefault [null "nvidia"] ''
+    gpu = defaultOpts.mkEnumFirstDefault [null "nvidia" "hybrid-nv"] ''
       The manufacturer of the primary GPU.
     '';
   };
