@@ -1,6 +1,7 @@
 {
   imports = [
     ./boot
+    ./display
     ./fs
     ./network
     ./programs

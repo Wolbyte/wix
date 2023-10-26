@@ -1,6 +1,7 @@
 {
   imports = [
     ./env.nix
-    ./system
+    ./portals.nix
+    ./services.nix
   ];
 }
