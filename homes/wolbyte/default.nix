@@ -1,5 +1,9 @@
 {lib, ...}:
 with lib; {
+  imports = [
+    ./graphical
+  ];
+
   config = {
     systemd.user.startServices = mkDefault "sd-switch";
 

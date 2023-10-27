@@ -17,6 +17,6 @@ with lib.wb; {
       enable = mkEnableOption "graphical/video related features";
     };
 
-    users = mkOpt (types.listOf types.string) ["wolbyte"] "List of home-manager users on the system.";
+    users = mkOpt (types.listOf types.str) ["wolbyte"] "List of home-manager users on the system.";
   };
 }
