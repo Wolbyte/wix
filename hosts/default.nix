@@ -8,6 +8,8 @@ with lib;
 with lib.wb; let
   inherit (self) inputs;
 
+  hm = inputs.home-manager.nixosModules.home-manager;
+
   modulesPath = ../modules;
 
   coreModules = modulesPath + "/core";
@@ -15,7 +17,8 @@ with lib.wb; let
 
   shared = [commonModules];
 
-  homes = [];
+  homesDir = ../homes;
+  homes = [homesDir hm];
 
   sharedArgs = {inherit inputs self lib;};
 in

@@ -16,5 +16,7 @@ with lib.wb; {
     video = {
       enable = mkEnableOption "graphical/video related features";
     };
+
+    users = mkOpt (types.listOf types.string) ["wolbyte"] "List of home-manager users on the system.";
   };
 }
