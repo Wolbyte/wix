@@ -2,6 +2,7 @@
 with lib;
 with lib.wb; {
   imports = [
+    ./environment
     ./hardware
     ./media
     ./nix
