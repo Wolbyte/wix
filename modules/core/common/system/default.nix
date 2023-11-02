@@ -6,6 +6,7 @@ with lib.wb; {
     ./hardware
     ./media
     ./nix
+    ./security
     ./os
   ];
 
