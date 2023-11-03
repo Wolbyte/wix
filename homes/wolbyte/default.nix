@@ -2,6 +2,7 @@
 with lib; {
   imports = [
     ./graphical
+    ./packages
   ];
 
   config = {

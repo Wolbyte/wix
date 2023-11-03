@@ -2,16 +2,32 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+with lib;
+with lib.wb; {
   imports = [./default-programs.nix];
 
-  programs = {
-    bash = {
-      promptInit = "eval $(${lib.getExe pkgs.starship} init bash)";
+  options.wb = {
+    programs = {
+      cli = {
+        enable = defaultOpts.mkBool false "Enable CLI apps.";
+      };
+
+      gui = {
+        enable = defaultOpts.mkBool false "Enable GUI apps.";
+      };
     };
+  };
 
-    less.enable = true;
+  config = {
+    programs = {
+      bash = {
+        promptInit = "eval $(${getExe pkgs.starship} init bash)";
+      };
 
-    thefuck.enable = true;
+      less.enable = true;
+
+      thefuck.enable = true;
+    };
   };
 }
