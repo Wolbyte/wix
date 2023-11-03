@@ -13,9 +13,14 @@ with lib.wb; let
   modulesPath = ../modules;
 
   coreModules = modulesPath + "/core";
+
+  profileModules = coreModules + "/profiles";
   commonModules = coreModules + "/common";
 
-  shared = [commonModules];
+  shared = [
+    commonModules
+    profileModules
+  ];
 
   homesDir = ../homes;
   homes = [homesDir hm];
