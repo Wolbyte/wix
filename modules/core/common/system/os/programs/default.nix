@@ -16,6 +16,10 @@ with lib.wb; {
       gui = {
         enable = defaultOpts.mkBool false "Enable GUI apps.";
       };
+
+      git = {
+        signingKey = defaultOpts.mkStr "" "The default signing key.";
+      };
     };
   };
 
