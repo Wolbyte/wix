@@ -14,6 +14,9 @@
       };
 
       programs = {
+        cli.enable = true;
+        gui.enable = true;
+
         git.signingKey = "0AFE0739FF35365A17725F3441332534F8740D00";
       };
 
