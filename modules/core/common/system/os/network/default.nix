@@ -15,4 +15,14 @@ with lib; {
       dns = "systemd-resolved";
     };
   };
+
+  systemd = {
+    network.wait-online.enable = false;
+    services = {
+      NetworkManager-wait-online.enable = false;
+
+      systemd-networkd.stopIfChanged = false;
+      systemd-resolved.stopIfChanged = false;
+    };
+  };
 }

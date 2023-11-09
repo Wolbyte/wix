@@ -1,8 +1,4 @@
-{
-  pkgs,
-  defaults,
-  ...
-}: {
+{defaults, ...}: {
   wayland.windowManager.hyprland = {
     settings = {
       "$MOD" = "SUPER";
@@ -53,7 +49,22 @@
         "$MOD,mouse:273,resizewindow"
       ];
     };
-  };
 
-  home.packages = with pkgs; [kitty neovim];
+    extraConfig = with builtins; ''
+      ${
+        concatStringsSep "\n"
+        (genList (
+            x: let
+              ws = toString (
+                x + 1 - (((x + 1) / 10) * 10)
+              );
+            in ''
+              bind = $MOD, ${ws}, workspace, ${toString (x + 1)}
+              bind = $MODSHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}
+            ''
+          )
+          10)
+      }
+    '';
+  };
 }
