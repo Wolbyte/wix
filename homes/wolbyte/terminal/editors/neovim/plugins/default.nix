@@ -1,0 +1,25 @@
+{
+  imports = [
+    ./alpha.nix
+    ./bufferline.nix
+    ./completion.nix
+    ./editing-support.nix
+    ./dap.nix
+    ./git.nix
+    ./indent-blankline.nix
+    ./lsp
+    ./lualine.nix
+    ./mini.nix
+    ./neo-tree.nix
+    ./notify.nix
+    ./none-ls.nix
+    ./nvim-autopairs.nix
+    ./nvim-ufo.nix
+    ./telescope.nix
+    ./todo-comments.nix
+    ./toggleterm.nix
+    ./treesitter.nix
+    ./trouble.nix
+    ./which-key.nix
+  ];
+}
