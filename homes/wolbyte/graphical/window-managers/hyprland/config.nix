@@ -1,10 +1,43 @@
-{defaults, ...}: {
+{
+  defaults,
+  config,
+  lib,
+  ...
+}:
+with lib; let
+  inherit (config.colorscheme) colors;
+
+  pointer = config.home.pointerCursor;
+in {
   wayland.windowManager.hyprland = {
     settings = {
       "$MOD" = "SUPER";
 
+      exec-once = [
+        "hyprctl setcursor ${pointer.name} ${toString pointer.size}"
+      ];
+
       input = {
         follow_mouse = 1;
+      };
+
+      general = {
+        "col.active_border" = "0xff${colors.base0C}";
+        "col.inactive_border" = "0xff${colors.base02}";
+      };
+
+      group = {
+        "col.border_active" = "0xff${colors.base0B}";
+        "col.border_inactive" = "0xff${colors.base04}";
+
+        groupbar = {
+          text_color = "0xff${colors.base05}";
+          gradients = false;
+          render_titles = false;
+          scrolling = true;
+          "col.active" = "0xff${colors.base0B}";
+          "col.inactive" = "0xff${colors.base04}";
+        };
       };
 
       decoration = {

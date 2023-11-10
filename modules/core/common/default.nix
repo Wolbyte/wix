@@ -3,5 +3,6 @@
     ./device
     ./env
     ./system
+    ./theme
   ];
 }

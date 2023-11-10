@@ -1,5 +1,6 @@
 {
   osConfig,
+  config,
   inputs,
   lib,
   ...
@@ -7,6 +8,7 @@
 with lib; let
   inherit (osConfig.wb) device;
   acceptedTypes = ["desktop" "hybrid"];
+  inherit (config.colorscheme) colors;
 in {
   imports = [inputs.schizofox.homeManagerModule];
 
@@ -14,7 +16,14 @@ in {
     programs.schizofox = {
       enable = true;
 
-      # TODO: add colors
+      theme = {
+        background-darker = "${colors.base00}";
+        background = "${colors.base01}";
+        foreground = "${colors.base05}";
+        font = "Lexend";
+        simplefox.enable = false;
+        darkreader.enable = true;
+      };
 
       extensions = {
         defaultExtensions = {};

@@ -4,6 +4,7 @@ with lib; {
     ./graphical
     ./packages
     ./terminal
+    ./theme
   ];
 
   config = {

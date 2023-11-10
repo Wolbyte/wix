@@ -33,13 +33,24 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     hyprland.url = "github:hyprwm/Hyprland";
+
+    base16-schemes = {
+      url = "github:tinted-theming/base16-schemes";
+      flake = false;
+    };
+
+    nix-colors = {
+      url = "github:misterio77/nix-colors";
+      inputs = {
+        base16-schemes.follows = "base16-schemes";
+        nixpkgs-lib.follows = "nixpkgs";
+      };
+    };
 
     nix-gaming = {
       url = "github:fufexan/nix-gaming";
