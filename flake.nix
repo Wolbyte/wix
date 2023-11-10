@@ -77,5 +77,10 @@
         nixpak.follows = "nixpak";
       };
     };
+
+    spicetify = {
+      url = "github:the-argus/spicetify-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 }
