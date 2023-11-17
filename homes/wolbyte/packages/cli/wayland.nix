@@ -16,6 +16,7 @@ in {
       grim
       slurp
       wl-clipboard
+      wtype
     ];
   };
 }

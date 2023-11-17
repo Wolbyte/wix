@@ -9,5 +9,4 @@ in {
   ];
 
   colorscheme = colorSchemes.rose-pine;
-  # colorscheme = colorSchemes.catppuccin-mocha;
 }

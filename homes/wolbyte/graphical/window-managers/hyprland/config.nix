@@ -56,6 +56,10 @@ in {
 
         "$MOD, RETURN, exec, ${defaults.terminal}"
 
+        "$MOD, D, exec, pkill rofi || rofi -show drun"
+        "$MOD, equal, exec, pkill rofi || rofi -show calc"
+        "$MOD, period, exec, pkill rofi || rofi -show emoji"
+
         # Window manipulation
         "$MOD, Q, killactive"
         "$MOD, T, togglegroup"
