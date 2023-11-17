@@ -3,6 +3,7 @@ with lib; {
   imports = [
     ./graphical
     ./packages
+    ./services
     ./terminal
     ./theme
   ];
