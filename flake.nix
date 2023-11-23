@@ -82,5 +82,10 @@
       url = "github:the-argus/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    wallnix = {
+      url = "github:wolbyte/wallnix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 }

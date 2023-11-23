@@ -529,7 +529,8 @@
         "nixpkgs": "nixpkgs_2",
         "nixvim": "nixvim",
         "schizofox": "schizofox",
-        "spicetify": "spicetify"
+        "spicetify": "spicetify",
+        "wallnix": "wallnix"
       }
     },
     "schizofox": {
@@ -656,6 +657,26 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "wallnix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1700674190,
+        "narHash": "sha256-fyUami6eK1uW3N8QDSodpvVplE0fI7sfcMlJo9h2/6c=",
+        "owner": "wolbyte",
+        "repo": "wallnix",
+        "rev": "287f00ebc32b6c8305c77501d4b4f9702bf9ce19",
+        "type": "github"
+      },
+      "original": {
+        "owner": "wolbyte",
+        "repo": "wallnix",
         "type": "github"
       }
     },
