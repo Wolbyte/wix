@@ -136,8 +136,25 @@ in {
         "$MOD, bracketleft, workspace, e-1"
       ];
 
+      # Keybinds that will activate even while input inhibition is active
+      bindl = [
+        # Media Control
+        ", XF86AudioNext, exec, playerctl next"
+        ", XF86AudioPrev, exec, playerctl previous"
+        ", XF86AudioPlay, exec, playerctl play-pause"
+        "$MODCTRL, PRIOR, exec, playerctl next"
+        "$MODCTRL, NEXT,  exec, playerctl previous"
+        "$MODCTRL, PAUSE, exec, playerctl play-pause"
+      ];
+
       # Keybinds that can be repeated
       binde = [
+        # Volume Control
+        ", XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +5%"
+        ", XF86AudioLowerVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ -5%"
+        "$MODCTRL, up, exec, pactl set-sink-volume @DEFAULT_SINK@ +5%"
+        "$MODCTRL, down, exec, pactl set-sink-volume @DEFAULT_SINK@ -5%"
+
         # Window resize
         "$MODCTRL, H, resizeactive, -50 0"
         "$MODCTRL, L, resizeactive, 50 0"
