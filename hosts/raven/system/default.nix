@@ -1,4 +1,6 @@
 {
+  imports = [./desktop.nix];
+
   config = {
     wb = {
       device = {

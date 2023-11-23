@@ -9,8 +9,8 @@
 
   # Colorscheme
   # https://github.com/kdrag0n/base16-kitty
-  foreground = "#${colors.base05}";
   background = "#${colors.base00}";
+  foreground = "#${colors.base05}";
   selection_background = "#${colors.base05}";
   selection_foreground = "#${colors.base00}";
   url_color = "#${colors.base04}";
@@ -22,6 +22,8 @@
   inactive_tab_background = "#${colors.base01}";
   inactive_tab_foreground = "#${colors.base04}";
   tab_bar_background = "#${colors.base01}";
+
+  # normal
   color0 = "#${colors.base00}";
   color1 = "#${colors.base08}";
   color2 = "#${colors.base0B}";
@@ -30,6 +32,8 @@
   color5 = "#${colors.base0E}";
   color6 = "#${colors.base0C}";
   color7 = "#${colors.base05}";
+
+  # bright
   color8 = "#${colors.base03}";
   color9 = "#${colors.base08}";
   color10 = "#${colors.base0B}";
@@ -38,6 +42,8 @@
   color13 = "#${colors.base0E}";
   color14 = "#${colors.base0C}";
   color15 = "#${colors.base07}";
+
+  # extended base16 colors
   color16 = "#${colors.base09}";
   color17 = "#${colors.base0F}";
   color18 = "#${colors.base01}";
