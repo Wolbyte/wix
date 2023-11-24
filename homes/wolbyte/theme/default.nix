@@ -8,5 +8,6 @@ in {
     ./qt.nix
   ];
 
+  # TODO: find a more proper base16 theme for rose-pine
   colorscheme = colorSchemes.rose-pine;
 }

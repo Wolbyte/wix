@@ -29,6 +29,8 @@ with lib.wb; {
         promptInit = "eval $(${getExe pkgs.starship} init bash)";
       };
 
+      zsh.enable = true;
+
       less.enable = true;
 
       thefuck.enable = true;

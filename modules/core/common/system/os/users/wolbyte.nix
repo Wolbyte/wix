@@ -11,8 +11,6 @@
 in {
   boot.initrd.network.ssh.authorizedKeys = keys;
 
-  programs.fish.enable = true;
-
   users.users.wolbyte = {
     isNormalUser = true;
 
@@ -32,7 +30,7 @@ in {
       ];
 
     uid = 1001;
-    shell = pkgs.fish;
+    shell = pkgs.zsh;
     initialPassword = "changeme";
     openssh.authorizedKeys.keys = keys;
   };
