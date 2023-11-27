@@ -1,7 +1,6 @@
 {
   osConfig,
   config,
-  lib,
   ...
 }: let
   sys = osConfig.wb.system;
@@ -19,7 +18,7 @@ in {
       maxCacheTtl = 1209600;
       maxCacheTtlSsh = 1209600;
 
-      # TODO: add zsh
+      enableZshIntegration = true;
     };
   };
 
