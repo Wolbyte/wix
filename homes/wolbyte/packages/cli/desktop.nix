@@ -17,6 +17,7 @@ in {
       gcc
       imagemagick
       libnotify
+      pamixer
     ];
   };
 }

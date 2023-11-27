@@ -14,8 +14,10 @@ in {
       fd
       file
       fzf
+      jq
       ripgrep
       rsync
+      socat
       unzip
     ];
   };

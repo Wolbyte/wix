@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+workspaces() {
+  WORKSPACES="["
+
+  for WORKSPACE in $(bspc query -D --names); do
+    WINDOW_COUNT=$(bspc query -N -d $WORKSPACE -n .window | wc -l)
+    WORKSPACES+="{\"id\": $WORKSPACE, \"windows\": $WINDOW_COUNT, \"inactive_icon\": \"\", \"active_icon\": \"\"},"
+  done
+
+  echo "${WORKSPACES::-1}]"
+}
+
+workspaces
+
+bspc subscribe desktop node_transfer | while read -r _ ; do
+workspaces
+done
+

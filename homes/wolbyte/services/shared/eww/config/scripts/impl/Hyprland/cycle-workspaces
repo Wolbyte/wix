@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+if test $1 = "up"
+then
+  hyprctl dispatch workspace e+1
+elif test $1 = "down"
+then
+  hyprctl dispatch workspace e-1
+fi

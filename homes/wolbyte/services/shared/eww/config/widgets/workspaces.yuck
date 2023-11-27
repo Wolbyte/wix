@@ -1,0 +1,26 @@
+(deflisten workspaces :initial "[]" "bash ~/.config/eww/scripts/exec-wm-impl get-workspaces")
+(deflisten current_workspace :initial "1" "bash ~/.config/eww/scripts/exec-wm-impl get-active-workspace")
+
+(defwidget workspaces []
+  (eventbox :onscroll "bash ~/.config/eww/scripts/exec-wm-impl cycle-workspaces {}" :class "workspaces-widget"
+    (box :space-evenly false :spacing 5
+      (label :text "${workspaces}${current_workspace}" :visible false)
+      (for workspace in workspaces
+        (eventbox :onclick "bash ~/.config/eww/scripts/exec-wm-impl change-workspace ${workspace.id}"
+          (box :class "ws ${workspace.id == current_workspace ? "active" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}"
+            (label :text "${workspace.id == current_workspace ? workspace.active_icon : workspace.inactive_icon} " )
+          )
+        )
+      )
+      (box
+        :class "active-ws-indicator"
+        :height "30"
+        :width "30"
+
+        (label 
+          :text "${current_workspace}"
+        )
+      )
+    )
+  )
+)

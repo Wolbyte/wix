@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+active_workspace() {
+  bspc query -D -d .active --names
+}
+
+active_workspace
+
+bspc subscribe desktop node_transfer | while read -r _ ; do
+active_workspace
+done

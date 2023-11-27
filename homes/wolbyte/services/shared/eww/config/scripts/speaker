@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+case $1 in
+  "*") COMMAND="";;
+  "up") COMMAND="--allow-boost -i 5";;
+  "down") COMMAND="-d 5";;
+  "toggle") COMMAND="-t";;
+esac
+
+print_speaker_data() {
+  if test $(pamixer --get-mute) = "true"; then
+    VOLUME="mute"
+    ICON=""
+  else
+    VOLUME=$(pamixer --get-volume)
+    if [ "$VOLUME" -gt 60 ]; then
+      ICON=""
+    elif [ "$VOLUME" -gt 30 ]; then
+      ICON=""
+    elif [ "$VOLUME" -gt 0 ]; then
+      ICON=""
+    else
+      ICON=""
+    fi
+    VOLUME="$VOLUME%"
+  fi
+
+  echo "{\"content\": \"$VOLUME\", \"icon\": \"$ICON\"}"
+}
+
+if [ -n "$COMMAND" ]; then
+  pamixer $COMMAND
+else
+  print_speaker_data
+
+  pactl subscribe | grep --line-buffered "Event 'change' on sink " | while read -r _; do
+    print_speaker_data
+  done
+fi

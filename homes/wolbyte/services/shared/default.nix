@@ -1,6 +1,7 @@
 {
   imports = [
     ./dunst
+    ./eww
     ./polkit
   ];
 }

@@ -1,0 +1,19 @@
+(defwidget icon-button [icon ?class ?content ?onclick ?onscroll]
+  (eventbox 
+    :class "${class} icon-button"
+    :onscroll `${onscroll}`
+    :onclick `${onclick}`
+    :cursor "pointer"
+
+    (box
+      :halign "end"
+      :orientation "h"
+      :space-evenly false
+
+      (label :class "icon-button__icon" :text "${icon}")
+      (label :text "${content}")
+      (children)
+    )
+  )
+)
+
