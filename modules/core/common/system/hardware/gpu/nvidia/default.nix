@@ -27,13 +27,19 @@ in {
 
         (mkIf env.isWayland {
           WLR_NO_HARDWARE_CURSORS = "1";
+          __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+          GBM_BACKEND = "nvidia-drm";
         })
       ];
 
       systemPackages = with pkgs; [
+        mesa
+
         vulkan-tools
         vulkan-loader
         vulkan-validation-layers
+        vulkan-extension-layer
+
         libva
         libva-utils
       ];
