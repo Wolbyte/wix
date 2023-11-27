@@ -5,7 +5,7 @@
   ...
 }:
 with lib; let
-  inherit (osConfig.wb) device env;
+  inherit (osConfig.wb) env;
   sys = osConfig.wb.system;
 in {
   imports = [./config.nix];
@@ -15,7 +15,6 @@ in {
       enable = true;
       package = inputs'.hyprland.packages.default;
 
-      enableNvidiaPatches = device.gpu == "nvidia" || device.gpu == "hybrid-nv";
       xwayland.enable = true;
 
       systemd = {

@@ -16,6 +16,19 @@ in {
         pkgs.xdg-desktop-portal-gtk
       ];
 
+      config = {
+        common = let
+          portal =
+            if env.desktopEnv == "Hyprland"
+            then "hyprland"
+            else "wlr";
+        in {
+          default = "gtk";
+          "org.freedesktop.impl.portal.Screencast" = "${portal}";
+          "org.freedesktop.impl.portal.Screenshot" = "${portal}";
+        };
+      };
+
       wlr = {
         enable = mkForce (env.isWayland && env.desktopEnv != "Hyprland");
         settings = {
