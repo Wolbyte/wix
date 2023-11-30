@@ -30,6 +30,13 @@
 
         audio.enable = true;
         video.enable = true;
+
+        virtualization = {
+          enable = true;
+
+          docker.enable = true;
+          podman.enable = true;
+        };
       };
     };
   };

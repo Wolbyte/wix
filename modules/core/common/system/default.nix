@@ -8,6 +8,7 @@ with lib.wb; {
     ./nix
     ./security
     ./os
+    ./virtualization
   ];
 
   options.wb.system = {
