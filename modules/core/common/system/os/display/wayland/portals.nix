@@ -1,5 +1,6 @@
 {
   pkgs,
+  inputs',
   config,
   lib,
   ...
@@ -12,9 +13,13 @@ in {
     xdg.portal = {
       enable = true;
 
-      extraPortals = [
-        pkgs.xdg-desktop-portal-gtk
-      ];
+      extraPortals =
+        [
+          pkgs.xdg-desktop-portal-gtk
+        ]
+        ++ (optionals (env.desktopEnv == "Hyprland") [
+          inputs'.xdg-portal-hyprland.packages.xdg-desktop-portal-hyprland
+        ]);
 
       config = {
         common = let

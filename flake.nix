@@ -45,6 +45,7 @@
     };
 
     hyprland.url = "github:hyprwm/Hyprland";
+    xdg-portal-hyprland.url = "github:hyprwm/xdg-desktop-portal-hyprland";
 
     base16-schemes = {
       url = "github:tinted-theming/base16-schemes";
