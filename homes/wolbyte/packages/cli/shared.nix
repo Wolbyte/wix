@@ -15,6 +15,7 @@ in {
       file
       fzf
       jq
+      openvpn
       ripgrep
       rsync
       socat

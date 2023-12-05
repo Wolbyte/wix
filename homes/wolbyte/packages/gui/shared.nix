@@ -13,6 +13,15 @@ with lib; let
 in {
   config = mkIf (isAccepted && system.video.enable && programs.gui.enable) {
     home.packages = with pkgs; [
+      gnome.gnome-calendar
+
+      plasma5Packages.dolphin
+      plasma5Packages.dolphin-plugins
+      plasma5Packages.kio
+      plasma5Packages.kio-extras
+      plasma5Packages.kimageformats
+      plasma5Packages.kdegraphics-thumbnailers
+
       telegram-desktop
     ];
   };
