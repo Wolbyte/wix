@@ -9,7 +9,7 @@ in {
     };
 
     keymaps = with helpers;
-      mkKeymaps {
+      mkKeymaps {} {
         n = {
           "<leader>T" = helpers.mkCmdMap "TroubleToggle" "Toggle Trouble";
         };

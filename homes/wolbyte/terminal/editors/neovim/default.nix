@@ -1,4 +1,8 @@
-{pkgs, inputs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   imports = [
     inputs.nixvim.homeManagerModules.nixvim
 
@@ -13,7 +17,9 @@
   programs.nixvim = {
     enable = true;
 
-    globals.format_on_save = true;
+    globals = {
+      format_on_save = true;
+    };
 
     extraPlugins = with pkgs.vimPlugins; [
       smart-splits-nvim

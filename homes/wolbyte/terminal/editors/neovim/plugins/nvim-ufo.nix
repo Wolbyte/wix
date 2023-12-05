@@ -36,7 +36,7 @@ in {
     };
 
     keymaps = with helpers;
-      mkKeymaps {
+      mkKeymaps {} {
         n = {
           zR = mkLuaMap "require('ufo').openAllFolds" "Open all folds (nvim-ufo)";
           zM = mkLuaMap "require('ufo').closeAllFolds" "Close all folds (nvim-ufo)";

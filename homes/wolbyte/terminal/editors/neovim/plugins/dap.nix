@@ -39,7 +39,7 @@ in {
     };
 
     keymaps = with helpers;
-      mkKeymaps {
+      mkKeymaps {} {
         n = {
           "<leader>db" = mkLuaMap "require('dap').toggle_breakpoint" "Toggle Breakpoint";
           "<leader>dc" = mkLuaMap "require('dap').continue" "Start/Continue";

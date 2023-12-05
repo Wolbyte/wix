@@ -13,7 +13,7 @@ in {
     };
 
     keymaps = with helpers;
-      mkKeymaps {
+      mkKeymaps {} {
         n = {
           ca = mkCmdMap "Lspsaga code_action" "LSP Code Action";
           gd = mkCmdMap "Lspsaga goto_definition" "Goto Definition";

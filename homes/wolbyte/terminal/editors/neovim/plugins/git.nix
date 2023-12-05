@@ -20,7 +20,7 @@ in {
     };
 
     keymaps = with helpers;
-      mkKeymaps {
+      mkKeymaps {} {
         n = {
           # Gitsigns
           "<leader>gl" = mkLuaMap "require('gitsigns').blame_line" "View Git blame";

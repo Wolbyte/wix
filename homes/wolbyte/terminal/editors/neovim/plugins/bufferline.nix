@@ -53,7 +53,7 @@ in {
     };
 
     keymaps = with helpers;
-      mkKeymaps {
+      mkKeymaps {} {
         n = {
           "<A-l>" = mkCmdMap "BufferLineCycleNext" "Cycle next buffer";
           "<A-h>" = mkCmdMap "BufferLineCyclePrev" "Cycle previous buffer";

@@ -12,7 +12,7 @@ with lib; rec {
   mkCmdMap = action: desc: mkKeymap "<cmd>${action}<CR>" desc false;
   mkRawMap = action: desc: mkKeymap action desc false;
 
-  mkKeymaps = {
+  mkKeymaps = defaults: {
     n ? {},
     i ? {},
     v ? {},
@@ -24,7 +24,7 @@ with lib; rec {
     mkMerge (
       mapAttrsToList (
         mode:
-          mapAttrsToList (key: props: {inherit key mode;} // props)
+          mapAttrsToList (key: props: {inherit key mode;} // defaults // props)
       )
       args
     );

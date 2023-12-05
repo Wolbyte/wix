@@ -50,7 +50,7 @@ in {
     };
 
     keymaps = with helpers;
-      mkKeymaps {
+      mkKeymaps {} {
         n = {
           "<leader>f<CR>" = mkTelescopeBind "resume" "Resume previous search";
           "<leader>f'" = mkTelescopeBind "marks" "Find marks";

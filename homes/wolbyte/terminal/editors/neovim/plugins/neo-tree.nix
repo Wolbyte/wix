@@ -67,7 +67,7 @@ in {
     };
 
     keymaps = with helpers;
-      mkKeymaps {
+      mkKeymaps {} {
         n = {
           "<leader>e" = mkCmdMap "Neotree toggle" "Toggle explorer";
           "<leader>o" =

@@ -4,7 +4,7 @@ in {
   programs.nixvim = {
     globals.mapleader = " ";
 
-    keymaps = with helpers; (mkKeymaps {
+    keymaps = with helpers; (mkKeymaps {} {
       n = {
         "<C-h>" = mkLuaMap "require('smart-splits').move_cursor_left" "Move to left split";
         "<C-j>" = mkLuaMap "require('smart-splits').move_cursor_down" "Move to below split";

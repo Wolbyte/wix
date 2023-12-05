@@ -33,7 +33,7 @@ in {
     };
 
     keymaps = with helpers;
-      mkKeymaps {
+      mkKeymaps {} {
         n = {
           "<leader>tf" = mkCmdMap "ToggleTerm direction=float" "ToggleTerm float";
           "<leader>th" = mkCmdMap "ToggleTerm size=10 direction=horizontal" "ToggleTerm horizontal split";
