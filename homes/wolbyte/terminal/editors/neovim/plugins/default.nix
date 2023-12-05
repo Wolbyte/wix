@@ -10,6 +10,7 @@
     ./lsp
     ./lualine.nix
     ./mini.nix
+    ./molten.nix
     ./neo-tree.nix
     ./notify.nix
     ./none-ls.nix
