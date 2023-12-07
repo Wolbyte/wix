@@ -1,4 +1,10 @@
-{config, ...}: let
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
+with lib; let
   browser = ["Schizofox.desktop"];
   fileManager = ["org.kde.dolphin.desktop"];
   zathura = ["org.pwmt.zathura.desktop.desktop"];
@@ -62,4 +68,12 @@ in {
       defaultApplications = associations;
     };
   };
+
+  home.packages = with pkgs;
+    [
+      xdg-utils
+    ]
+    ++ (optionals config.xdg.userDirs.enable [
+      xdg-user-dirs
+    ]);
 }
