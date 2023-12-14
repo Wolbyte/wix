@@ -55,7 +55,8 @@ in {
           finegrained = mkDefault device.gpu == "hybrid-nv";
         };
 
-        open = mkDefault true;
+        # TODO: change to true once nvidia-open works with vaapi
+        open = mkDefault false;
         nvidiaPersistenced = true;
         forceFullCompositionPipeline = true;
       };
