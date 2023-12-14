@@ -43,9 +43,13 @@ in {
         '';
       };
 
-      none-ls.sources = {
-        diagnostics.cppcheck.enable = true;
+      none-ls = {
+        sourcesItems = [
+          {__raw = "require('null-ls').builtins.formatting.clang_format";}
+          {__raw = "require('null-ls').builtins.diagnostics.clang_check";}
+        ];
       };
     };
+    extraPackages = with pkgs; [clang-tools];
   };
 }
