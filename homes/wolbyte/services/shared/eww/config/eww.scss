@@ -4,9 +4,25 @@
   border-radius: 10px;
 }
 
+.tray {
+  all: unset;
+
+  widget {
+    window menu menuitem:hover {
+      background-color: $base0D;
+      color: $base00;
+    }
+
+    window menu {
+      background-color: $base00;
+    }
+  }
+}
+
 // icon-button
 .icon-button {
   font-size: 14px;
+
   &__icon {
     font-family: "FiraCode Nerd Font";
     margin-right: 5px;
@@ -15,7 +31,7 @@
 
 // random-quote
 .random-quote label {
-  color: $base0A
+  color: $base0A;
 }
 
 // speaker-widget
@@ -27,9 +43,18 @@
 
 // workspace-widget
 .ws {
-  &.empty { color: $base0F; }
-  &.occupied { color: $base05; }
-  &.active { color: $base0D; }
+  &.empty {
+    color: $base0F;
+  }
+
+  &.occupied {
+    color: $base05;
+  }
+
+  &.active {
+    color: $base0D;
+  }
+
   font-family: "FiraCode Nerd Font";
   font-size: 16px;
 }

@@ -1,0 +1,637 @@
+From b969a6b9f97e64f6fb42b7fe6ebdcbf7a5d07bae Mon Sep 17 00:00:00 2001
+From: MoetaYuko <loli@yuko.moe>
+Date: Sat, 30 Dec 2023 17:31:00 +0800
+Subject: [PATCH 1/3] systray: watch the proper signal for new title
+
+---
+ crates/eww/src/widgets/systray.rs | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/crates/eww/src/widgets/systray.rs b/crates/eww/src/widgets/systray.rs
+index 65018d45..23516924 100644
+--- a/crates/eww/src/widgets/systray.rs
++++ b/crates/eww/src/widgets/systray.rs
+@@ -166,7 +166,7 @@ impl Item {
+ 
+         // updates
+         let mut status_updates = item.sni.receive_new_status().await?;
+-        let mut title_updates = item.sni.receive_new_status().await?;
++        let mut title_updates = item.sni.receive_new_title().await?;
+         let mut icon_updates = item.sni.receive_new_icon().await?;
+ 
+         loop {
+
+From 350fb7a69bfabfcc2be2d9fd2c01c61b041dd1b6 Mon Sep 17 00:00:00 2001
+From: MoetaYuko <loli@yuko.moe>
+Date: Wed, 27 Dec 2023 12:32:32 +0800
+Subject: [PATCH 2/3] systray: handle mouse click events
+
+---
+ crates/eww/src/app.rs             | 23 ++++++-----
+ crates/eww/src/display_backend.rs | 24 ++++++------
+ crates/eww/src/widgets/mod.rs     |  1 +
+ crates/eww/src/widgets/systray.rs | 47 +++++++++++++++++++++++
+ crates/eww/src/widgets/window.rs  | 64 +++++++++++++++++++++++++++++++
+ 5 files changed, 137 insertions(+), 22 deletions(-)
+ create mode 100644 crates/eww/src/widgets/window.rs
+
+diff --git a/crates/eww/src/app.rs b/crates/eww/src/app.rs
+index a3bc918a..313b6bd9 100644
+--- a/crates/eww/src/app.rs
++++ b/crates/eww/src/app.rs
+@@ -7,6 +7,7 @@ use crate::{
+     paths::EwwPaths,
+     script_var_handler::ScriptVarHandlerHandle,
+     state::scope_graph::{ScopeGraph, ScopeIndex},
++    widgets::window::Window,
+     window_arguments::WindowArguments,
+     window_initiator::WindowInitiator,
+     *,
+@@ -92,7 +93,7 @@ pub struct EwwWindow {
+     pub instance_id: String,
+     pub name: String,
+     pub scope_index: ScopeIndex,
+-    pub gtk_window: gtk::Window,
++    pub gtk_window: Window,
+     pub destroy_event_handler_id: Option<glib::SignalHandlerId>,
+ }
+ 
+@@ -525,15 +526,21 @@ fn initialize_window<B: DisplayBackend>(
+     window_scope: ScopeIndex,
+ ) -> Result<EwwWindow> {
+     let monitor_geometry = monitor.geometry();
+-    let window = B::initialize_window(window_init, monitor_geometry)
++    let (actual_window_rect, x, y) = match window_init.geometry {
++        Some(geometry) => {
++            let rect = get_window_rectangle(geometry, monitor_geometry);
++            (Some(rect), rect.x(), rect.y())
++        }
++        _ => (None, 0, 0),
++    };
++    let window = B::initialize_window(window_init, monitor_geometry, x, y)
+         .with_context(|| format!("monitor {} is unavailable", window_init.monitor.clone().unwrap()))?;
+ 
+     window.set_title(&format!("Eww - {}", window_init.name));
+     window.set_position(gtk::WindowPosition::None);
+     window.set_gravity(gdk::Gravity::Center);
+ 
+-    if let Some(geometry) = window_init.geometry {
+-        let actual_window_rect = get_window_rectangle(geometry, monitor_geometry);
++    if let Some(actual_window_rect) = actual_window_rect {
+         window.set_size_request(actual_window_rect.width(), actual_window_rect.height());
+         window.set_default_size(actual_window_rect.width(), actual_window_rect.height());
+     }
+@@ -576,11 +583,7 @@ fn initialize_window<B: DisplayBackend>(
+ 
+ /// Apply the provided window-positioning rules to the window.
+ #[cfg(feature = "x11")]
+-fn apply_window_position(
+-    mut window_geometry: WindowGeometry,
+-    monitor_geometry: gdk::Rectangle,
+-    window: &gtk::Window,
+-) -> Result<()> {
++fn apply_window_position(mut window_geometry: WindowGeometry, monitor_geometry: gdk::Rectangle, window: &Window) -> Result<()> {
+     let gdk_window = window.window().context("Failed to get gdk window from gtk window")?;
+     window_geometry.size = Coords::from_pixels(window.size());
+     let actual_window_rect = get_window_rectangle(window_geometry, monitor_geometry);
+@@ -594,7 +597,7 @@ fn apply_window_position(
+     Ok(())
+ }
+ 
+-fn on_screen_changed(window: &gtk::Window, _old_screen: Option<&gdk::Screen>) {
++fn on_screen_changed(window: &Window, _old_screen: Option<&gdk::Screen>) {
+     let visual = gtk::prelude::GtkWindowExt::screen(window)
+         .and_then(|screen| screen.rgba_visual().filter(|_| screen.is_composited()).or_else(|| screen.system_visual()));
+     window.set_visual(visual.as_ref());
+diff --git a/crates/eww/src/display_backend.rs b/crates/eww/src/display_backend.rs
+index e653123e..04d5e2d8 100644
+--- a/crates/eww/src/display_backend.rs
++++ b/crates/eww/src/display_backend.rs
+@@ -1,4 +1,4 @@
+-use crate::window_initiator::WindowInitiator;
++use crate::{widgets::window::Window, window_initiator::WindowInitiator};
+ 
+ #[cfg(feature = "wayland")]
+ pub use platform_wayland::WaylandBackend;
+@@ -9,7 +9,7 @@ pub use platform_x11::{set_xprops, X11Backend};
+ pub trait DisplayBackend: Send + Sync + 'static {
+     const IS_X11: bool;
+ 
+-    fn initialize_window(window_init: &WindowInitiator, monitor: gdk::Rectangle) -> Option<gtk::Window>;
++    fn initialize_window(window_init: &WindowInitiator, monitor: gdk::Rectangle, x: i32, y: i32) -> Option<Window>;
+ }
+ 
+ pub struct NoBackend;
+@@ -17,14 +17,14 @@ pub struct NoBackend;
+ impl DisplayBackend for NoBackend {
+     const IS_X11: bool = false;
+ 
+-    fn initialize_window(_window_init: &WindowInitiator, _monitor: gdk::Rectangle) -> Option<gtk::Window> {
+-        Some(gtk::Window::new(gtk::WindowType::Toplevel))
++    fn initialize_window(_window_init: &WindowInitiator, _monitor: gdk::Rectangle, x: i32, y: i32) -> Option<Window> {
++        Some(Window::new(gtk::WindowType::Toplevel, x, y))
+     }
+ }
+ 
+ #[cfg(feature = "wayland")]
+ mod platform_wayland {
+-    use crate::window_initiator::WindowInitiator;
++    use crate::{widgets::window::Window, window_initiator::WindowInitiator};
+     use gtk::prelude::*;
+     use yuck::config::{window_definition::WindowStacking, window_geometry::AnchorAlignment};
+ 
+@@ -35,8 +35,8 @@ mod platform_wayland {
+     impl DisplayBackend for WaylandBackend {
+         const IS_X11: bool = false;
+ 
+-        fn initialize_window(window_init: &WindowInitiator, monitor: gdk::Rectangle) -> Option<gtk::Window> {
+-            let window = gtk::Window::new(gtk::WindowType::Toplevel);
++        fn initialize_window(window_init: &WindowInitiator, monitor: gdk::Rectangle, x: i32, y: i32) -> Option<Window> {
++            let window = Window::new(gtk::WindowType::Toplevel, x, y);
+             // Initialising a layer shell surface
+             gtk_layer_shell::init_for_window(&window);
+             // Sets the monitor where the surface is shown
+@@ -112,7 +112,7 @@ mod platform_wayland {
+ 
+ #[cfg(feature = "x11")]
+ mod platform_x11 {
+-    use crate::window_initiator::WindowInitiator;
++    use crate::{widgets::window::Window, window_initiator::WindowInitiator};
+     use anyhow::{Context, Result};
+     use gdk::Monitor;
+     use gtk::{self, prelude::*};
+@@ -135,10 +135,10 @@ mod platform_x11 {
+     impl DisplayBackend for X11Backend {
+         const IS_X11: bool = true;
+ 
+-        fn initialize_window(window_init: &WindowInitiator, _monitor: gdk::Rectangle) -> Option<gtk::Window> {
++        fn initialize_window(window_init: &WindowInitiator, _monitor: gdk::Rectangle, x: i32, y: i32) -> Option<Window> {
+             let window_type =
+                 if window_init.backend_options.x11.wm_ignore { gtk::WindowType::Popup } else { gtk::WindowType::Toplevel };
+-            let window = gtk::Window::new(window_type);
++            let window = Window::new(window_type, x, y);
+             window.set_resizable(window_init.resizable);
+             window.set_keep_above(window_init.stacking == WindowStacking::Foreground);
+             window.set_keep_below(window_init.stacking == WindowStacking::Background);
+@@ -151,7 +151,7 @@ mod platform_x11 {
+         }
+     }
+ 
+-    pub fn set_xprops(window: &gtk::Window, monitor: Monitor, window_init: &WindowInitiator) -> Result<()> {
++    pub fn set_xprops(window: &Window, monitor: Monitor, window_init: &WindowInitiator) -> Result<()> {
+         let backend = X11BackendConnection::new()?;
+         backend.set_xprops_for(window, monitor, window_init)?;
+         Ok(())
+@@ -171,7 +171,7 @@ mod platform_x11 {
+             Ok(X11BackendConnection { conn, root_window: screen.root, atoms })
+         }
+ 
+-        fn set_xprops_for(&self, window: &gtk::Window, monitor: Monitor, window_init: &WindowInitiator) -> Result<()> {
++        fn set_xprops_for(&self, window: &Window, monitor: Monitor, window_init: &WindowInitiator) -> Result<()> {
+             let monitor_rect = monitor.geometry();
+             let scale_factor = monitor.scale_factor() as u32;
+             let gdk_window = window.window().context("Couldn't get gdk window from gtk window")?;
+diff --git a/crates/eww/src/widgets/mod.rs b/crates/eww/src/widgets/mod.rs
+index 33ad4181..7e154075 100644
+--- a/crates/eww/src/widgets/mod.rs
++++ b/crates/eww/src/widgets/mod.rs
+@@ -7,6 +7,7 @@ pub mod graph;
+ mod systray;
+ pub mod transform;
+ pub mod widget_definitions;
++pub mod window;
+ 
+ /// Run a command that was provided as an attribute.
+ /// This command may use placeholders which will be replaced by the values of the arguments given.
+diff --git a/crates/eww/src/widgets/systray.rs b/crates/eww/src/widgets/systray.rs
+index 23516924..db2d4ef4 100644
+--- a/crates/eww/src/widgets/systray.rs
++++ b/crates/eww/src/widgets/systray.rs
+@@ -1,5 +1,7 @@
++use crate::widgets::window::Window;
+ use gtk::{cairo::Surface, gdk::ffi::gdk_cairo_surface_create_from_pixbuf, prelude::*};
+ use notifier_host::{self, export::ordered_stream::OrderedStreamExt};
++use std::{future::Future, rc::Rc};
+ 
+ // DBus state shared between systray instances, to avoid creating too many connections etc.
+ struct DBusSession {
+@@ -30,6 +32,11 @@ async fn dbus_session() -> zbus::Result<&'static DBusSession> {
+         .await
+ }
+ 
++fn run_async_task<F: Future>(f: F) -> F::Output {
++    let rt = tokio::runtime::Builder::new_current_thread().enable_all().build().expect("Failed to initialize tokio runtime");
++    rt.block_on(f)
++}
++
+ pub struct Props {
+     icon_size_tx: tokio::sync::watch::Sender<i32>,
+ }
+@@ -164,6 +171,46 @@ impl Item {
+         let scale = icon.scale_factor();
+         load_icon_for_item(&icon, &item, *icon_size.borrow_and_update(), scale).await;
+ 
++        let item = Rc::new(item);
++        let window =
++            widget.toplevel().expect("Failed to obtain toplevel window").downcast::<Window>().expect("Failed to downcast window");
++        widget.add_events(gdk::EventMask::BUTTON_PRESS_MASK);
++        widget.connect_button_press_event(glib::clone!(@strong item => move |_, evt| {
++            let (x, y) = (evt.root().0 as i32 + window.x(), evt.root().1 as i32 + window.y());
++            let item_is_menu = run_async_task(async { item.sni.item_is_menu().await });
++            let have_item_is_menu = item_is_menu.is_ok();
++            let item_is_menu = item_is_menu.unwrap_or(false);
++            log::debug!(
++                "mouse click button={}, x={}, y={}, have_item_is_menu={}, item_is_menu={}",
++                evt.button(),
++                x,
++                y,
++                have_item_is_menu,
++                item_is_menu
++            );
++
++            match (evt.button(), item_is_menu) {
++                (gdk::BUTTON_PRIMARY, false) => {
++                    if let Err(e) = run_async_task(async { item.sni.activate(x, y).await }) {
++                        log::error!("failed to send activate event: {}", e);
++                        if !have_item_is_menu {
++                            // Some applications are in fact menu-only (don't have Activate method)
++                            // but don't report so through ItemIsMenu property. Fallback to menu if
++                            // activate failed in this case.
++                            return gtk::Inhibit(false);
++                        }
++                    }
++                }
++                (gdk::BUTTON_MIDDLE, _) => {
++                    if let Err(e) = run_async_task(async { item.sni.secondary_activate(x, y).await }) {
++                        log::error!("failed to send secondary activate event: {}", e);
++                    }
++                }
++                _ => return gtk::Inhibit(false),
++            }
++            gtk::Inhibit(true)
++        }));
++
+         // updates
+         let mut status_updates = item.sni.receive_new_status().await?;
+         let mut title_updates = item.sni.receive_new_title().await?;
+diff --git a/crates/eww/src/widgets/window.rs b/crates/eww/src/widgets/window.rs
+new file mode 100644
+index 00000000..4e6c0dc2
+--- /dev/null
++++ b/crates/eww/src/widgets/window.rs
+@@ -0,0 +1,64 @@
++use glib::{object_subclass, wrapper};
++use glib_macros::Properties;
++use gtk::{prelude::*, subclass::prelude::*};
++use std::cell::RefCell;
++
++wrapper! {
++    pub struct Window(ObjectSubclass<WindowPriv>)
++    @extends gtk::Window, gtk::Bin, gtk::Container, gtk::Widget, @implements gtk::Buildable;
++}
++
++#[derive(Properties)]
++#[properties(wrapper_type = Window)]
++pub struct WindowPriv {
++    #[property(get, name = "x", nick = "X", blurb = "Global x coordinate", default = 0)]
++    x: RefCell<i32>,
++
++    #[property(get, name = "y", nick = "Y", blurb = "Global y coordinate", default = 0)]
++    y: RefCell<i32>,
++}
++
++// This should match the default values from the ParamSpecs
++impl Default for WindowPriv {
++    fn default() -> Self {
++        WindowPriv { x: RefCell::new(0), y: RefCell::new(0) }
++    }
++}
++
++#[object_subclass]
++impl ObjectSubclass for WindowPriv {
++    type ParentType = gtk::Window;
++    type Type = Window;
++
++    const NAME: &'static str = "WindowEww";
++}
++
++impl Default for Window {
++    fn default() -> Self {
++        glib::Object::new::<Self>()
++    }
++}
++
++impl Window {
++    pub fn new(type_: gtk::WindowType, x_: i32, y_: i32) -> Self {
++        let w: Self = glib::Object::builder().property("type", type_).build();
++        let priv_ = w.imp();
++        priv_.x.replace(x_);
++        priv_.y.replace(y_);
++        w
++    }
++}
++
++impl ObjectImpl for WindowPriv {
++    fn properties() -> &'static [glib::ParamSpec] {
++        Self::derived_properties()
++    }
++
++    fn property(&self, id: usize, pspec: &glib::ParamSpec) -> glib::Value {
++        self.derived_property(id, pspec)
++    }
++}
++impl WindowImpl for WindowPriv {}
++impl BinImpl for WindowPriv {}
++impl ContainerImpl for WindowPriv {}
++impl WidgetImpl for WindowPriv {}
+
+From 1614a594b587ded240d64c5403b3a0902fc0c28d Mon Sep 17 00:00:00 2001
+From: MoetaYuko <loli@yuko.moe>
+Date: Sat, 30 Dec 2023 21:38:55 +0800
+Subject: [PATCH 3/3] systray: replace MenuBar/MenuItem with Box/EventBox
+
+The major benefit of MenuItem is automatic handling of context menus.
+However, MenuItem cannot properly process right mouse click, making it
+less useful. Hence, this patch replaces it (as long as the container)
+with a simple EventBox and process button clicks on our own.
+---
+ Cargo.lock                                   |  1 +
+ crates/eww/src/widgets/systray.rs            | 62 ++++++++++----------
+ crates/eww/src/widgets/widget_definitions.rs | 25 +++-----
+ crates/notifier_host/Cargo.toml              |  1 +
+ crates/notifier_host/src/item.rs             | 21 +++++--
+ 5 files changed, 59 insertions(+), 51 deletions(-)
+
+diff --git a/Cargo.lock b/Cargo.lock
+index 99c3a702..5071428a 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -1906,6 +1906,7 @@ name = "notifier_host"
+ version = "0.1.0"
+ dependencies = [
+  "dbusmenu-gtk3",
++ "gdk",
+  "gtk",
+  "log",
+  "thiserror",
+diff --git a/crates/eww/src/widgets/systray.rs b/crates/eww/src/widgets/systray.rs
+index db2d4ef4..384bb61e 100644
+--- a/crates/eww/src/widgets/systray.rs
++++ b/crates/eww/src/widgets/systray.rs
+@@ -60,14 +60,14 @@ impl Props {
+ }
+ 
+ struct Tray {
+-    menubar: gtk::MenuBar,
++    container: gtk::Box,
+     items: std::collections::HashMap<String, Item>,
+ 
+     icon_size: tokio::sync::watch::Receiver<i32>,
+ }
+ 
+-pub fn spawn_systray(menubar: &gtk::MenuBar, props: &Props) {
+-    let mut systray = Tray { menubar: menubar.clone(), items: Default::default(), icon_size: props.icon_size_tx.subscribe() };
++pub fn spawn_systray(container: &gtk::Box, props: &Props) {
++    let mut systray = Tray { container: container.clone(), items: Default::default(), icon_size: props.icon_size_tx.subscribe() };
+ 
+     let task = glib::MainContext::default().spawn_local(async move {
+         let s = match dbus_session().await {
+@@ -78,14 +78,14 @@ pub fn spawn_systray(menubar: &gtk::MenuBar, props: &Props) {
+             }
+         };
+ 
+-        systray.menubar.show();
++        systray.container.show();
+         if let Err(e) = notifier_host::run_host_forever(&mut systray, &s.snw).await {
+             log::error!("notifier host error: {}", e);
+         }
+     });
+ 
+     // stop the task when the widget is dropped
+-    menubar.connect_destroy(move |_| {
++    container.connect_destroy(move |_| {
+         task.abort();
+     });
+ }
+@@ -93,15 +93,15 @@ pub fn spawn_systray(menubar: &gtk::MenuBar, props: &Props) {
+ impl notifier_host::Host for Tray {
+     fn add_item(&mut self, id: &str, item: notifier_host::Item) {
+         let item = Item::new(id.to_owned(), item, self.icon_size.clone());
+-        self.menubar.add(&item.widget);
++        self.container.add(&item.widget);
+         if let Some(old_item) = self.items.insert(id.to_string(), item) {
+-            self.menubar.remove(&old_item.widget);
++            self.container.remove(&old_item.widget);
+         }
+     }
+ 
+     fn remove_item(&mut self, id: &str) {
+         if let Some(item) = self.items.get(id) {
+-            self.menubar.remove(&item.widget);
++            self.container.remove(&item.widget);
+         } else {
+             log::warn!("Tried to remove nonexistent item {:?} from systray", id);
+         }
+@@ -111,7 +111,7 @@ impl notifier_host::Host for Tray {
+ /// Item represents a single icon being shown in the system tray.
+ struct Item {
+     /// Main widget representing this tray item.
+-    widget: gtk::MenuItem,
++    widget: gtk::EventBox,
+ 
+     /// Async task to stop when this item gets removed.
+     task: Option<glib::JoinHandle<()>>,
+@@ -127,7 +127,7 @@ impl Drop for Item {
+ 
+ impl Item {
+     fn new(id: String, item: notifier_host::Item, icon_size: tokio::sync::watch::Receiver<i32>) -> Self {
+-        let widget = gtk::MenuItem::new();
++        let widget = gtk::EventBox::new();
+         let out_widget = widget.clone(); // copy so we can return it
+ 
+         let task = glib::MainContext::default().spawn_local(async move {
+@@ -140,8 +140,8 @@ impl Item {
+     }
+ 
+     async fn maintain(
+-        widget: gtk::MenuItem,
+-        item: notifier_host::Item,
++        widget: gtk::EventBox,
++        mut item: notifier_host::Item,
+         mut icon_size: tokio::sync::watch::Receiver<i32>,
+     ) -> zbus::Result<()> {
+         // init icon
+@@ -150,9 +150,8 @@ impl Item {
+         icon.show();
+ 
+         // init menu
+-        match item.menu().await {
+-            Ok(m) => widget.set_submenu(Some(&m)),
+-            Err(e) => log::warn!("failed to get menu: {}", e),
++        if let Err(e) = item.set_menu().await {
++            log::warn!("failed to get menu: {}", e);
+         }
+ 
+         // TODO this is a lot of code duplication unfortunately, i'm not really sure how to
+@@ -175,7 +174,7 @@ impl Item {
+         let window =
+             widget.toplevel().expect("Failed to obtain toplevel window").downcast::<Window>().expect("Failed to downcast window");
+         widget.add_events(gdk::EventMask::BUTTON_PRESS_MASK);
+-        widget.connect_button_press_event(glib::clone!(@strong item => move |_, evt| {
++        widget.connect_button_press_event(glib::clone!(@strong item => move |widget, evt| {
+             let (x, y) = (evt.root().0 as i32 + window.x(), evt.root().1 as i32 + window.y());
+             let item_is_menu = run_async_task(async { item.sni.item_is_menu().await });
+             let have_item_is_menu = item_is_menu.is_ok();
+@@ -189,24 +188,27 @@ impl Item {
+                 item_is_menu
+             );
+ 
+-            match (evt.button(), item_is_menu) {
++            let result = match (evt.button(), item_is_menu) {
+                 (gdk::BUTTON_PRIMARY, false) => {
+-                    if let Err(e) = run_async_task(async { item.sni.activate(x, y).await }) {
+-                        log::error!("failed to send activate event: {}", e);
+-                        if !have_item_is_menu {
+-                            // Some applications are in fact menu-only (don't have Activate method)
+-                            // but don't report so through ItemIsMenu property. Fallback to menu if
+-                            // activate failed in this case.
+-                            return gtk::Inhibit(false);
+-                        }
++                    let result = run_async_task(async { item.sni.activate(x, y).await });
++                    if result.is_err() && !have_item_is_menu {
++                        log::debug!("fallback to context menu due to: {}", result.unwrap_err());
++                        // Some applications are in fact menu-only (don't have Activate method)
++                        // but don't report so through ItemIsMenu property. Fallback to menu if
++                        // activate failed in this case.
++                        run_async_task(async { item.popup_menu(widget, evt, x, y).await })
++                    } else {
++                        result
+                     }
+                 }
+-                (gdk::BUTTON_MIDDLE, _) => {
+-                    if let Err(e) = run_async_task(async { item.sni.secondary_activate(x, y).await }) {
+-                        log::error!("failed to send secondary activate event: {}", e);
+-                    }
++                (gdk::BUTTON_MIDDLE, _) => run_async_task(async { item.sni.secondary_activate(x, y).await }),
++                (gdk::BUTTON_SECONDARY, _) | (gdk::BUTTON_PRIMARY, true) => {
++                    run_async_task(async { item.popup_menu(widget, evt, x, y).await })
+                 }
+-                _ => return gtk::Inhibit(false),
++                _ => Err(zbus::Error::Failure(format!("unknown button {}", evt.button()))),
++            };
++            if let Err(result) = result {
++                log::error!("failed to handle mouse click {}: {}", evt.button(), result);
+             }
+             gtk::Inhibit(true)
+         }));
+diff --git a/crates/eww/src/widgets/widget_definitions.rs b/crates/eww/src/widgets/widget_definitions.rs
+index e7731c31..a62abd0d 100644
+--- a/crates/eww/src/widgets/widget_definitions.rs
++++ b/crates/eww/src/widgets/widget_definitions.rs
+@@ -1047,13 +1047,18 @@ fn build_graph(bargs: &mut BuilderArgs) -> Result<super::graph::Graph> {
+ const WIDGET_NAME_SYSTRAY: &str = "systray";
+ /// @widget systray
+ /// @desc Tray for system notifier icons
+-fn build_systray(bargs: &mut BuilderArgs) -> Result<gtk::MenuBar> {
+-    let gtk_widget = gtk::MenuBar::new();
++fn build_systray(bargs: &mut BuilderArgs) -> Result<gtk::Box> {
++    let gtk_widget = gtk::Box::new(gtk::Orientation::Horizontal, 0);
+     let props = Rc::new(systray::Props::new());
+-    let props_clone = props.clone();
++    let props_clone = props.clone(); // copies for def_widget
+ 
+-    // copies for def_widget
+     def_widget!(bargs, _g, gtk_widget, {
++        // @prop spacing - spacing between elements
++        prop(spacing: as_i32 = 0) { gtk_widget.set_spacing(spacing) },
++        // @prop orientation - orientation of the box. possible values: $orientation
++        prop(orientation: as_string) { gtk_widget.set_orientation(parse_orientation(&orientation)?) },
++        // @prop space-evenly - space the widgets evenly.
++        prop(space_evenly: as_bool = true) { gtk_widget.set_homogeneous(space_evenly) },
+         // @prop icon-size - size of icons in the tray
+         prop(icon_size: as_i32) {
+             if icon_size <= 0 {
+@@ -1062,8 +1067,6 @@ fn build_systray(bargs: &mut BuilderArgs) -> Result<gtk::MenuBar> {
+                 props.icon_size(icon_size);
+             }
+         },
+-        // @prop pack-direction - how to arrange tray items
+-        prop(pack_direction: as_string) { gtk_widget.set_pack_direction(parse_packdirection(&pack_direction)?); },
+     });
+ 
+     systray::spawn_systray(&gtk_widget, &props_clone);
+@@ -1125,16 +1128,6 @@ fn parse_justification(j: &str) -> Result<gtk::Justification> {
+     }
+ }
+ 
+-/// @var pack-direction - "right", "ltr", "left", "rtl", "down", "ttb", "up", "btt"
+-fn parse_packdirection(o: &str) -> Result<gtk::PackDirection> {
+-    enum_parse! { "packdirection", o,
+-        "right" | "ltr" => gtk::PackDirection::Ltr,
+-        "left" | "rtl" => gtk::PackDirection::Rtl,
+-        "down" | "ttb" => gtk::PackDirection::Ttb,
+-        "up" | "btt" => gtk::PackDirection::Btt,
+-    }
+-}
+-
+ /// Connect a function to the first map event of a widget. After that first map, the handler will get disconnected.
+ fn connect_first_map<W: IsA<gtk::Widget>, F: Fn(&W) + 'static>(widget: &W, func: F) {
+     let signal_handler_id = std::rc::Rc::new(std::cell::RefCell::new(None));
+diff --git a/crates/notifier_host/Cargo.toml b/crates/notifier_host/Cargo.toml
+index 35c8c079..79db74c3 100644
+--- a/crates/notifier_host/Cargo.toml
++++ b/crates/notifier_host/Cargo.toml
+@@ -10,6 +10,7 @@ homepage = "https://github.com/elkowar/eww"
+ 
+ [dependencies]
+ gtk = { version = "0.17.1" }
++gdk = "0.17.1"
+ log = "0.4"
+ thiserror = "1.0"
+ tokio = { version = "1.31.0", features = ["full"] }
+diff --git a/crates/notifier_host/src/item.rs b/crates/notifier_host/src/item.rs
+index 7fc9eb2b..59d91fa1 100644
+--- a/crates/notifier_host/src/item.rs
++++ b/crates/notifier_host/src/item.rs
+@@ -61,6 +61,7 @@ fn split_service_name(service: &str) -> zbus::Result<(String, String)> {
+ 
+ pub struct Item {
+     pub sni: dbus::StatusNotifierItemProxy<'static>,
++    gtk_menu: Option<dbusmenu_gtk3::Menu>,
+ }
+ 
+ impl Item {
+@@ -68,7 +69,7 @@ impl Item {
+         let (addr, path) = split_service_name(addr)?;
+         let sni = dbus::StatusNotifierItemProxy::builder(con).destination(addr)?.path(path)?.build().await?;
+ 
+-        Ok(Item { sni })
++        Ok(Self { sni, gtk_menu: None })
+     }
+ 
+     /// Get the current status of the item.
+@@ -80,10 +81,20 @@ impl Item {
+         }
+     }
+ 
+-    pub async fn menu(&self) -> zbus::Result<gtk::Menu> {
+-        // TODO better handling if menu() method doesn't exist
+-        let menu = dbusmenu_gtk3::Menu::new(self.sni.destination(), &self.sni.menu().await?);
+-        Ok(menu.upcast())
++    pub async fn set_menu(&mut self) -> zbus::Result<()> {
++        let menu = self.sni.menu().await?;
++        self.gtk_menu = Some(dbusmenu_gtk3::Menu::new(self.sni.destination(), &menu));
++        Ok(())
++    }
++
++    pub async fn popup_menu(&self, widget: &gtk::EventBox, event: &gdk::EventButton, x: i32, y: i32) -> zbus::Result<()> {
++        if let Some(menu) = &self.gtk_menu {
++            menu.set_attach_widget(Some(widget));
++            menu.popup_at_pointer(event.downcast_ref::<gdk::Event>());
++            Ok(())
++        } else {
++            self.sni.context_menu(x, y).await
++        }
+     }
+ 
+     pub async fn icon(&self, size: i32, scale: i32) -> Option<gtk::gdk_pixbuf::Pixbuf> {

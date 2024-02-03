@@ -11,6 +11,8 @@
       :space-evenly false
       :spacing 5
 
+      (systray :class "tray" :spacing 5)
+      (label :text "|")
       (speaker)
       (label :text "|")
       (time)
@@ -29,7 +31,7 @@
               :height "35px"
               :anchor "top center"
             )
-  :stacking "bg"
+  :stacking "fg"
   :windowtype "dock"
   :reserve (struts :side "top" :distance "35px")
   :wm-ignore false
