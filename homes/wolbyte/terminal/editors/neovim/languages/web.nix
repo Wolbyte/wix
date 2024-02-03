@@ -12,7 +12,7 @@
         diagnostics.eslint_d.enable = true;
         formatting = {
           eslint_d.enable = true;
-          prettier_d_slim.enable = true;
+          prettier.enable = true;
         };
       };
     };

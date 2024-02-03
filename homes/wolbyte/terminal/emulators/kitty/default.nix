@@ -13,7 +13,7 @@ in {
   config = mkIf isAccepted {
     programs.kitty = {
       enable = true;
-      settings = import ./settings.nix {inherit (config.colorscheme) colors;};
+      settings = import ./settings.nix {colors = config.colorscheme.palette;};
       keybindings = import ./keybinds.nix {};
     };
   };

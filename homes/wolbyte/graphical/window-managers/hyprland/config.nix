@@ -6,7 +6,7 @@
   ...
 }:
 with lib; let
-  inherit (config.colorscheme) colors;
+  inherit (config.colorscheme) palette;
 
   pointer = config.home.pointerCursor;
 in {
@@ -40,8 +40,8 @@ in {
       };
 
       general = {
-        "col.active_border" = "0xff${colors.base0C}";
-        "col.inactive_border" = "0xff${colors.base02}";
+        "col.active_border" = "0xff${palette.base0C}";
+        "col.inactive_border" = "0xff${palette.base02}";
       };
 
       group = {
@@ -49,16 +49,16 @@ in {
 
         focus_removed_window = true;
 
-        "col.border_active" = "0xff${colors.base0B}";
-        "col.border_inactive" = "0xff${colors.base04}";
+        "col.border_active" = "0xff${palette.base0B}";
+        "col.border_inactive" = "0xff${palette.base04}";
 
         groupbar = {
-          text_color = "0xff${colors.base05}";
+          text_color = "0xff${palette.base05}";
           gradients = false;
           render_titles = false;
           scrolling = true;
-          "col.active" = "0xff${colors.base0B}";
-          "col.inactive" = "0xff${colors.base04}";
+          "col.active" = "0xff${palette.base0B}";
+          "col.inactive" = "0xff${palette.base04}";
         };
       };
 

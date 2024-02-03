@@ -1,5 +1,5 @@
 {pkgs, ...}: let
-  nvimPython = pkgs.python310.withPackages (ps: [
+  nvimPython = pkgs.python311.withPackages (ps: [
     ps.debugpy
   ]);
 in {
@@ -15,7 +15,7 @@ in {
       dap = {
         extensions.dap-python = {
           enable = true;
-          adapterPythonPath = "${nvimPython}/bin/python3.10";
+          adapterPythonPath = "${nvimPython}/bin/python3";
           includeConfigs = true;
         };
       };

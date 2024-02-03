@@ -5,7 +5,7 @@
   ...
 }:
 with lib; let
-  inherit (config.colorscheme) colors;
+  inherit (config.colorscheme) palette;
 in {
   programs.zsh = {
     enable = true;
@@ -93,18 +93,18 @@ in {
       --color gutter:-1
       --color bg:-1
       --color bg+:-1
-      --color fg:#${colors.base04}
-      --color fg+:#${colors.base06}
-      --color hl:#${colors.base0D}
-      --color hl+:#${colors.base0D}
-      --color header:#${colors.base0D}
-      --color info:#${colors.base0A}
-      --color marker:#${colors.base0C}
-      --color pointer:#${colors.base0C}
-      --color prompt:#${colors.base0A}
-      --color spinner:#${colors.base0C}
-      --color preview-bg:#${colors.base01}
-      --color preview-fg:#${colors.base0D}
+      --color fg:#${palette.base04}
+      --color fg+:#${palette.base06}
+      --color hl:#${palette.base0D}
+      --color hl+:#${palette.base0D}
+      --color header:#${palette.base0D}
+      --color info:#${palette.base0A}
+      --color marker:#${palette.base0C}
+      --color pointer:#${palette.base0C}
+      --color prompt:#${palette.base0A}
+      --color spinner:#${palette.base0C}
+      --color preview-bg:#${palette.base01}
+      --color preview-fg:#${palette.base0D}
       --prompt '➜'
       --pointer '➜'
       --layout=reverse

@@ -8,7 +8,7 @@
 with lib; let
   inherit (osConfig.wb) device;
   acceptedTypes = ["desktop" "hybrid"];
-  inherit (config.colorscheme) colors;
+  inherit (config.colorscheme) palette;
 in {
   imports = [inputs.schizofox.homeManagerModule];
 
@@ -17,15 +17,18 @@ in {
       enable = true;
 
       theme = {
-        background-darker = "${colors.base00}";
-        background = "${colors.base01}";
-        foreground = "${colors.base05}";
         font = "Lexend";
-        simplefox.enable = false;
-        darkreader.enable = true;
+        colors = {
+          background-darker = "${palette.base00}";
+          background = "${palette.base01}";
+          foreground = "${palette.base05}";
+        };
       };
 
       extensions = {
+        simplefox.enable = false;
+        darkreader.enable = true;
+
         defaultExtensions = {};
         extraExtensions = {
           # Ublock adblocker

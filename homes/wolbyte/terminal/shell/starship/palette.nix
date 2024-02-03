@@ -1,19 +1,19 @@
 {config, ...}: let
-  inherit (config.colorscheme) colors;
+  inherit (config.colorscheme) palette;
 in {
-  red = "#${colors.base08}";
-  black = "#${colors.base00}";
-  blue = "#${colors.base0D}";
-  cyan = "#${colors.base0C}";
-  green = "#${colors.base0B}";
-  magenta = "#${colors.base0D}";
-  white = "#${colors.base00}";
-  yellow = "#${colors.base0A}";
-  purple = "#${colors.base0D}";
-  gold = "#${colors.base09}";
+  red = "#${palette.base08}";
+  black = "#${palette.base00}";
+  blue = "#${palette.base0D}";
+  cyan = "#${palette.base0C}";
+  green = "#${palette.base0B}";
+  magenta = "#${palette.base0D}";
+  white = "#${palette.base00}";
+  yellow = "#${palette.base0A}";
+  purple = "#${palette.base0D}";
+  gold = "#${palette.base09}";
 
   inherit
-    (colors)
+    (palette)
     base00
     base01
     base02

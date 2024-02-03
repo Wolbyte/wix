@@ -31,7 +31,7 @@ in {
       extraConfig = import ./config.nix {};
 
       theme = import ./theme.nix {
-        inherit (config.colorscheme) colors;
+        colors = config.colorscheme.palette;
         inherit (config.lib.formats.rasi) mkLiteral;
       };
     };

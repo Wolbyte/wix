@@ -34,7 +34,7 @@ in {
 
       enabledExtensions = with spicePkgs.extensions; [
         adblock
-        genre
+        # genre # Broken
         fullAppDisplay
         history
         keyboardShortcut
