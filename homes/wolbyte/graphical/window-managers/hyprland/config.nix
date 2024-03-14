@@ -20,8 +20,8 @@ in {
       ];
 
       input = {
-        kb_layout = osConfig.services.xserver.layout;
-        kb_options = osConfig.services.xserver.xkbOptions;
+        kb_layout = osConfig.services.xserver.xkb.layout;
+        kb_options = osConfig.services.xserver.xkb.options;
         follow_mouse = 1;
         numlock_by_default = true;
       };

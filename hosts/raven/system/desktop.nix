@@ -3,7 +3,7 @@
     services.xserver = {
       xkb = {
         layout = "us,ir";
-        xkbOptions = "grp:win_space_toggle";
+        options = "grp:win_space_toggle";
       };
 
       xrandrHeads = [
