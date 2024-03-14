@@ -4,7 +4,7 @@
       crates-nvim.enable = true;
 
       none-ls.sources = {
-        formatting.rustfmt.enable = true;
+        # formatting.rustfmt.enable = true;
       };
 
       rust-tools = {

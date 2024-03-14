@@ -9,10 +9,10 @@
       };
 
       none-ls.sources = {
-        diagnostics.eslint_d.enable = true;
+        # diagnostics.eslint_d.enable = true;
         formatting = {
-          eslint_d.enable = true;
-          prettier.enable = true;
+          # eslint_d.enable = true;
+          prettierd.enable = true;
         };
       };
     };

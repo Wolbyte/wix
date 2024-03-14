@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  cmpEnabled = config.programs.nixvim.plugins.nvim-cmp.enable;
+  cmpEnabled = config.programs.nixvim.plugins.cmp.enable;
 in {
   programs.nixvim = {
     plugins.nvim-autopairs = {

@@ -8,7 +8,7 @@ in {
       lsp.servers.pyright.enable = true;
 
       none-ls.sources = {
-        diagnostics.flake8.enable = true;
+        # diagnostics.flake8.enable = true;
         formatting.black.enable = true;
       };
 
