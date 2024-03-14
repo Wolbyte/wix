@@ -1,8 +1,10 @@
 {
   config = {
     services.xserver = {
-      layout = "us,ir";
-      xkbOptions = "grp:win_space_toggle";
+      xkb = {
+        layout = "us,ir";
+        xkbOptions = "grp:win_space_toggle";
+      };
 
       xrandrHeads = [
         {
