@@ -11,24 +11,19 @@ with lib.wb; let
   inherit (config.colorscheme) palette;
 
   acceptedTypes = ["desktop" "hybrid"];
-
-  ewwPackage =
-    if env.isWayland
-    then pkgs.eww-wayland
-    else pkgs.eww;
 in {
   config = mkIf (builtins.elem device.profile acceptedTypes && system.video.enable) {
     #TODO: Revamp eww bar & come up with a service based solution
     #TODO: Switch to the original package once the systray pr is merged
     home.packages = [
-      (ewwPackage.overrideAttrs (old: let
+      (pkgs.eww.overrideAttrs (old: let
         pname = "eww";
         version = "tray-v3";
         src = pkgs.fetchFromGitHub {
           owner = "ralismark";
           repo = "eww";
-          rev = "5b507c813c79be42b174f477b7acd2c95d58f09f";
-          hash = "sha256-oTxEbleVjtagYqFAb0rcoqvDcYcmiTgKCF9mk11ztSo=";
+          rev = "6f5cdd37885593839e6ffd9268ccd1e23e45115d";
+          hash = "sha256-dO6FzSwtoGSy38HojBk1rVL6Hs6GqmdXnDvVLzB32gs=";
         };
         patches = [./6_mouseHandling.patch];
       in {
@@ -38,11 +33,11 @@ in {
 
         inherit patches;
 
-        cargoDeps = ewwPackage.cargoDeps.overrideAttrs (oldDeps: {
+        cargoDeps = pkgs.eww.cargoDeps.overrideAttrs (oldDeps: {
           inherit src;
           inherit patches;
           name = "${pname}-${version}-vendor.tar.gz";
-          outputHash = "sha256-+/c817CFJsq9AqeHXc+nAl+vgPAGvtWTjwlcSJrQvGA=";
+          outputHash = "sha256-z8atgiEgYHHNQW9m6tsOflj4GvJGs/g/aEgv0yHD3O0=";
         });
 
         buildInputs = old.buildInputs ++ (with pkgs; [glib librsvg libdbusmenu-gtk3]);
