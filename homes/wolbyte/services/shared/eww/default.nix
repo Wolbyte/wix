@@ -7,7 +7,7 @@
 }:
 with lib;
 with lib.wb; let
-  inherit (osConfig.wb) device env system;
+  inherit (osConfig.wb) device system;
   inherit (config.colorscheme) palette;
 
   acceptedTypes = ["desktop" "hybrid"];

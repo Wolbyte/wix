@@ -46,6 +46,8 @@ in {
       kvmgt.enable = true;
       spiceUSBRedirection.enable = true;
 
+      containers.cdi.dynamic.nvidia.enable = config.wb.device.gpu == "nvidia";
+
       libvirtd = {
         enable = true;
         qemu = {
@@ -67,8 +69,6 @@ in {
         defaultNetwork.settings = {
           dns_enabled = true;
         };
-
-        enableNvidia = config.wb.device.gpu == "nvidia";
 
         autoPrune = {
           enable = true;

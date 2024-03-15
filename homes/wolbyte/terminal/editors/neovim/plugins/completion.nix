@@ -1,4 +1,4 @@
-{pkgs, ...}: let
+let
   windowOpts = {
     border = "rounded";
     winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None";
@@ -64,9 +64,7 @@ in {
             completion = windowOpts;
             documentation = windowOpts;
           };
-        };
 
-        extraOptions = {
           mapping = {
             "<Up>" = "cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Select }";
             "<Down>" = "cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Select }";
