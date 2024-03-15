@@ -1,5 +1,6 @@
 _: {
-  modi = "drun,filebrowser,calc,emoji";
+  # modi = "drun,filebrowser,calc,emoji";
+  modi = "drun,filebrowser";
   drun-display-format = " {name} ";
   sidebar-mode = true;
 
@@ -11,8 +12,8 @@ _: {
   display-drun = "  Run";
   display-run = "  Run";
   display-filebrowser = "󰉋 Files";
-  display-calc = "󰃬 Calculator";
-  display-emoji = "󰞅 Emoji";
+  # display-calc = "󰃬 Calculator";
+  # display-emoji = "󰞅 Emoji";
 
   # Keybinds
   kb-mode-next = "Control+Shift+[46],Control+Tab";

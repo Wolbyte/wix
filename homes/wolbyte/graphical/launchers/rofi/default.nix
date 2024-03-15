@@ -20,11 +20,12 @@ in {
       enable = true;
       package = rofiPackage;
 
-      plugins = with pkgs; [
-        rofi-calc
-        rofi-emoji
-        rofi-rbw
-      ];
+      # TODO: uncomment once a new rofi version is released
+      # plugins = with pkgs; [
+      # rofi-calc
+      # rofi-emoji
+      # rofi-rbw
+      # ];
 
       font = "Iosevka Nerd Font 14";
 
