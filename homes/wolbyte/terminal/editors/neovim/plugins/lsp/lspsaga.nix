@@ -1,28 +1,26 @@
-{lib, ...}: let
+let
   icons = import ../../icons.nix;
-  helpers = import ../../helpers.nix {inherit lib;};
-in {
-  programs.nixvim = {
-    plugins.lspsaga = {
-      enable = true;
+  helpers = import ../../helpers.nix;
+in
+  with helpers; {
+    programs.nixvim = {
+      plugins.lspsaga = {
+        enable = true;
 
-      ui = {
-        codeAction = icons.diagnosticHint;
-        border = "rounded";
-      };
-    };
-
-    keymaps = with helpers;
-      mkKeymaps {} {
-        n = {
-          ca = mkCmdMap "Lspsaga code_action" "LSP Code Action";
-          gd = mkCmdMap "Lspsaga goto_definition" "Goto Definition";
-          gt = mkCmdMap "Lspsaga goto_type_definition" "Goto Type Definition";
-          gp = mkCmdMap "Lspsaga peek_definition" "Peek Definition";
-          gP = mkCmdMap "Lspsaga peek_type_definition" "Peek Type Definition";
-          gr = mkCmdMap "Lspsaga rename" "LSP Rename";
-          gR = mkCmdMap "Lspsaga rename ++project" "LSP Rename In All Files";
+        ui = {
+          codeAction = icons.diagnosticHint;
+          border = "rounded";
         };
       };
-  };
-}
+
+      keymaps = [
+        (mkCmdKeymap "ca" ["n"] "Lspsaga code_action" {desc = "LSP Code Action";})
+        (mkCmdKeymap "gd" ["n"] "Lspsaga goto_definition" {desc = "Goto Definition";})
+        (mkCmdKeymap "gt" ["n"] "Lspsaga goto_type_definition" {desc = "Goto Type Definition";})
+        (mkCmdKeymap "gp" ["n"] "Lspsaga peek_definition" {desc = "Peek Definition";})
+        (mkCmdKeymap "gP" ["n"] "Lspsaga peek_type_definition" {desc = "Peek Type Definition";})
+        (mkCmdKeymap "gr" ["n"] "Lspsaga rename" {desc = "LSP Rename";})
+        (mkCmdKeymap "gR" ["n"] "Lspsaga rename ++project" {desc = "LSP Rename In All Files";})
+      ];
+    };
+  }

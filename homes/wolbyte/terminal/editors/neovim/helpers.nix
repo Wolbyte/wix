@@ -1,31 +1,9 @@
-{lib, ...}:
-with lib; rec {
-  mkKeybind = action: desc: lua: {inherit action desc lua;};
-  mkLuaKeybind = action: desc: mkKeybind action desc true;
-  mkCmdKeybind = action: desc: mkKeybind "<cmd>${action}<CR>" desc false;
-
-  mkKeymap = action: desc: lua: {
-    inherit action lua;
-    options = {inherit desc;};
+rec {
+  mkKeymap = key: mode: action: options: lua: {
+    inherit key mode action options lua;
   };
-  mkLuaMap = action: desc: mkKeymap action desc true;
-  mkCmdMap = action: desc: mkKeymap "<cmd>${action}<CR>" desc false;
-  mkRawMap = action: desc: mkKeymap action desc false;
 
-  mkKeymaps = defaults: {
-    n ? {},
-    i ? {},
-    v ? {},
-    x ? {},
-    t ? {},
-    c ? {},
-    nvo ? {},
-  } @ args:
-    mkMerge (
-      mapAttrsToList (
-        mode:
-          mapAttrsToList (key: props: {inherit key mode;} // defaults // props)
-      )
-      args
-    );
+  mkRawKeymap = key: mode: action: options: mkKeymap key mode action options false;
+  mkLuaKeymap = key: mode: action: options: mkKeymap key mode action options true;
+  mkCmdKeymap = key: mode: action: options: mkKeymap key mode "<CMD>${action}<CR>" options false;
 }

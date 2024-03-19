@@ -1,26 +1,11 @@
 {
   imports = [
-    ./alpha.nix
-    ./bufferline.nix
-    ./completion.nix
-    ./editing-support.nix
-    ./dap.nix
-    ./git.nix
-    ./indent-blankline.nix
+    ./coding
+    ./dap
+    ./editor
     ./lsp
-    ./lualine.nix
-    ./mini.nix
-    ./molten.nix
-    ./neo-tree.nix
-    ./notify.nix
-    ./none-ls.nix
-    ./nvim-autopairs.nix
-    ./nvim-ufo.nix
-    ./telescope.nix
-    ./todo-comments.nix
-    ./toggleterm.nix
-    ./treesitter.nix
-    ./trouble.nix
-    ./which-key.nix
+    ./mini
+    ./treesitter
+    ./ui
   ];
 }
