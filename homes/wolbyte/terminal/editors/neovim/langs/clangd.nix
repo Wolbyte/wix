@@ -67,6 +67,28 @@
               cwd = "\${workspaceFolder}";
               stopOnEntry = false;
             }
+            {
+              name = "Launch file (with args)";
+              type = "codelldb";
+              request = "launch";
+              program.__raw = ''
+                function()
+                  return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+                end
+              '';
+              args.__raw = ''
+                function()
+                  local args = {}
+                  local input = vim.fn.input('Args: ')
+                  for arg in string.gmatch(input, "[^%s]+") do
+                    table.insert(args, arg)
+                  end
+                  return args
+                end
+              '';
+              cwd = "\${workspaceFolder}";
+              stopOnEntry = false;
+            }
           ];
 
           c = cpp;
