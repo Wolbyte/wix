@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-API_REQ="api.quotable.io/quotes/random?tags=technology|famous-quotes&maxLength=200"
-
-curl $API_REQ --silent | jq -r '.[0] | ("\""+ .content + "\"" + " - " + .author)'

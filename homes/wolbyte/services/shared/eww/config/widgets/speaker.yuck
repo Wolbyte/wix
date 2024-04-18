@@ -7,7 +7,7 @@
     :icon "${speaker_data.icon}"
     :class "speaker-widget ${speaker_data.content == "mute" ? "mute" : ""}"
     :content "${speaker_data.content}"
-    :onclick `$XDG_CONFIG_HOME/eww/scripts/speaker toggle`
-    :onscroll `$XDG_CONFIG_HOME/eww/scripts/speaker {}`
+    :onclick "~/.config/eww/scripts/speaker toggle"
+    :onscroll "~/.config/eww/scripts/speaker {}"
   )
 )

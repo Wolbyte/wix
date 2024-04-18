@@ -14,30 +14,26 @@ with lib.wb; let
 in {
   config = mkIf (builtins.elem device.profile acceptedTypes && system.video.enable) {
     #TODO: Revamp eww bar & come up with a service based solution
-    #TODO: Switch to the original package once the systray pr is merged
+    #TODO: Use the original package when a new release is dropped
     home.packages = [
       (pkgs.eww.overrideAttrs (old: let
         pname = "eww";
-        version = "tray-v3";
+        version = "unstable";
         src = pkgs.fetchFromGitHub {
-          owner = "ralismark";
+          owner = "elkowar";
           repo = "eww";
-          rev = "6f5cdd37885593839e6ffd9268ccd1e23e45115d";
-          hash = "sha256-dO6FzSwtoGSy38HojBk1rVL6Hs6GqmdXnDvVLzB32gs=";
+          rev = "1e37f53e99016aa2cd725d7050788bb5d4fcc76a";
+          hash = "sha256-dm4bufwlVDUE4ndsR6cAPur75hvlVRzIxbMKJCizutg=";
         };
-        patches = [./6_mouseHandling.patch];
       in {
         inherit pname;
         inherit version;
         inherit src;
 
-        inherit patches;
-
         cargoDeps = pkgs.eww.cargoDeps.overrideAttrs (oldDeps: {
           inherit src;
-          inherit patches;
           name = "${pname}-${version}-vendor.tar.gz";
-          outputHash = "sha256-z8atgiEgYHHNQW9m6tsOflj4GvJGs/g/aEgv0yHD3O0=";
+          outputHash = "sha256-S+oxWHDrtg2t+hqXZdBFGY7G3+YZZUAmx6//iGgeKn0=";
         });
 
         buildInputs = old.buildInputs ++ (with pkgs; [glib librsvg libdbusmenu-gtk3]);
