@@ -3,33 +3,35 @@
     plugins.indent-blankline = {
       enable = true;
 
-      indent.char = "│";
+      settings = {
+        indent.char = "│";
 
-      scope.enabled = false;
+        scope.enabled = false;
 
-      exclude = {
-        buftypes = [
-          "nofile"
-          "terminal"
-        ];
+        exclude = {
+          buftypes = [
+            "nofile"
+            "terminal"
+          ];
 
-        filetypes = [
-          "help"
-          "startify"
-          "aerial"
-          "alpha"
-          "dashboard"
-          "lazy"
-          "neogitstatus"
-          "NvimTree"
-          "neo-tree"
-          "Trouble"
-          "trouble"
-          "mason"
-          "notify"
-          "toggleterm"
-          "lazyterm"
-        ];
+          filetypes = [
+            "help"
+            "startify"
+            "aerial"
+            "alpha"
+            "dashboard"
+            "lazy"
+            "neogitstatus"
+            "NvimTree"
+            "neo-tree"
+            "Trouble"
+            "trouble"
+            "mason"
+            "notify"
+            "toggleterm"
+            "lazyterm"
+          ];
+        };
       };
     };
   };

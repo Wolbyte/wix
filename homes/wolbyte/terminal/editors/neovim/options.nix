@@ -2,7 +2,7 @@
   programs.nixvim = {
     clipboard.register = "unnamedplus";
 
-    options = {
+    opts = {
       breakindent = true;
       cmdheight = 0;
       copyindent = true;

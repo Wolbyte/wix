@@ -7,11 +7,13 @@
         html = eslint_prettier;
         css = eslint_prettier;
         javascript = eslint_prettier;
+        javascriptreact = eslint_prettier;
       };
 
       lint.lintersByFt = {
         html = ["htmlhint"];
         javascript = ["eslint_d"];
+        javascriptreact = ["eslint_d"];
       };
 
       lsp.servers = {

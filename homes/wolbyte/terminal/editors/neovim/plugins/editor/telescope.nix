@@ -9,40 +9,44 @@ in
 
           extensions.fzf-native = {
             enable = true;
-            caseMode = "smart_case";
-            fuzzy = true;
+            settings = {
+              case_mode = "smart_case";
+              fuzzy = true;
+            };
           };
 
-          defaults = {
-            path_display = ["truncate"];
-            sorting_strategy = "ascending";
+          settings = {
+            defaults = {
+              path_display = ["truncate"];
+              sorting_strategy = "ascending";
 
-            layout_config = {
-              horizontal = {
-                prompt_position = "top";
-                preview_width = 0.55;
-              };
-              vertical = {mirror = false;};
-              width = 0.87;
-              height = 0.80;
-              preview_cutoff = 120;
-            };
-
-            mappings = let
-              mkAction = action: {__raw = "require('telescope.actions').${action}";};
-            in {
-              i = {
-                "<C-n>" = mkAction "cycle_history_next";
-                "<C-p>" = mkAction "cycle_history_prev";
-                "<C-j>" = mkAction "move_selection_next";
-                "<C-k>" = mkAction "move_selection_previous";
-                "<C-q>" = mkAction "close";
-                "<C-s>" = {__raw = "__telescope_flash";};
+              layout_config = {
+                horizontal = {
+                  prompt_position = "top";
+                  preview_width = 0.55;
+                };
+                vertical = {mirror = false;};
+                width = 0.87;
+                height = 0.80;
+                preview_cutoff = 120;
               };
 
-              n = {
-                "s" = {__raw = "__telescope_flash";};
-                "q" = mkAction "close";
+              mappings = let
+                mkAction = action: {__raw = "require('telescope.actions').${action}";};
+              in {
+                i = {
+                  "<C-n>" = mkAction "cycle_history_next";
+                  "<C-p>" = mkAction "cycle_history_prev";
+                  "<C-j>" = mkAction "move_selection_next";
+                  "<C-k>" = mkAction "move_selection_previous";
+                  "<C-q>" = mkAction "close";
+                  "<C-s>" = {__raw = "__telescope_flash";};
+                };
+
+                n = {
+                  "s" = {__raw = "__telescope_flash";};
+                  "q" = mkAction "close";
+                };
               };
             };
           };

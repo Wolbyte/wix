@@ -95,11 +95,6 @@
         };
       };
 
-      lint.lintersByFt = rec {
-        c = ["clangtidy"];
-        cpp = c;
-      };
-
       lsp.servers.clangd = {
         enable = true;
 

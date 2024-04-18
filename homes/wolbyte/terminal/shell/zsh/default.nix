@@ -10,7 +10,7 @@ in {
   programs.zsh = {
     enable = true;
     dotDir = ".config/zsh";
-    enableAutosuggestions = true;
+    autosuggestion.enable = true;
     enableCompletion = true;
     syntaxHighlighting.enable = true;
     sessionVariables = {LC_ALL = "en_US.UTF-8";};

@@ -7,7 +7,7 @@ in
       plugins = {
         gitsigns = with icons; {
           enable = true;
-          signs = {
+          settings.signs = {
             add.text = gitSign;
             change.text = gitSign;
             delete.text = gitSign;
