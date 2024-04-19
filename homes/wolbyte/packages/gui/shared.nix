@@ -21,6 +21,7 @@ in {
       plasma5Packages.kio-extras
       plasma5Packages.kimageformats
       plasma5Packages.kdegraphics-thumbnailers
+      libsForQt5.ark
 
       telegram-desktop
     ];
