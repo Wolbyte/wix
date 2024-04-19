@@ -6,6 +6,8 @@
   programs.starship = {
     enable = true;
 
+    enableBashIntegration = false;
+
     settings = let
       git = "$git_branch$git_commit$git_state$git_metrics$git_status";
       inherit (import ./elements.nix) elements;
@@ -19,9 +21,10 @@
       palettes.custom = import ./palette.nix {inherit config;};
 
       character = {
-        success_symbol = "[➜](bold green)";
-        error_symbol = "[➜](bold red)";
+        success_symbol = "[](bold green)";
+        error_symbol = "[](bold red)";
         vicmd_symbol = "[](bold yellow)";
+        format = "$symbol [|](bold bright-black) ";
       };
 
       line_break.disabled = false;

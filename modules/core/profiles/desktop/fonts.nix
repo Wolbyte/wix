@@ -15,55 +15,74 @@ in {
     fonts = {
       enableDefaultPackages = false;
 
-      fontconfig = {
-        enable = true;
-
-        defaultFonts = {
-          monospace = [
-            "Iosevka Term"
-            "Iosevka Term Nerd Font Complete Mono"
-            "Iosevka Nerd Font"
-            "Noto Color Emoji"
-          ];
-
-          sansSerif = [
-            "Lexend"
-            "Noto Color Emoji"
-          ];
-
-          serif = [
-            "Noto Serif"
-            "Noto Color Emoji"
-          ];
-
-          emoji = [
-            "Noto Color Emoji"
-          ];
-        };
-      };
-
       fontDir = {
         enable = true;
         decompressFonts = true;
       };
 
+      fontconfig = {
+        enable = true;
+
+        defaultFonts = let
+          common = [
+            "Iosevka Nerd Font"
+            "Noto Sans CJK"
+            "Noto Color Emoji"
+          ];
+        in {
+          monospace = common;
+
+          sansSerif =
+            [
+              "Vazirmatn"
+              "Lexend"
+            ]
+            ++ common;
+
+          serif =
+            [
+              "Vazirmatn"
+              "Noto Serif"
+            ]
+            ++ common;
+
+          emoji =
+            [
+              "Noto Color Emoji"
+            ]
+            ++ common;
+        };
+      };
+
       packages = with pkgs; [
-        corefonts
-
-        iosevka-bin
-
-        roboto
-
+        # Desktop fonts
+        corefonts # MS Fonts
+        vazir-fonts # Persian font
+        lexend
         material-icons
         material-design-icons
-
-        lexend
-
         noto-fonts
         noto-fonts-cjk
+        roboto
+
+        # Emoji fonts
         noto-fonts-emoji
 
-        (nerdfonts.override {fonts = ["Iosevka" "JetBrainsMono" "FiraCode"];})
+        # NerdFonts
+        (nerdfonts.override {
+          fonts = [
+            "Iosevka"
+            "JetBrainsMono"
+            "FiraCode"
+          ];
+        })
+
+        # NixOS default fonts
+        dejavu_fonts
+        freefont_ttf
+        gyre-fonts
+        liberation_ttf
+        unifont
       ];
     };
   };
