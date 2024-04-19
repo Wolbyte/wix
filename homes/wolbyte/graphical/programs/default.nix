@@ -1,9 +1,10 @@
 {
   imports = [
     ./discord
+    ./firefox
     ./media
     ./obs
-    ./schizofox
+    # ./schizofox
     ./spotify
   ];
 }
