@@ -36,29 +36,29 @@ with lib; let
     "x-scheme-handler/discord" = ["WebCord.desktop"];
   };
 in {
-  home.sessionVariables = {
-    XDG_CACHE_HOME = "$HOME/.cache";
-    XDG_CONFIG_HOME = "$HOME/.config";
-    XDG_DATA_HOME = "$HOME/.local/share";
-    XDG_BIN_HOME = "$HOME/.local/bin";
-  };
-
   xdg = {
+    enable = true;
+    cacheHome = "${config.home.homeDirectory}/.cache";
+    configHome = "${config.home.homeDirectory}/.config";
+    dataHome = "${config.home.homeDirectory}/.local/share";
+    stateHome = "${config.home.homeDirectory}/.local/state";
+
     userDirs = {
       enable = true;
+
       createDirectories = true;
-      documents = "$HOME/other";
-      download = "$HOME/downloads";
-      videos = "$HOME/videos";
-      music = "$HOME/music";
-      pictures = "$HOME/pictures";
-      desktop = "$HOME/other";
-      publicShare = "$HOME/other";
-      templates = "$HOME/other";
+      documents = "${config.home.homeDirectory}/other";
+      download = "${config.home.homeDirectory}/downloads";
+      videos = "${config.home.homeDirectory}/videos";
+      music = "${config.home.homeDirectory}/music";
+      pictures = "${config.home.homeDirectory}/pictures";
+      desktop = "${config.home.homeDirectory}/other";
+      publicShare = "${config.home.homeDirectory}/other";
+      templates = "${config.home.homeDirectory}/other";
 
       extraConfig = {
         XDG_SCREENSHOTS_DIR = "${config.xdg.userDirs.pictures}/screenshots";
-        XDG_DEV_DIR = "$HOME/dev";
+        XDG_DEV_DIR = "${config.home.homeDirectory}/dev";
       };
     };
 

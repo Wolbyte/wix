@@ -106,6 +106,7 @@ in {
         "$MOD, D, exec, pkill rofi || rofi -show drun"
         "$MOD, equal, exec, pkill rofi || rofi -show calc"
         "$MOD, period, exec, pkill rofi || rofi -show emoji"
+        "$MOD, S, exec, pkill rofi || rofi-screenshot"
 
         # Window manipulation
         "$MOD, Q, killactive"

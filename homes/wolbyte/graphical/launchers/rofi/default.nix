@@ -15,6 +15,8 @@ with lib; let
     then pkgs.rofi-wayland
     else pkgs.rofi;
 in {
+  imports = [./screenshot.nix];
+
   config = mkIf (builtins.elem device.profile acceptedTypes && system.video.enable) {
     programs.rofi = {
       enable = true;
