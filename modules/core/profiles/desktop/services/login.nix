@@ -5,7 +5,7 @@
   ...
 }:
 with lib; let
-  sessions = config.services.xserver.displayManager.sessionData.desktops;
+  sessions = config.services.displayManager.sessionData.desktops;
   sessionsPath = concatStringsSep ":" [
     "${sessions}/share/xsessions"
     "${sessions}/share/wayland-sessions"

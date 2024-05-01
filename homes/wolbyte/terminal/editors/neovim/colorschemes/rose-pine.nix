@@ -8,26 +8,31 @@ in {
   programs.nixvim = {
     colorschemes.rose-pine = {
       enable = true;
-      transparentBackground = true;
-      transparentFloat = true;
-      disableItalics = false;
 
-      highlightGroups = {
-        NeoTreeDirectoryIcon = {fg = "subtle";};
-        NeoTreeDirectoryName = {fg = "foam";};
-        NeoTreeNormal = {fg = "text";};
-        NeoTreeRootName = {fg = "iris";};
-        NeoTreeTabInactive = {
-          bg = "none";
-          fg = "muted";
+      settings = {
+        enable = {
+          italics = true;
+          transparency = true;
         };
-        NeoTreeTabSeparatorActive = {
-          bg = "none";
-          fg = "subtle";
-        };
-        NeoTreeTabSeparatorInactive = {
-          bg = "none";
-          fg = "subtle";
+
+        highlight_groups = {
+          NormalFloat = {fg = "none";};
+          NeoTreeDirectoryIcon = {fg = "subtle";};
+          NeoTreeDirectoryName = {fg = "foam";};
+          NeoTreeNormal = {fg = "text";};
+          NeoTreeRootName = {fg = "iris";};
+          NeoTreeTabInactive = {
+            bg = "none";
+            fg = "muted";
+          };
+          NeoTreeTabSeparatorActive = {
+            bg = "none";
+            fg = "subtle";
+          };
+          NeoTreeTabSeparatorInactive = {
+            bg = "none";
+            fg = "subtle";
+          };
         };
       };
     };

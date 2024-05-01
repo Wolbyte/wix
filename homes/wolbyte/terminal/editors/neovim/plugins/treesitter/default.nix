@@ -30,9 +30,10 @@
       treesitter-context = {
         enable = true;
 
-        mode = "cursor";
-
-        maxLines = 3;
+        settings = {
+          mode = "cursor";
+          max_lines = 3;
+        };
       };
 
       treesitter-textobjects.enable = true;

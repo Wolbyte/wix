@@ -6,31 +6,33 @@ in
       plugins.toggleterm = {
         enable = true;
 
-        highlights = {
-          Normal = {link = "Normal";};
-          NormalNC = {link = "NormalNC";};
-          NormalFloat = {link = "NormalFloat";};
-          FloatBorder = {link = "FloatBorder";};
-          StatusLine = {link = "StatusLine";};
-          StatusLineNC = {link = "StatusLineNC";};
-          WinBar = {link = "WinBar";};
-          WinBarNC = {link = "WinBarNC";};
+        settings = {
+          highlights = {
+            Normal = {link = "Normal";};
+            NormalNC = {link = "NormalNC";};
+            NormalFloat = {link = "NormalFloat";};
+            FloatBorder = {link = "FloatBorder";};
+            StatusLine = {link = "StatusLine";};
+            StatusLineNC = {link = "StatusLineNC";};
+            WinBar = {link = "WinBar";};
+            WinBarNC = {link = "WinBarNC";};
+          };
+
+          size = 10;
+
+          on_create = ''
+            function()
+              vim.opt.foldcolumn = "0"
+              vim.opt.signcolumn = "no"
+            end
+          '';
+
+          shading_factor = 3;
+
+          direction = "float";
+
+          float_opts.border = "rounded";
         };
-
-        size = 10;
-
-        onCreate = ''
-          function()
-            vim.opt.foldcolumn = "0"
-            vim.opt.signcolumn = "no"
-          end
-        '';
-
-        shadingFactor = 3;
-
-        direction = "float";
-
-        floatOpts.border = "rounded";
       };
 
       keymaps = [

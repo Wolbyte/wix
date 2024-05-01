@@ -206,6 +206,11 @@ in {
     extraConfig = with builtins; ''
       # workspace binds
       # binds asterisk to special workspace
+      monitor=HDMI-A-1,preferred,1920x1080,1
+
+      # this one popped out of nowhere
+      monitor=Unknown-1,disable
+
       bind = $MOD, KP_Multiply, togglespecialworkspace
       bind = $MODSHIFT, KP_Multiply, movetoworkspace, special
       ${

@@ -42,11 +42,13 @@ in {
         ])
       ];
 
+    hardware = {
+      nvidia-container-toolkit.enable = config.wb.device.gpu == "nvidia";
+    };
+
     virtualisation = {
       kvmgt.enable = true;
       spiceUSBRedirection.enable = true;
-
-      containers.cdi.dynamic.nvidia.enable = config.wb.device.gpu == "nvidia";
 
       libvirtd = {
         enable = true;
