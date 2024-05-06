@@ -10,13 +10,12 @@ in {
       enable = true;
 
       settings = {
-        enable = {
-          italics = true;
+        styles = {
+          italic = true;
           transparency = true;
         };
 
         highlight_groups = {
-          NormalFloat = {fg = "none";};
           NeoTreeDirectoryIcon = {fg = "subtle";};
           NeoTreeDirectoryName = {fg = "foam";};
           NeoTreeNormal = {fg = "text";};
