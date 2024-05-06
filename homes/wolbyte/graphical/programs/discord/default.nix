@@ -20,7 +20,7 @@ in {
     home.packages = with pkgs; [
       ((discord-canary.override {
           nss = pkgs.nss_latest;
-          withOpenASAR = true;
+          withOpenASAR = false;
           withVencord = true;
         })
         .overrideAttrs (old: {
@@ -33,7 +33,6 @@ in {
         }))
     ];
 
-    # TODO: Follow the system colorscheme
     xdg.configFile."Vencord/themes/rose-pine.theme.css".source = "${rose-pine-theme}/rose-pine.theme.css";
   };
 }
