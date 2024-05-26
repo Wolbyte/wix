@@ -2,25 +2,30 @@
   programs.nixvim = {
     plugins = {
       conform-nvim.formattersByFt = let
-        eslint_prettier = ["eslint_d" "prettierd"];
+        prettierd = ["prettierd"];
       in {
-        html = eslint_prettier;
-        css = eslint_prettier;
-        javascript = eslint_prettier;
-        javascriptreact = eslint_prettier;
+        html = prettierd;
+        css = prettierd;
+        javascript = prettierd;
+        javascriptreact = prettierd;
+        typescript = prettierd;
+        typescriptreact = prettierd;
       };
 
       lint.lintersByFt = {
         html = ["htmlhint"];
         javascript = ["eslint_d"];
         javascriptreact = ["eslint_d"];
+        typescript = ["eslint"];
+        typescriptreact = ["eslint"];
       };
 
       lsp.servers = {
-        html.enable = true;
         cssls.enable = true;
+        emmet_ls.enable = true;
+        html.enable = true;
         jsonls.enable = true;
-        eslint.enable = true;
+        tsserver.enable = true;
       };
     };
 

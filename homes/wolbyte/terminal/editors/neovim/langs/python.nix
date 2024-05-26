@@ -1,9 +1,4 @@
-{pkgs, ...}: let
-  nvimPython = pkgs.python311.withPackages (ps: [
-    ps.debugpy
-    ps.flake8
-  ]);
-in {
+{pkgs, ...}: {
   programs.nixvim = {
     plugins = {
       lsp.servers.pyright.enable = true;
@@ -15,12 +10,15 @@ in {
       dap = {
         extensions.dap-python = {
           enable = true;
-          adapterPythonPath = "${nvimPython}/bin/python3";
           includeConfigs = true;
         };
       };
     };
 
-    extraPackages = with pkgs; [black isort nvimPython];
+    extraPackages = with pkgs; [
+      black
+      isort
+      python311Packages.flake8
+    ];
   };
 }
