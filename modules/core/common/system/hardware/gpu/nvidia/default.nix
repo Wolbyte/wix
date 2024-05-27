@@ -62,6 +62,8 @@ in {
           NVD_BACKEND = "direct";
           __GLX_VENDOR_LIBRARY_NAME = "nvidia";
           GBM_BACKEND = "nvidia-drm";
+          # Prevent mesa ICDs from being loaded
+          VK_DRIVER_FILES = "/run/opengl-driver/share/vulkan/icd.d/nvidia_icd.x86_64.json";
         })
 
         (mkIf (env.desktopEnv != "Hyprland") {
@@ -70,20 +72,25 @@ in {
         })
       ];
 
-      systemPackages = with pkgs; [
-        # Mesa
-        mesa
+      systemPackages = with pkgs;
+        mkMerge [
+          [
+            # Mesa
+            mesa
 
-        # Vulkan
-        vulkan-tools
-        vulkan-loader
-        vulkan-validation-layers
-        vulkan-extension-layer
+            # Vulkan
+            vulkan-tools
+            vulkan-loader
+            vulkan-validation-layers
+            vulkan-extension-layer
 
-        # VA-API
-        libva
-        libva-utils
-      ];
+            # VA-API
+            libva
+            libva-utils
+          ]
+
+          (mkIf env.isWayland [xwayland])
+        ];
     };
   };
 }
