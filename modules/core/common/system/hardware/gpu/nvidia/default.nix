@@ -24,6 +24,8 @@ in {
 
     boot.blacklistedKernelModules = ["nouveau"];
 
+    boot.kernelParams = ["nvidia-drm.fbdev=1"];
+
     hardware = {
       nvidia = {
         package = mkDefault driverPackage;
