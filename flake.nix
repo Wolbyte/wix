@@ -20,6 +20,9 @@
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Hypr
+    hyprland.url = "github:hyprwm/Hyprland";
   };
 
   outputs =

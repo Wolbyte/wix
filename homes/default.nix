@@ -1,5 +1,6 @@
 {
   inputs,
+  inputs',
   lib,
   host,
   ...
@@ -13,7 +14,7 @@ with lib;
 
     useGlobalPkgs = true;
 
-    extraSpecialArgs = { inherit inputs; };
+    extraSpecialArgs = { inherit inputs inputs'; };
 
     users = genAttrs host.extraUsers (name: ./${name});
   };

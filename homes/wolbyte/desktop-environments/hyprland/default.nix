@@ -1,5 +1,6 @@
 {
   lib,
+  inputs',
   config,
   osConfig,
   ...
@@ -19,6 +20,12 @@ in
       {
         wayland.windowManager.hyprland = {
           enable = true;
+
+          package = inputs'.hyprland.packages.hyprland;
+
+          portalPackage = inputs'.hyprland.packages.xdg-desktop-portal-hyprland;
+
+          systemd.variables = [ "--all" ];
 
           settings = import ./config.nix { inherit config; };
         };

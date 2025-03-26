@@ -7,6 +7,8 @@
 }:
 with lib;
 {
+  imports = [ ./substituters.nix ];
+
   system.stateVersion = mkDefault "24.11";
 
   # Keep a copy of the current build in the nixos dir
