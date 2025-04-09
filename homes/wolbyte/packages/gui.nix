@@ -1,18 +1,23 @@
 {
   pkgs,
   lib,
+  osConfig,
   ...
 }:
 with lib;
 let
+  inherit (osConfig.wix) host;
 
   sharedPacakges = with pkgs; [
-    telegram-desktop
     libsForQt5.ark
+    pavucontrol
+    telegram-desktop
   ];
 in
 {
-  home.packages = mkMerge [
-    sharedPacakges
-  ];
+  config = mkIf (host.enableDesktopFeatures) {
+    home.packages = mkMerge [
+      sharedPacakges
+    ];
+  };
 }

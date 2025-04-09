@@ -9,13 +9,14 @@ let
   inherit (osConfig.wix) host;
 
   sharedPacakges = with pkgs; [
-    catimg
     dconf
     fd
+    ffmpeg-full
     file
     fzf
     jq
     openvpn
+    playerctl
     ripgrep
     rsync
     socat
