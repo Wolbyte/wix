@@ -10,6 +10,14 @@ let
   inherit (config.wix) userPreferences;
 
   inherit (osConfig.wix) host;
+
+  mkEngine = alias: icon: urlTemplate: {
+    inherit icon;
+    definedAliases = [ alias ];
+    urls = [ { template = urlTemplate; } ];
+  };
+
+  nixIcon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
 in
 {
   config = mkIf (userPreferences.defaultPrograms.browser == "firefox" && host.enableDesktopFeatures) {
@@ -32,7 +40,7 @@ in
           Fingerprinting = true;
         };
 
-        Preferences = import ./settings.nix { inherit config; };
+        Preferences = import ./settings.nix { inherit lib config osConfig; };
         ExtensionSettings = import ./addons.nix;
       };
 
@@ -45,28 +53,31 @@ in
           force = true;
 
           engines = {
-            "NixPackages" = {
-              icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-              definedAliases = [ "@np" ];
-              urls = [
-                {
-                  template = "https://search.nixos.org/packages?type=packages&channel=unstable&query={searchTerms}";
-                }
-              ];
-            };
+            "NixPackages" =
+              mkEngine "@np" nixIcon
+                "https://search.nixos.org/packages?type=packages&channel=unstable&query={searchTerms}";
 
-            "HomeManager Options" = {
-              icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-              definedAliases = [ "@hm" ];
-              urls = [
-                {
-                  template = "https://home-manager-options.extranix.com/?query={searchTerms}&release=master";
-                }
-              ];
-            };
+            "NixOptions" =
+              mkEngine "@np" nixIcon
+                "https://search.nixos.org/options?channel=unstable&type=packages&query={searchTerms}";
+
+            "HomeManager Options" =
+              mkEngine "@np" nixIcon
+                "https://home-manager-options.extranix.com/?query={searchTerms}&release=master";
           };
         };
       };
     };
+
+    home.packages = [
+      (pkgs.makeDesktopItem {
+        name = "firefox-private";
+        desktopName = "Firefox (private)";
+        genericName = "Open a private Firefox window";
+        icon = "firefox";
+        exec = "firefox --private-window";
+        categories = [ "Network" ];
+      })
+    ];
   };
 }
