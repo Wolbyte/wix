@@ -58,7 +58,7 @@ in
                 "https://search.nixos.org/packages?type=packages&channel=unstable&query={searchTerms}";
 
             "NixOptions" =
-              mkEngine "@np" nixIcon
+              mkEngine "@no" nixIcon
                 "https://search.nixos.org/options?channel=unstable&type=packages&query={searchTerms}";
 
             "HomeManager Options" =
