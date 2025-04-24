@@ -15,7 +15,7 @@ in
 
   input = {
     kb_layout = "us,ir";
-    kb_options = "grp:win_space_toggle";
+    kb_options = "grp:win_space_toggle,caps:swapescape";
 
     follow_mouse = 1;
   };
