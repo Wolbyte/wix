@@ -52,6 +52,10 @@ mkMerge [
     "extensions.formautofill.creditCards.available" = false;
     "extensions.formautofill.creditCards.enabled" = false;
     "extensions.formautofill.heuristics.enabled" = false;
+
+    # Setup DoH
+    "network.trr.custom_uri" = "https://mozilla.cloudflare-dns.com/dns-query";
+    "network.trr.mode" = 3; # "Maximum protection" DoH mode (uses DoH all the time)
   }
 
   # Nvidia hardware acceleration (https://github.com/elFarto/nvidia-vaapi-driver/#firefox)

@@ -55,6 +55,7 @@ in
         __GLX_VENDOR_LIBRARY_NAME = "nvidia";
         GBM_BACKEND = "nvidia-drm";
         NVD_BACKEND = "direct";
+        MOZ_DISABLE_RDD_SANDBOX = 1; # To make hardware acceleration work in firefox
       })
     ];
 

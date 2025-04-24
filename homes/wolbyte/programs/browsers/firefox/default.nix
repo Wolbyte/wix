@@ -62,7 +62,7 @@ in
                 "https://search.nixos.org/options?channel=unstable&type=packages&query={searchTerms}";
 
             "HomeManager Options" =
-              mkEngine "@np" nixIcon
+              mkEngine "@hm" nixIcon
                 "https://home-manager-options.extranix.com/?query={searchTerms}&release=master";
           };
         };
