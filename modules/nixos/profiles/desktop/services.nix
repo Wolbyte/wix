@@ -7,10 +7,16 @@
 with lib;
 {
   config = mkIf (config.wix.host.enableDesktopFeatures) {
-    services.dbus.packages = with pkgs; [
-      dconf
+    programs.dconf.enable = true;
 
-      gcr
-    ];
+    services = {
+      gvfs.enable = true;
+
+      udisks2.enable = true;
+
+      timesyncd.enable = true;
+
+      dbus.packages = with pkgs; [ gcr ];
+    };
   };
 }
