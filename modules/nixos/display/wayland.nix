@@ -10,7 +10,8 @@ with lib;
 {
   config = mkIf (host.displayServer == "wayland") {
     environment.variables = {
-      NIXOS_OZONE_WL = mkDefault "1";
+      # Spotify is still lacking with ozone support
+      # NIXOS_OZONE_WL = mkDefault "1";
       CLUTTER_BACKEND = "wayland";
       GDK_BACKEND = "wayland,X11,*";
       QT_QPA_PLATFORM = "wayland;xcb";
