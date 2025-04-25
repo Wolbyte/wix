@@ -2,6 +2,7 @@
   imports = [
     ./browsers
     ./cli
+    ./filemanagers
     ./media
     ./rofi
     ./shell
