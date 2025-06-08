@@ -59,7 +59,7 @@ in
         zstyle ':fzf-tab:*' switch-group '<' '>'
       '';
 
-    initExtra = ''
+    initContent = ''
       set -k
 
       ZSH_AUTOSUGGEST_USE_ASYNC="true"

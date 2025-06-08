@@ -11,7 +11,8 @@ in
   services.gpg-agent = {
     enable = true;
 
-    pinentryPackage = if host.displayServer != null then pkgs.pinentry-gnome3 else pkgs.pinentry-curses;
+    pinentry.package =
+      if host.displayServer != null then pkgs.pinentry-gnome3 else pkgs.pinentry-curses;
 
     enableSshSupport = true;
 
