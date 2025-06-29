@@ -12,16 +12,20 @@ let
 in
 {
   config = mkIf host.enableDesktopFeatures {
-    programs.rofi = {
-      enable = true;
+    home.packages = with pkgs; [
+      (rofiPackage.override {
+        plugins = [
+          rofi-calc
+          rofi-emoji
+          rofi-rbw
+        ];
+      })
+    ];
 
-      package = rofiPackage;
+    xdg.configFile = {
+      "rofi/config.rasi".source = ./config.rasi;
 
-      plugins = with pkgs; [
-        rofi-calc
-        rofi-emoji
-        rofi-rbw
-      ];
+      "rofi/rose-pine.rasi".source = ./rose-pine.rasi;
     };
   };
 }

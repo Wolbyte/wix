@@ -1,0 +1,180 @@
+* {
+  background: #191724;
+  foreground: #e0def4;
+  alt-background: #1f1d2e;
+  border-color: #c4a7e7;
+  active: #ebbcba;
+  selected: #c4a7e7;
+  muted: #6e6a86;
+  urgent: #eb6f92;
+}
+
+window {
+  width: 700px;
+  height: 500px;
+
+  anchor: south;
+  location: south;
+
+  x-offset: 0;
+  y-offset: 0;
+
+  background-color: @alt-background;
+
+  border: 2px 2px 0px 2px;
+  border-radius: 10px 10px 0px 0px;
+}
+
+mainbox {
+  children: [ inputbar, listbox, mode-switcher ];
+  orientation: vertical;
+  spacing: 0px;
+  background-color: transparent;
+}
+
+listbox {
+  children: [ message, listview ];
+  background-color: @background;
+  orientation: vertical;
+  padding: 10px 10px 10px 15px;
+  spacing: 10px;
+}
+
+inputbar {
+  children: [ prompt, entry ];
+  padding: 30px 20px 30px 20px;
+  spacing: 10px;
+  background-color: @alt-background;
+  text-color: @foreground;
+}
+
+entry {
+  padding: 12px 15px;
+  placeholder: "Type something";
+  cursor: text;
+  border-radius: 15px;
+  background-color: @background;
+  text-color: @foreground;
+  placeholder-color: @muted;
+}
+
+prompt {
+  border-radius: 20px;
+  cursor: pointer;
+  font: "Iosevka Nerd Font 13";
+  padding: 10px 20px 10px 20px;
+  width: 64px;
+  border-radius: 15px;
+  background-color: @background;
+  text-color: inherit;
+  vertical-align: 0.5;
+}
+
+
+mode-switcher {
+  spacing: 10px;
+  padding: 10px 10px 10px 10px;
+  background-color: transparent;
+  text-color: @foreground;
+}
+
+listview  {
+  columns: 2;
+  lines: 5;
+  cycle: true;
+  fixed-height: true;
+  scrollbar: false;
+  spacing: 5px;
+  background-color: transparent;
+  text-color: @foreground;
+}
+
+element {
+  cursor: pointer;
+  padding: 7px;
+  spacing: 15px;
+  border-radius: 8px;
+  background-color: transparent;
+  text-color: @foreground;
+}
+
+element normal.normal {
+  background-color: inherit;
+  text-color: inherit;
+}
+
+element normal.urgent {
+  background-color: @urgent;
+  text-color: @background;
+}
+
+element normal.active {
+  background-color: @background;
+  text-color: @active;
+}
+
+element selected.normal {
+  background-color: @selected;
+  text-color: @background;
+}
+
+element selected.urgent {
+  background-color: @urgent;
+  text-color: @background;
+}
+
+element selected.active {
+  background-color: @urgent;
+  text-color: @active;
+}
+
+element-icon {
+  cursor: inherit;
+  size: 32px;
+  background-color: transparent;
+  text-color: inherit;
+}
+
+element-text {
+  background-color: transparent;
+  text-color: inherit;
+  cursor: inherit;
+  vertical-align: 0.5;
+  horizontal-align: 0.0;
+}
+
+textbox {
+  horizontal-align: 0.0;
+  vertical-align: 0.5;
+  padding: 12px;
+  border-radius: 100%;
+  background-color: @alt-background;
+  text-color: @foreground;
+}
+
+message {
+  background-color: transparent;
+}
+
+error-message {
+  padding: 12px;
+  border-radius: 20px;
+  background-color: @background;
+  text-color: @foreground;
+}
+
+button {
+  font: "Iosevka Nerd Font 14";
+  cursor: pointer;
+  padding: 8px 5px 8px 8px;
+  horizontal-align: 0.5;
+  vertical-align: 0.5;
+  border-radius: 15px;
+  background-color: @alt-background;
+  text-color: @foreground;
+}
+
+button selected {
+  background-color: @selected;
+  text-color: @background;
+}
