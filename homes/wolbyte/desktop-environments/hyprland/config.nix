@@ -53,6 +53,7 @@ in
 
     animation = [
       "windows, 1, 4, easeInOutQuart, slide"
+      "layers, 1, 4, easeInOutQuart, fade"
       "windowsOut, 1, 4, easeInOutQuint, slide"
       "border, 1, 10, default"
       "fade, 1, 10, smoothIn"
@@ -181,5 +182,10 @@ in
 
     # Floats
     "float, title:^(Media viewer)$ # Telegram Media Viewer"
+  ];
+
+  layerrule = [
+    "animation slide, notifications"
+    "animation slide, rofi"
   ];
 }
