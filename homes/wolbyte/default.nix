@@ -8,6 +8,7 @@ with lib;
     ./packages
     ./programs
     ./services
+    ./theme
     ./tools
   ];
 

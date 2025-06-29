@@ -13,6 +13,10 @@ in
 
   monitor = ",highres@highrr,auto,auto,vrr,1";
 
+  exec-once = [
+    "hyprctl setcursor ${config.home.pointerCursor.name} ${builtins.toString config.home.pointerCursor.size}"
+  ];
+
   input = {
     kb_layout = "us,ir";
     kb_options = "grp:win_space_toggle,caps:swapescape";

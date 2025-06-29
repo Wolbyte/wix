@@ -51,8 +51,13 @@
           };
 
         perSystem =
-          { pkgs, ... }:
+          { pkgs, lib, ... }:
           {
+            packages = lib.packagesFromDirectoryRecursive {
+              inherit (pkgs) callPackage;
+              directory = ./packages;
+            };
+
             formatter = pkgs.nixfmt-rfc-style;
           };
 

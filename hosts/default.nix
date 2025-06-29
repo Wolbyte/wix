@@ -10,7 +10,9 @@ with lib.wix;
 let
   hmNixosModule = inputs.home-manager.nixosModules.home-manager;
 
-  sharedArgs = { inherit self inputs lib; };
+  sharedArgs = {
+    inherit self inputs lib;
+  };
   sharedModules = [ ../modules/nixos ];
   home-manager = [
     hmNixosModule
@@ -20,6 +22,10 @@ in
 foldl (
   acc: host:
   let
+    wixPackagesOverlay = final: prev: {
+      wix = self.packages.${host.system};
+    };
+
     definition = {
       ${host.name} = mkHost {
         inherit (host) name system extraUsers;
@@ -27,7 +33,11 @@ foldl (
 
         modules =
           [
-            { networking.hostName = host.name; }
+            {
+              networking.hostName = host.name;
+              nixpkgs.overlays = [ wixPackagesOverlay ];
+            }
+
             (host.path or ./. + "/${host.name}/")
           ]
           ++ sharedModules
