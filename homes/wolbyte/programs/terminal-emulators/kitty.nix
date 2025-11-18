@@ -8,14 +8,18 @@ in
     programs.kitty = {
       enable = true;
 
+      themeFile = "rose-pine";
+
       settings = {
-        background_opacity = 0.8;
+        background_opacity = 0.9;
 
         confirm_os_window_close = 0;
 
         font_family = "monospace";
 
         font_size = 11;
+
+        window_padding_width = 5;
       };
     };
   };
