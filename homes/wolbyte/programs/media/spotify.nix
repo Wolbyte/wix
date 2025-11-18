@@ -23,14 +23,7 @@ in
 
       enabledExtensions = with spicePkgs.extensions; [
         adblock
-        beautifulLyrics
-        betterGenres
-        fullAppDisplay
-        history
         keyboardShortcut
-        playlistIcons
-        playNext
-        shuffle
       ];
     };
   };
