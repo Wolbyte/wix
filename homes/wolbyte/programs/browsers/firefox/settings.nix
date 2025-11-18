@@ -54,8 +54,7 @@ mkMerge [
     "extensions.formautofill.heuristics.enabled" = false;
 
     # Setup DoH
-    "network.trr.custom_uri" = "https://mozilla.cloudflare-dns.com/dns-query";
-    "network.trr.mode" = 3; # "Maximum protection" DoH mode (uses DoH all the time)
+    "network.trr.uri" = "https://svaznt8028.cloudflare-gateway.com/dns-query";
   }
 
   # Nvidia hardware acceleration (https://github.com/elFarto/nvidia-vaapi-driver/#firefox)

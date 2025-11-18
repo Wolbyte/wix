@@ -9,7 +9,7 @@ let
   inherit (osConfig.wix) host;
 
   sharedPacakges = with pkgs; [
-    libsForQt5.ark
+    kdePackages.ark
     pavucontrol
     telegram-desktop
   ];

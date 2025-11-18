@@ -7,13 +7,11 @@
 with lib;
 let
   inherit (osConfig.wix) host;
-
-  rofiPackage = if host.displayServer == "wayland" then pkgs.rofi-wayland else pkgs.rofi;
 in
 {
   config = mkIf host.enableDesktopFeatures {
     home.packages = with pkgs; [
-      (rofiPackage.override {
+      (rofi.override {
         plugins = [
           rofi-calc
           rofi-emoji

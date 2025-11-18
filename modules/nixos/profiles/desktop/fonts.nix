@@ -59,7 +59,7 @@ in
 
         material-icons
         material-design-icons
-        noto-fonts-emoji
+        noto-fonts-color-emoji
 
         # Nerd fonts
         nerd-fonts.fira-code

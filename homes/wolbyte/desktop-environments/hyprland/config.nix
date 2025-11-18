@@ -174,18 +174,18 @@ in
     "$mainMod, mouse:273, resizewindow"
   ];
 
-  windowrulev2 = [
-    "suppressevent maximize, class:.*"
+  windowrule = [
+    "match:class .*, suppress_event maximize"
 
     # Disable blur for menus
-    "noblur,class:^()$,title:^()$"
+    "match:class ^()$, match:title ^()$, no_blur on"
 
     # Floats
-    "float, title:^(Media viewer)$ # Telegram Media Viewer"
+    "match:title ^(Media viewer)$, float on" # Telegram media viewer
   ];
 
   layerrule = [
-    "animation slide, notifications"
-    "animation slide, rofi"
+    "match:namespace notifications, animation slide"
+    "match:namespace rofi, animation slide"
   ];
 }

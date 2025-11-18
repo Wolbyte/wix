@@ -16,7 +16,7 @@ in
 
     enableCompletion = true;
 
-    dotDir = ".config/zsh";
+    dotDir = config.xdg.configHome + "/zsh/";
 
     history = {
       path = "${config.xdg.stateHome}/zsh/history";
