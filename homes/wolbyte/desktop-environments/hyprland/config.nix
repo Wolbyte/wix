@@ -76,68 +76,67 @@ in
     disable_splash_rendering = true;
   };
 
-  bind =
-    [
-      "$mainMod, RETURN, exec, kitty"
-      "$mainMod, Q, killactive,"
-      "$mainMod, M, exit,"
-      "$mainMod, E, exec, $fileManager"
+  bind = [
+    "$mainMod, RETURN, exec, kitty"
+    "$mainMod, Q, killactive,"
+    "$mainMod, M, exit,"
+    "$mainMod, E, exec, $fileManager"
 
-      # Launchers
-      "$mainMod, D, exec, $menu"
-      "$mainMod, S, exec, $screenshotMenu"
-      "$mainMod, equal, exec, $calculator"
-      "$mainMod, period, exec, $emojiPicker"
+    # Launchers
+    "$mainMod, D, exec, $menu"
+    "$mainMod, S, exec, $screenshotMenu"
+    "$mainMod, equal, exec, $calculator"
+    "$mainMod, period, exec, $emojiPicker"
 
-      # Window manipulation
-      "$mainMod, Q, killactive"
-      "$mainMod, T, togglegroup"
-      "$mainMod SHIFT, T, togglesplit"
-      "$mainMod CTRL, T, bringactivetotop"
-      "$mainMod, G, changegroupactive"
-      "$mainMod, V, togglefloating"
-      "$mainMod, P, pseudo"
-      "$mainMod SHIFT, P, pin"
-      "$mainMod, F, fullscreen"
+    # Window manipulation
+    "$mainMod, Q, killactive"
+    "$mainMod, T, togglegroup"
+    "$mainMod SHIFT, T, togglesplit"
+    "$mainMod CTRL, T, bringactivetotop"
+    "$mainMod, G, changegroupactive"
+    "$mainMod, V, togglefloating"
+    "$mainMod, P, pseudo"
+    "$mainMod SHIFT, P, pin"
+    "$mainMod, F, fullscreen"
 
-      # Window movement
-      "$mainMod SHIFT, H, movewindow, l"
-      "$mainMod SHIFT, L, movewindow, r"
-      "$mainMod SHIFT, K, movewindow, u"
-      "$mainMod SHIFT, J, movewindow, d"
+    # Window movement
+    "$mainMod SHIFT, H, movewindow, l"
+    "$mainMod SHIFT, L, movewindow, r"
+    "$mainMod SHIFT, K, movewindow, u"
+    "$mainMod SHIFT, J, movewindow, d"
 
-      # Focus controls
-      "$mainMod, H, movefocus, l"
-      "$mainMod, L, movefocus, r"
-      "$mainMod, K, movefocus, u"
-      "$mainMod, J, movefocus, d"
+    # Focus controls
+    "$mainMod, H, movefocus, l"
+    "$mainMod, L, movefocus, r"
+    "$mainMod, K, movefocus, u"
+    "$mainMod, J, movefocus, d"
 
-      # Scroll through workspaces
-      "$mainMod, mouse_down, workspace, e+1"
-      "$mainMod, mouse_up, workspace, e-1"
-      "$mainMod, bracketright, workspace, e+1"
-      "$mainMod, bracketleft, workspace, e-1"
+    # Scroll through workspaces
+    "$mainMod, mouse_down, workspace, e+1"
+    "$mainMod, mouse_up, workspace, e-1"
+    "$mainMod, bracketright, workspace, e+1"
+    "$mainMod, bracketleft, workspace, e-1"
 
-      # Special workspace
-      "$mainMod, KP_Multiply, togglespecialworkspace, magic"
-      "$mainMod SHIFT, KP_Multiply, movetoworkspace, special:magic"
-    ]
-    ++ (
-      # workspaces
-      # binds $mainMod + [shift +] {1..0} to [move to] workspace {1..10}
-      builtins.concatLists (
-        builtins.genList (
-          i:
-          let
-            ws = i + 1;
-          in
-          [
-            "$mainMod, code:1${toString i}, workspace, ${toString ws}"
-            "$mainMod SHIFT, code:1${toString i}, movetoworkspace, ${toString ws}"
-          ]
-        ) 10
-      )
-    );
+    # Special workspace
+    "$mainMod, Z, togglespecialworkspace, magic"
+    "$mainMod SHIFT, Z, movetoworkspace, special:magic"
+  ]
+  ++ (
+    # workspaces
+    # binds $mainMod + [shift +] {1..0} to [move to] workspace {1..10}
+    builtins.concatLists (
+      builtins.genList (
+        i:
+        let
+          ws = i + 1;
+        in
+        [
+          "$mainMod, code:1${toString i}, workspace, ${toString ws}"
+          "$mainMod SHIFT, code:1${toString i}, movetoworkspace, ${toString ws}"
+        ]
+      ) 10
+    )
+  );
 
   binde = [
     # Volume Control
