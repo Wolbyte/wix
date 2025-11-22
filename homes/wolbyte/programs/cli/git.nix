@@ -20,17 +20,19 @@
 
     package = pkgs.gitFull;
 
-    userName = "wolbyte";
-
-    userEmail = "wolbyte@gmail.com";
-
     signing = {
       signByDefault = true;
 
       key = "0AFE0739FF35365A17725F3441332534F8740D00"; # 41332534F8740D00
     };
 
-    extraConfig = {
+    settings = {
+      user = {
+        name = "wolbyte";
+
+        email = "wolbyte@gmail.com";
+      };
+
       init.defaultBranch = "main";
 
       url = {
