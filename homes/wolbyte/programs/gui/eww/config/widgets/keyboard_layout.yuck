@@ -1,0 +1,14 @@
+(deflisten layout :initial "English" "bash $XDG_CONFIG_HOME/eww/scripts/hyprland/get-keyboard-layout")
+
+(defwidget keyboard-layout []
+  (box
+    :class "keyboard-layout-widget"
+    :space-evenly false
+    :spacing 10
+
+    (label :text "")
+    (label
+      :text "${layout}"
+    )
+  )
+)

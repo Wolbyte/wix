@@ -1,0 +1,7 @@
+(defwidget powerbutton []
+  (icon-button
+    :class "powerbutton-widget"
+    :icon ""
+    :onclick "wlogout -p layer-shell &"
+  )
+)

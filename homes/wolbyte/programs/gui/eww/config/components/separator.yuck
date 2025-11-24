@@ -1,0 +1,7 @@
+(defwidget separator [?char ?spacing ?visible]
+  (label
+    :style "padding: 0 ${spacing ?: 10}px 0 ${spacing ?: 10}px"
+    :text char
+    :visible {visible ?: true}
+  )
+)

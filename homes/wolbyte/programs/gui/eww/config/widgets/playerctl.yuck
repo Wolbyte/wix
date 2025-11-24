@@ -1,0 +1,27 @@
+(deflisten song_artist :initial "" "bash $XDG_CONFIG_HOME/eww/scripts/playerctl/artist")
+(deflisten song_title :initial "" "bash $XDG_CONFIG_HOME/eww/scripts/playerctl/title")
+(deflisten song_cover :initial "/tmp/plrcover.png" "bash $XDG_CONFIG_HOME/eww/scripts/playerctl/cover")
+
+(deflisten scroll "bash $XDG_CONFIG_HOME/eww/scripts/scroll")
+(defvar scroll_width 60)
+
+(defwidget playerctl []
+  (box
+    :space-evenly false
+    :spacing 5
+
+    (box
+      :class "music-cover-mini"
+      :halign "center"
+      :valign "center"
+      :width 28
+      :height 28
+      :style {(song_artist == "" || song_title == "") ? "background-image: url('${EWW_CONFIG_DIR}/assets/music.png')" : "background-image: url('${song_cover}')"}
+    )
+
+    (label
+      :text {(song_artist == "" || song_title == "") ? "Nothing is playing" : "${song_artist} - ${song_title}"}
+      :limit-width 60
+    )
+  )
+)

@@ -1,0 +1,18 @@
+(defwidget icon-circular-progress [icon ?class ?value ?start-at ?thickness ?onclick ?onscroll ?onrightclick ?onmiddleclick]
+  (eventbox
+    :class "icon-circular-progress-container ${class}"
+    :onclick onclick
+    :onscroll onscroll
+    :onmiddleclick `${onmiddleclick}`
+    :onrightclick `${onrightclick}`
+
+    (circular-progress
+      :class "icon-circular-progress-progress"
+      :value { value ?: 0 }
+      :start-at { start-at ?: 50}
+      :thickness { thickness ?: 2 }
+
+      (label :class "icon-circular-progress-icon" :text "${icon}")
+    )
+  )
+)

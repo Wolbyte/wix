@@ -1,0 +1,34 @@
+(defwidget icon-button [
+    icon
+    ?class
+    ?spacing
+    ?text
+    ?onclick
+    ?onscroll
+    ?onmiddleclick
+    ?onrightclick
+    ?timeout
+  ]
+
+  (eventbox
+    :class "icon-button-container ${class}"
+    :cursor "pointer"
+    :onclick `${onclick}`
+    :onscroll `${onscroll}`
+    :onmiddleclick `${onmiddleclick}`
+    :onrightclick `${onrightclick}`
+
+    (box
+      :halign "end"
+      :space-evenly false
+      :spacing {spacing ?: 10}
+      :orientation "h"
+
+      (label :class "icon-button-icon" :text "${icon}")
+
+      (label :class "icon-button-text" :text "${text}")
+
+      (children)
+    )
+  )
+)

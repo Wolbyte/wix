@@ -1,0 +1,12 @@
+(deflisten speaker_data :initial "{}" "bash $XDG_CONFIG_HOME/eww/scripts/speaker")
+
+(defwidget speaker []
+  (icon-circular-progress
+    :class "speaker-widget ${speaker_data.content == "mute" ? "mute" : ""}"
+    :icon "${speaker_data.icon} "
+    :value {speaker_data.content != "mute" ? speaker_data.content : 0}
+    :onclick `$XDG_CONFIG_HOME/eww/scripts/speaker toggle`
+    :onscroll `$XDG_CONFIG_HOME/eww/scripts/speaker {}`
+    :onrightclick `pavucontrol &`
+  )
+)

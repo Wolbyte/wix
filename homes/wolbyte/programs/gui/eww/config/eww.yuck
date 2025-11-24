@@ -1,0 +1,15 @@
+; components
+(include "components/icon-button.yuck")
+(include "components/icon-circular-progress.yuck")
+(include "components/separator.yuck")
+
+; widgets
+(include "widgets/bar.yuck")
+(include "widgets/datetime.yuck")
+(include "widgets/keyboard_layout.yuck")
+(include "widgets/microphone.yuck")
+(include "widgets/playerctl.yuck")
+(include "widgets/powerbutton.yuck")
+(include "widgets/speaker.yuck")
+(include "widgets/system-tray.yuck")
+(include "widgets/workspaces.yuck")

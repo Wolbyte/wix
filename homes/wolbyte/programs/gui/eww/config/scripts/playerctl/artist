@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+playerctl --follow metadata --player="spotify" --format "{{artist}}"

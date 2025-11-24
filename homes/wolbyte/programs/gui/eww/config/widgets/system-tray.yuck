@@ -1,0 +1,6 @@
+(defwidget system-tray []
+  (systray
+    :spacing 5
+    :icon-size 16
+  )
+)

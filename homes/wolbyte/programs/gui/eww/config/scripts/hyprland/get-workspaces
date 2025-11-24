@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+workspaces() {
+  WORKSPACE_WINDOWS=$(hyprctl workspaces -j | jq 'map({key: .id | tostring, value: .windows}) | from_entries')
+  seq 1 10 | jq --argjson windows "${WORKSPACE_WINDOWS}" --slurp -Mc 'map(tostring) | map({id: ., windows: ($windows[.]//0), inactive_icon: "", active_icon: "" })'
+}
+
+workspaces
+socat -u UNIX-CONNECT:/"$XDG_RUNTIME_DIR"/hypr/"$HYPRLAND_INSTANCE_SIGNATURE"/.socket2.sock - | while read -r event; do
+  event=$(echo "$event" | awk '{ split($0, event_data, ">>"); print event_data[1] }')
+
+  if [[ $event == "workspace" ]]; then
+    workspaces
+  fi
+done

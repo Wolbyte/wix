@@ -15,7 +15,9 @@ let
     file
     fzf
     jq
+    networkmanagerapplet
     openvpn
+    pamixer
     playerctl
     ripgrep
     rsync
@@ -30,6 +32,7 @@ let
     slurp
     swaybg
     wl-clipboard
+    wlogout
     wtype
   ];
 in

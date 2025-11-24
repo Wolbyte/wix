@@ -1,0 +1,79 @@
+@import "colorscheme"
+
+.bar {
+  font: 14px sans-serif;
+  border-radius: 0px 0px 15px 15px;
+}
+
+.bar-section {
+  background: none;
+  padding: 0px 15px 0px 15px;
+  border-radius: 15px;
+}
+
+// Icon Circular Progress
+.icon-circular-progress-container {
+  font: 14px monospace;
+
+  * {
+    padding: 6px;
+  }
+}
+
+// speaker
+.speaker-widget {
+  color: $accent;
+
+  &.mute {
+    color: $error;
+  }
+}
+
+// microphone
+.microphone-widget {
+  font: 16px monospace;
+
+  color: $accent-alt;
+
+  &.mute {
+    color: $error;
+  }
+}
+
+// datetime widget
+.datetime-widget {
+  font: 14px monospace;
+}
+
+// powerbutton widget
+.powerbutton-widget {
+  font: 16px monospace;
+  color: $error;
+}
+
+// playerctl
+.music-cover-mini {
+  border-radius: 100%;
+	background-size: cover;
+	background-position: center;
+}
+
+// workspaces
+.workspace {
+  &.empty {
+    color: $mute;
+  }
+
+  &.occupied {
+    color: $text;
+  }
+
+  &.active {
+    color: $accent;
+  }
+}
+
+// keyboard-layout
+.keyboard-layout-widget {
+  font: 14px monospace;
+}

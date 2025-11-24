@@ -1,0 +1,63 @@
+(defwidget bar-left []
+  (box
+    :class "bar-section bar-section-right"
+    :halign "start"
+
+    (workspaces)
+  )
+)
+
+(defwidget bar-center []
+  (box
+    :class "bar-section bar-section-center"
+    :halign "center"
+
+    (playerctl)
+  )
+)
+
+(defwidget bar-right []
+  (box
+    :class "bar-section bar-section-left"
+    :halign "end"
+    :space-evenly false
+
+    (system-tray)
+    (separator :char "|")
+    (keyboard-layout)
+    (separator :char "|")
+    (box :spacing 7
+      (microphone)
+      (speaker)
+    )
+    (separator :char "|")
+    (datetime)
+    (separator :char "|")
+    (powerbutton)
+  )
+)
+
+(defwidget bar-content []
+  (box
+    (bar-left)
+    (bar-center)
+    (bar-right)
+  )
+)
+
+(defwindow bar
+  :class "bar-window"
+  :monitor 0
+  :geometry (geometry
+    :x 0
+    :y 0
+    :width "80%"
+    :height "35px"
+    :anchor "top center"
+  )
+  :stacking "fg"
+  :exclusive true
+  :namespace "eww-bar"
+
+  (bar-content)
+)

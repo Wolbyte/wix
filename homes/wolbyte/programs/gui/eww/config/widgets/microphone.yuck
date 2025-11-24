@@ -1,0 +1,12 @@
+(deflisten mic_data :initial "{}" "bash $XDG_CONFIG_HOME/eww/scripts/microphone")
+
+(defwidget microphone []
+  (icon-circular-progress
+    :class "microphone-widget ${mic_data.content == "mute" ? "mute" : ""}"
+    :icon "${mic_data.icon}"
+    :value {mic_data.content != "mute" ? mic_data.content : 0}
+    :onclick `$XDG_CONFIG_HOME/eww/scripts/microphone toggle`
+    :onscroll `$XDG_CONFIG_HOME/eww/scripts/microphone {}`
+    :onrightclick `pavucontrol &`
+  )
+)

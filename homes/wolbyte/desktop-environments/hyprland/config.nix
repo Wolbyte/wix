@@ -18,6 +18,12 @@ in
 
     # TODO: use wallnix
     "swaybg -i $XDG_PICTURES_DIR/wallpapers/bb-maria-keibleh.jpg"
+
+    "eww open bar"
+
+    "nm-applet"
+
+    "blueman-applet"
   ];
 
   input = {

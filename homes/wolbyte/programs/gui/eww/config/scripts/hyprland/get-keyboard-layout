@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+
+print_layout() {
+  layout_name=$(hyprctl devices -j | jq -r '.keyboards[] | select(.main == true) | .active_keymap')
+  evdev_list="$SCRIPT_DIR/evdev.lst"
+  layout_short=$(grep "$layout_name" -m1 <"$evdev_list" | awk '{ print $1 }')
+  echo "$layout_short"
+}
+
+print_layout
+
+socat -u UNIX-CONNECT:/"$XDG_RUNTIME_DIR"/hypr/"$HYPRLAND_INSTANCE_SIGNATURE"/.socket2.sock - | while read -r event; do
+  event=$(echo "$event" | awk '{ split($0, event_data, ">>"); print event_data[1] }')
+
+  if [[ $event == "activelayout" ]]; then
+    print_layout
+  fi
+done

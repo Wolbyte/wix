@@ -1,0 +1,28 @@
+(deflisten workspaces :initial "[]" "bash $XDG_CONFIG_HOME/eww/scripts/hyprland/get-workspaces")
+(deflisten current_workspace :initial "1" "bash $XDG_CONFIG_HOME/eww/scripts/hyprland/get-active-workspace")
+
+(defwidget workspaces []
+  (eventbox
+    :class "workspaces-container"
+    :onscroll "bash $XDG_CONFIG_HOME/eww/scripts/hyprland/cycle-workspaces {}"
+
+    (box
+      :space-evenly false
+      :spacing 5
+
+      ;; re-render the widget on variable change
+      (label
+        :text "${workspaces}${current_workspace}"
+        :visible false
+      )
+
+      (for workspace in workspaces
+        (eventbox :onclick "bash $XDG_CONFIG_HOME/eww/scripts/hyprland/change-workspace ${workspace.id}"
+          (box :class "workspace ${workspace.id == current_workspace ? "active" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}"
+            (label :text "${workspace.id == current_workspace ? workspace.active_icon : workspace.inactive_icon} " )
+          )
+        )
+      )
+    )
+  )
+)

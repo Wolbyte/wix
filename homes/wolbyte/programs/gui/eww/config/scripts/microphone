@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+case $1 in
+"*") COMMAND="" ;;
+"up") COMMAND="--allow-boost -i 5" ;;
+"down") COMMAND="-d 5" ;;
+"toggle") COMMAND="-t" ;;
+esac
+
+print_microphone_data() {
+  if [[ $(pamixer --default-source --get-mute) == "true" ]]; then
+    VOLUME="mute"
+    ICON="󰍭"
+  else
+    VOLUME=$(pamixer --default-source --get-volume)
+    ICON="󰍬"
+  fi
+
+  echo "{\"content\": \"$VOLUME\", \"icon\": \"$ICON\"}"
+}
+
+if [ -n "$COMMAND" ]; then
+  pamixer --default-source $COMMAND
+else
+  print_microphone_data
+
+  pactl subscribe | grep --line-buffered "Event 'change' on source " | while read -r _; do
+    print_microphone_data
+  done
+fi

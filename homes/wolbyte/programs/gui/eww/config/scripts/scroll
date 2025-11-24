@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+counter="0"
+steps="0.5"
+reverse=false
+
+echo $counter
+
+while [[ true ]]; do
+  counter=$(echo $counter $steps | awk '{print $1 + $2}')
+
+  echo $counter
+
+  if [[ $counter == "100" && !$reverse ]]; then
+    steps=-0.5
+    reverse=true
+    sleep 2
+  elif [[ $counter == "0" && $reverse ]]; then
+    steps=0.5
+    reverse=false
+    sleep 2
+  fi
+done

@@ -1,0 +1,12 @@
+(defpoll time_poll :interval "1s" "date '+%I:%M:%S %p'")
+(defpoll date_poll :interval "1m" "date +%Y/%m/%d")
+(defvar dt_display_date false)
+
+(defwidget datetime []
+  (icon-button
+    :class "datetime-widget"
+    :icon "${dt_display_date ? "" : ""}"
+    :text "${dt_display_date ? date_poll : time_poll}"
+    :onclick "${EWW_CMD} update dt_display_date=${!dt_display_date}"
+  )
+)
