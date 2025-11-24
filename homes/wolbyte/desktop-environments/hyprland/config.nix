@@ -180,7 +180,9 @@ in
     "match:class ^()$, match:title ^()$, no_blur on"
 
     # Floats
-    "match:title ^(Media viewer)$, float on" # Telegram media viewer
+    "match:title ^(Media viewer)$, float on, animation popin, no_blur on" # Telegram media viewer
+    "match:class ^(org.pulseaudio.pavucontrol)$, float on, size 800 600, center on, animation popin" # Volume manager
+    "match:title ^(Bluetooth Devices)$, float on, size 800 600, center on, animation popin" # blueman-manager
   ];
 
   layerrule = [
