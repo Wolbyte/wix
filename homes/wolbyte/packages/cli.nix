@@ -28,6 +28,7 @@ let
     grim
     grimblast
     slurp
+    swaybg
     wl-clipboard
     wtype
   ];

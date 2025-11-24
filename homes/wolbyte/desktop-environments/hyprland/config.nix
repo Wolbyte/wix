@@ -15,6 +15,9 @@ in
 
   exec-once = [
     "hyprctl setcursor ${config.home.pointerCursor.name} ${builtins.toString config.home.pointerCursor.size}"
+
+    # TODO: use wallnix
+    "swaybg -i $XDG_PICTURES_DIR/wallpapers/bb-maria-keibleh.jpg"
   ];
 
   input = {
@@ -72,7 +75,7 @@ in
   };
 
   misc = {
-    disable_hyprland_logo = false;
+    disable_hyprland_logo = true;
     disable_splash_rendering = true;
   };
 
