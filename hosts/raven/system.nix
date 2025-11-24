@@ -11,7 +11,7 @@
 
         gpu.vendor = "nvidia";
 
-        enableBluetooth = false;
+        bluetooth.enable = true;
 
         displayServer = "wayland";
 

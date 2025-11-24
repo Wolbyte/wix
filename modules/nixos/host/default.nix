@@ -36,7 +36,9 @@ in
       ] "Configures graphics settings based on the vendor.";
     };
 
-    enableBluetooth = wix.defaultOpts.mkBool true "Enable bluetooth support.";
+    bluetooth = {
+      enable = wix.defaultOpts.mkBool true "Enable bluetooth support.";
+    };
 
     enableSound = wix.defaultOpts.mkBool true "Enable sound support.";
 
