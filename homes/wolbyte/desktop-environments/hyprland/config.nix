@@ -85,6 +85,8 @@ in
     # Launchers
     "$mainMod, D, exec, $menu"
     "$mainMod, S, exec, $screenshotMenu"
+    "$mainMod, Print, exec, grimblast save output -n -t png \"$XDG_PICTURES_DIR/screenshots/$(date +%Y-%m-%d-%I-%M-%S).png\""
+    "$mainMod SHIFT, S, exec, grimblast -f copy area"
     "$mainMod, equal, exec, $calculator"
     "$mainMod, period, exec, $emojiPicker"
 

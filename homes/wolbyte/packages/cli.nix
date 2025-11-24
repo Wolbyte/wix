@@ -26,6 +26,7 @@ let
 
   waylandPackages = with pkgs; [
     grim
+    grimblast
     slurp
     wl-clipboard
     wtype
