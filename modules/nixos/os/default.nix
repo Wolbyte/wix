@@ -4,5 +4,6 @@
     ./filesystem
     ./network
     ./users
+    ./virtualisation
   ];
 }

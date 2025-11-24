@@ -16,4 +16,13 @@ with lib;
       dns = "systemd-resolved";
     };
   };
+
+  # fixes networkd timeouts with podman enabled
+  systemd = {
+    network.wait-online.enable = false;
+
+    services = {
+      NetworkManager-wait-online.enable = false;
+    };
+  };
 }

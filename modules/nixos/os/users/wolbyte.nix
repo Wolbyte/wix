@@ -14,20 +14,19 @@ in
 
     shell = pkgs.zsh;
 
-    extraGroups =
-      [
-        "audio"
-        "video"
-        "storage"
-        "wheel"
-        "systemd-journal"
-      ]
-      ++ mkIfGroupsExist [
-        "network"
-        "networkmanager"
-        "mysql"
-        "docker"
-      ];
+    extraGroups = [
+      "audio"
+      "video"
+      "storage"
+      "wheel"
+      "systemd-journal"
+      "network"
+      "networkmanager"
+      "mysql"
+      "docker"
+      "podman"
+      "libvirtd"
+    ];
 
     initialPassword = "changeme";
   };
