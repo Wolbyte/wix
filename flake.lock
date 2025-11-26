@@ -400,6 +400,22 @@
         "type": "github"
       }
     },
+    "neovim-config": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1764163077,
+        "narHash": "sha256-Ut7/O3arrijtyNslMYHUOtHuGVvweqiUPwx3R+5aVT0=",
+        "owner": "wolbyte",
+        "repo": "nvim-config",
+        "rev": "ec8608319f77a0ee238c312134649dfc63edb018",
+        "type": "github"
+      },
+      "original": {
+        "owner": "wolbyte",
+        "repo": "nvim-config",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1763283776,
@@ -460,6 +476,7 @@
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
         "hyprland": "hyprland",
+        "neovim-config": "neovim-config",
         "nixpkgs": "nixpkgs_2",
         "spicetify-nix": "spicetify-nix"
       }

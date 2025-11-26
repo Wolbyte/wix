@@ -21,6 +21,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    neovim-config = {
+      url = "github:wolbyte/nvim-config";
+      flake = false;
+    };
+
     # Hypr
     hyprland.url = "github:hyprwm/Hyprland";
   };
