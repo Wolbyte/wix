@@ -38,7 +38,7 @@
       url = {
         "https://github.com/".insteadOf = "gh:";
         "git@github.com:".insteadOf = "ssh+gh:";
-        "git@github.com:wolbyte".insteadOf = "gh:/";
+        "git@github.com:wolbyte/".insteadOf = "gh:/";
       };
     };
   };
