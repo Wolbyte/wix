@@ -4,6 +4,7 @@
     ./cli
     ./editors
     ./filemanagers
+    ./gui
     ./media
     ./rofi
     ./shell
