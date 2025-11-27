@@ -403,11 +403,11 @@
     "neovim-config": {
       "flake": false,
       "locked": {
-        "lastModified": 1764163077,
-        "narHash": "sha256-Ut7/O3arrijtyNslMYHUOtHuGVvweqiUPwx3R+5aVT0=",
+        "lastModified": 1764241718,
+        "narHash": "sha256-iwsVTgjeFM4vxE3YOJiRSjbGsIFOUmUxnEIwHLOQMrQ=",
         "owner": "wolbyte",
         "repo": "nvim-config",
-        "rev": "ec8608319f77a0ee238c312134649dfc63edb018",
+        "rev": "0ba4c8936fbe0ef4748861679d00c678c7b182a3",
         "type": "github"
       },
       "original": {

@@ -8,6 +8,10 @@
   programs.neovim = {
     enable = true;
 
+    vimAlias = true;
+    viAlias = true;
+    vimdiffAlias = true;
+
     plugins = with pkgs.vimPlugins; [
       LazyVim
     ];
@@ -19,8 +23,10 @@
       inotify-tools
 
       # LazyVim defaults
-      stylua
+      ast-grep # grug-far
+      lazygit
       shfmt
+      stylua
 
       # Languages
 
@@ -54,9 +60,11 @@
       # lua
       lua-language-server
 
-      # Markdown
+      # Markdown & Latex
       markdownlint-cli2
       marksman
+      python313Packages.pylatexenc
+      tectonic
 
       # Nix
       nixd
