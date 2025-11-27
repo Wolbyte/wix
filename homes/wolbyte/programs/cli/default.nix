@@ -3,6 +3,7 @@
   imports = [
     ./bat.nix
     ./git.nix
+    ./starship.nix
   ];
 
   programs = {
