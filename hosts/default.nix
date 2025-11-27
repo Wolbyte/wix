@@ -31,18 +31,17 @@ foldl (
         inherit (host) name system extraUsers;
         inherit withSystem;
 
-        modules =
-          [
-            {
-              networking.hostName = host.name;
-              nixpkgs.overlays = [ wixPackagesOverlay ];
-            }
+        modules = [
+          {
+            networking.hostName = host.name;
+            nixpkgs.overlays = [ wixPackagesOverlay ];
+          }
 
-            (host.path or ./. + "/${host.name}/")
-          ]
-          ++ sharedModules
-          ++ (host.modules or [ ])
-          ++ (optionals host.useHomeManager home-manager);
+          (host.path or ./. + "/${host.name}/")
+        ]
+        ++ sharedModules
+        ++ (host.modules or [ ])
+        ++ (optionals host.useHomeManager home-manager);
 
         specialArgs = sharedArgs // host.specialArgs or { } // { inherit host; };
       };

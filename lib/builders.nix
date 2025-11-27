@@ -14,7 +14,8 @@
 
         specialArgs = {
           inherit lib self' inputs';
-        } // args.specialArgs or { };
+        }
+        // args.specialArgs or { };
       }
     );
 }
