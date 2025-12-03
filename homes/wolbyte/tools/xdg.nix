@@ -34,7 +34,14 @@ in
     };
   };
 
+  home.sessionVariables = {
+    CUDA_CACHE_PATH = config.xdg.cacheHome + "/nv/";
+    ANDROID_USER_HOME = config.xdg.dataHome + "/android/";
+    NODE_REPL_HISTORY = config.xdg.stateHome + "/node_repl_history";
+  };
+
   home.packages = with pkgs; [
+    xdg-ninja
     xdg-utils
     xdg-user-dirs
   ];

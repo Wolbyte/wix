@@ -52,6 +52,8 @@ with lib;
         "nix-command"
         "flakes"
       ];
+
+      use-xdg-base-directories = true;
     };
   };
 
