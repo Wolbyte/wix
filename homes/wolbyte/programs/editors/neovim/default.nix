@@ -73,6 +73,9 @@
       # Python
       pyright
       ruff
+
+      # SQL
+      sqlfluff
     ];
   };
 }
