@@ -1,3 +1,6 @@
 {
-  imports = [ ./spotify.nix ];
+  imports = [
+    ./obs.nix
+    ./spotify.nix
+  ];
 }
