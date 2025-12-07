@@ -10,6 +10,9 @@ let
 
   sharedPacakges = with pkgs; [
     kdePackages.ark
+    kdePackages.kio
+    kdePackages.kio-extras
+    kdePackages.kimageformats
     pavucontrol
     telegram-desktop
   ];

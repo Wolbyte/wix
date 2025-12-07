@@ -13,6 +13,9 @@ with lib;
     home.packages = with pkgs; [
       kdePackages.dolphin
 
+      # makes MIME application detection work
+      libsForQt5.kservice
+
       # images, pdf, blender files
       kdePackages.kdegraphics-thumbnailers
       # webp, tiff, tga, jp2 files
