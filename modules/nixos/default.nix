@@ -9,8 +9,4 @@
     ./os
     ./profiles
   ];
-
-  config = {
-    programs.hyprland.enable = true;
-  };
 }
