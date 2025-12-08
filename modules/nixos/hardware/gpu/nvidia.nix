@@ -37,14 +37,16 @@ in
 
         videoAcceleration = true;
 
-        prime.offload.enableOffloadCmd = host.gpu.vendor == "nvidia-hybrid";
+        # prime.offload = {
+        #   enable = host.gpu.vendor == "nvidia-hybrid";
+        #   enableOffloadCmd = host.gpu.vendor == "nvidia-hybrid";
+        # };
 
         powerManagement = {
           enable = mkDefault true;
 
           finegrained = mkDefault host.gpu.vendor == "nvidia-hybrid";
         };
-
       };
     };
 

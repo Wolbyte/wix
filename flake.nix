@@ -40,6 +40,10 @@
     flake-parts.lib.mkFlake { inherit inputs; } (
       { withSystem, ... }:
       {
+        imports = [
+          ./parts
+        ];
+
         flake =
           let
             lib = import ./lib { pkgs = nixpkgs; };
