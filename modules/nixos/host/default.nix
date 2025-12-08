@@ -21,6 +21,8 @@ in
     cpu = {
       vendor = wix.defaultOpts.mkEnumFirstDefault [
         null
+        "amd"
+        "amd-vm"
         "intel"
         "intel-vm"
       ] "Enables required ucode services and kernel modules based on the CPU vendor.";
