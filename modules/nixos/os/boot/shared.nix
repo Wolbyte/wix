@@ -8,10 +8,10 @@ in
     boot = {
       consoleLogLevel = 0;
 
-      kernelPackages = cfg.kernelPackages;
+      inherit (cfg) kernelPackages;
 
       loader = {
-        timeout = 3;
+        timeout = mkDefault 5;
 
         generationsDir.copyKernels = true;
 
