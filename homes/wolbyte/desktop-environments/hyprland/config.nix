@@ -11,7 +11,7 @@ in
   "$emojiPicker" = "rofi -show emoji";
   "$screenshotMenu" = "wb-screenshot";
 
-  monitor = ",highres@highrr,auto,auto,vrr,1";
+  monitor = ",highres@highrr,auto,1,vrr,1";
 
   exec-once = [
     "hyprctl setcursor ${config.home.pointerCursor.name} ${builtins.toString config.home.pointerCursor.size}"
