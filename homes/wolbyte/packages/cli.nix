@@ -9,6 +9,7 @@ let
   inherit (osConfig.wix) host;
 
   sharedPacakges = with pkgs; [
+    brightnessctl
     dconf
     fd
     ffmpeg-full

@@ -156,6 +156,12 @@ in
     "$mainMod CTRL, up, exec, pactl set-sink-volume @DEFAULT_SINK@ +5%"
     "$mainMod CTRL, down, exec, pactl set-sink-volume @DEFAULT_SINK@ -5%"
 
+    # Brightness Control
+    ",XF86MonBrightnessDown, exec, brightnessctl s 10%-"
+    ",XF86MonBrightnessUp, exec, brightnessctl s +10%"
+    ",XF86KbdBrightnessDown, exec, brightnessctl -d '*::kbd_backlight' s 1-"
+    ",XF86KbdBrightnessUp, exec, brightnessctl -d '*::kbd_backlight' s +1"
+
     # Window resize
     "$mainMod CTRL, H, resizeactive, -50 0"
     "$mainMod CTRL, L, resizeactive, 50 0"
