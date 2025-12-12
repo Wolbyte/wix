@@ -28,18 +28,18 @@
 
   fileSystems = {
     "/" = {
-      device = "/dev/disk/by-uuid/1DFC-1283";
+      device = "/dev/disk/by-uuid/8f9de468-db54-45cf-a073-6643faf341bf";
       fsType = "ext4";
     };
 
     "/home" = {
-      device = "/dev/disk/by-uuid/1DFC-1535";
+      device = "/dev/disk/by-uuid/8df1c1c9-c497-47ef-bc07-2abadaffbe22";
       fsType = "ext4";
     };
 
     "/boot" = {
-      device = "/dev/disk/by-uuid/221003D31003AD3B";
-      fsType = "ntfs";
+      device = "/dev/disk/by-uuid/FA03-2408";
+      fsType = "vfat";
       options = [
         "fmask=0022"
         "dmask=0022"
