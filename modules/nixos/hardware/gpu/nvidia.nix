@@ -14,6 +14,8 @@ let
 
   driverPackage =
     if (versionOlder betaPackage.version stablePackage.version) then stablePackage else betaPackage;
+
+  isHybrid = host.gpu.vendor == "nvidia-hybrid";
 in
 {
   config = mkIf (host.gpu.vendor == "nvidia" || host.gpu.vendor == "nvidia-hybrid") {
@@ -37,15 +39,15 @@ in
 
         videoAcceleration = true;
 
-        # prime.offload = {
-        #   enable = host.gpu.vendor == "nvidia-hybrid";
-        #   enableOffloadCmd = host.gpu.vendor == "nvidia-hybrid";
-        # };
+        prime.offload = {
+          enable = isHybrid;
+          enableOffloadCmd = isHybrid;
+        };
 
         powerManagement = {
           enable = mkDefault true;
 
-          finegrained = mkDefault host.gpu.vendor == "nvidia-hybrid";
+          finegrained = mkDefault false;
         };
       };
     };
@@ -54,8 +56,8 @@ in
       { LIBVA_DRIVER_NAME = "nvidia"; }
 
       (mkIf (host.displayServer == "wayland") {
-        __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-        GBM_BACKEND = "nvidia-drm";
+        # __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+        # GBM_BACKEND = "nvidia-drm";
         NVD_BACKEND = "direct";
         MOZ_DISABLE_RDD_SANDBOX = 1; # To make hardware acceleration work in firefox
       })
