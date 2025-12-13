@@ -10,6 +10,9 @@ let
 in
 mkMerge [
   {
+    # General
+    "general.autoScroll" = true; # enable middle-click scroll
+
     # ~/Downloads < ~/downloads
     "browser.download.dir" = "${config.home.homeDirectory}/downloads";
 
